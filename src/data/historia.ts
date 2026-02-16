@@ -6,6 +6,7 @@ import certificado from '../assets/certificado.png';
 import yo from '../assets/yo2.png';
 import tailwind from '../assets/tailwind.jpg';
 import loginTailwind from '../assets/loginTailwind.png';
+import logro7 from '../assets/BHDcarta.jpeg';
 
 export interface HistoriaItem {
     id: number;
@@ -49,5 +50,13 @@ export const historiaData: HistoriaItem[] = [
             loginTailwind
         ],
         descripcion: '¡Estoy súper emocionado! Logré hacer una interfaz de login completa sin ayuda de inteligencia artificial, usando Tailwind CSS. Ver el resultado final y saber que lo hice por mi cuenta es una gran satisfacción. ¡Vamos por más! 💻✨'
+    },
+    {
+        id: 12,
+        fecha: '2025-11-11 - 2026-2-11',
+        imagenes: [
+            logro7
+        ],
+        descripcion: 'Completé exitosamente mi pasantía en BHD cumpliendo todas las asignaciones con desempeño excelente. Participé en el desarrollo de un chat inteligente para gestión de tarjetas de crédito, trabajando principalmente con React en el Front-End y colaborando en el Back-End con Python y Google ADK, fortaleciendo mis habilidades técnicas y de trabajo en equipo en un entorno profesional.'
     }
 ];

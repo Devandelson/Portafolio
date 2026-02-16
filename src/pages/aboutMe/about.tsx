@@ -181,16 +181,6 @@ function HistoriaCard({ item }: HistoriaCardProps) {
         );
     };
 
-    // Formatear fecha
-    const formatFecha = (fecha: string) => {
-        const date = new Date(fecha);
-        return date.toLocaleDateString('es-ES', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric'
-        });
-    };
-
     return (
         <article className='w-80 grow max-w-100 sm:max-w-90 h-auto rounded-lg p-4 flex flex-col items-start gap-3 text-start relative z-2
         
@@ -238,13 +228,18 @@ function HistoriaCard({ item }: HistoriaCardProps) {
 
             <div className='flex-1 flex flex-col gap-3 w-full'>
                 <p
-                    className='text-sm sm:text-base leading-relaxed overflow-y-auto max-h-32 custom-scrollbar'
+                    className='text-sm sm:text-base leading-relaxed overflow-y-auto max-h-40 p-1 text-balance'
+                    style={{
+                        scrollbarWidth: 'thin',
+                        scrollbarColor: '#064e3b transparent',
+                    }}
+
                     dangerouslySetInnerHTML={{ __html: item.descripcion }}
                 />
 
-                <p className='text-white/15 text-sm mt-auto'>
+                <p className='text-white/30 text-sm mt-auto'>
                     <i className="fa-solid fa-calendar-day mr-1"></i>
-                    Fecha: {formatFecha(item.fecha)}
+                    Fecha: {item.fecha}
                 </p>
             </div>
         </article>
@@ -333,7 +328,7 @@ function ContactForm() {
                         </div>
 
                         {/* Formulario */}
-                        <form className="space-y-6" 
+                        <form className="space-y-6"
                             action="https://formspree.io/f/xyyrwzae"
                             method="POST"
                         >
