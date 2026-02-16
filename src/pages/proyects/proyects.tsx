@@ -6,7 +6,7 @@ import projectBackground from '../../assets/fondo7_portafolio.jpg';
 import projectIcon from '../../assets/3d proyecto.png';
 
 // hooks
-import { motion, AnimatePresence, type Variants } from "motion/react"
+import { motion, AnimatePresence, type Variants } from "motion/react";
 import { useState } from 'react';
 
 // data
@@ -16,13 +16,20 @@ import { tecnologiasData } from '../../data/tecnologias.ts';
 // -- contexts
 import { useSwitchAnimation } from '../../context/animations/switchAnimation.tsx';
 
+type OpenState = {
+    isOpen: boolean;
+    imagenes: string[];
+    indexInicial: number;
+    onClose: () => void;
+};
+
 export default function Proyect() {
     const [filter, setFilter] = useState<'todos' | 'destacado' | 'regular'>('todos');
-    const [open, setOpen] = useState({
+    const [open, setOpen] = useState<OpenState>({
         isOpen: false,
-        imagenes: [] as string[],
+        imagenes: [],
         indexInicial: 0,
-        onClose: () => setOpen({ ...open, isOpen: false })
+        onClose: () => { }
     });
 
     const { animations } = useSwitchAnimation();
@@ -47,7 +54,9 @@ export default function Proyect() {
             >
                 <Header />
                 <Filters onFilterChange={setFilter} />
-                <ProjectGrid key={filter} proyectos={proyectosFiltrados}
+                <ProjectGrid 
+                    key={filter} 
+                    proyectos={proyectosFiltrados}
                     setOpen={setOpen}
                 />
             </motion.div>
@@ -76,12 +85,12 @@ function Header() {
             />
 
             <h2 className='text-white text-5xl flex flex-col text-start font-bold max-w-md w-full 
-    md:text-5xl md:text-start
-    max-md:text-3xl max-md:text-center max-md:mt-10 max-md:w-full max-md:px-4'>
+                md:text-5xl md:text-start
+                max-md:text-3xl max-md:text-center max-md:mt-10 max-md:w-full max-md:px-4'>
                 Descubre lo que he
                 <span className='font-bold bg-linear-to-r from-green-500 to-blue-500 bg-clip-text text-transparent 
-        md:text-6xl md:text-start
-        max-md:text-4xl max-md:text-center'>
+                    md:text-6xl md:text-start
+                    max-md:text-4xl max-md:text-center'>
                     creado con pasión.
                 </span>
             </h2>
@@ -91,7 +100,7 @@ function Header() {
                 className='w-150 object-contain'
             />
         </section>
-    )
+    );
 }
 
 // --- Componente de filtro
@@ -107,10 +116,14 @@ function Filters({ onFilterChange }: FiltersProps) {
         onFilterChange(filter);
     };
 
-    const filterButtons = [
-        { value: 'todos' as const, label: 'Todos', icon: 'fas fa-th' },
-        { value: 'destacado' as const, label: 'Destacados', icon: 'fas fa-star' },
-        { value: 'regular' as const, label: 'Regulares', icon: 'fas fa-folder' }
+    const filterButtons: ReadonlyArray<{
+        value: 'todos' | 'destacado' | 'regular';
+        label: string;
+        icon: string;
+    }> = [
+        { value: 'todos', label: 'Todos', icon: 'fas fa-th' },
+        { value: 'destacado', label: 'Destacados', icon: 'fas fa-star' },
+        { value: 'regular', label: 'Regulares', icon: 'fas fa-folder' }
     ];
 
     return (
@@ -143,16 +156,18 @@ function Filters({ onFilterChange }: FiltersProps) {
 }
 
 // ------- Contenedor de proyectos
-function ProjectGrid({ proyectos, setOpen }: {
-    proyectos: typeof proyectosData,
-    setOpen: (open: { isOpen: boolean, imagenes: string[], indexInicial: number, onClose: () => void }) => void
-}) {
-    const contaienerVariants = {
+interface ProjectGridProps {
+    proyectos: typeof proyectosData;
+    setOpen: (open: OpenState) => void;
+}
+
+function ProjectGrid({ proyectos, setOpen }: ProjectGridProps) {
+    const contaienerVariants: Variants = {
         hidden: {},
         show: { transition: { staggerChildren: 0.1 } },
     };
 
-    const childrenVarints = {
+    const childrenVarints: Variants = {
         hidden: { opacity: 0, y: 20 },
         show: { opacity: 1, y: 0 },
     };
@@ -165,14 +180,20 @@ function ProjectGrid({ proyectos, setOpen }: {
                     <p className="text-slate-400 text-xl">No hay proyectos en esta categoría</p>
                 </div>
             ) : (
-                <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                <motion.div 
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
                     variants={contaienerVariants}
                     initial="hidden"
                     animate="show"
                 >
                     <AnimatePresence>
                         {proyectos.map(proyecto => (
-                            <ProjectCard key={proyecto.id} proyecto={proyecto} variants={childrenVarints} setOpen={setOpen} />
+                            <ProjectCard 
+                                key={proyecto.id} 
+                                proyecto={proyecto} 
+                                variants={childrenVarints} 
+                                setOpen={setOpen} 
+                            />
                         ))}
                     </AnimatePresence>
                 </motion.div>
@@ -182,16 +203,20 @@ function ProjectGrid({ proyectos, setOpen }: {
 }
 
 // --- item proyecto.
-
 interface ProjectCardProps {
     proyecto: Proyecto;
     variants: Variants;
-    setOpen: (open: { isOpen: boolean, imagenes: string[], indexInicial: number, onClose: () => void }) => void;
+    setOpen: (open: OpenState) => void;
+}
+
+interface ButtonContent {
+    text: string;
+    icon: string;
+    action: () => void;
 }
 
 function ProjectCard({ proyecto, variants, setOpen }: ProjectCardProps) {
-
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
 
     const handlePrevImage = () => {
         setCurrentImageIndex((prev) =>
@@ -208,10 +233,10 @@ function ProjectCard({ proyecto, variants, setOpen }: ProjectCardProps) {
     // Obtener tecnologías del proyecto
     const tecnologias = proyecto.logos
         .map(logoId => tecnologiasData.find(tech => tech.id === logoId))
-        .filter(Boolean);
+        .filter((tech): tech is NonNullable<typeof tech> => tech !== undefined);
 
     // Determinar el icono y texto del botón
-    const getButtonContent = () => {
+    const getButtonContent = (): ButtonContent | null => {
         switch (proyecto.tipoBoton) {
             case 'visualizar':
                 return {
@@ -234,11 +259,14 @@ function ProjectCard({ proyecto, variants, setOpen }: ProjectCardProps) {
                             isOpen: true,
                             imagenes: proyecto.imagenes,
                             indexInicial: 0,
-                            onClose: () => setOpen(prev => {
-                                return { ...prev, isOpen: false }
+                            onClose: () => setOpen({
+                                isOpen: false,
+                                imagenes: [],
+                                indexInicial: 0,
+                                onClose: () => {}
                             })
                         });
-                    } // Abrir modal o lightbox
+                    }
                 };
             default:
                 return null;
@@ -248,10 +276,8 @@ function ProjectCard({ proyecto, variants, setOpen }: ProjectCardProps) {
     const buttonContent = getButtonContent();
 
     return (
-        <motion.div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl overflow-hidden group relative
-        
-        h-full grid grid-rows-[auto_1fr]
-        "
+        <motion.div 
+            className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl overflow-hidden group relative h-full grid grid-rows-[auto_1fr]"
             variants={variants}
         >
             {/* Glow effect para destacados */}
@@ -309,13 +335,13 @@ function ProjectCard({ proyecto, variants, setOpen }: ProjectCardProps) {
 
                 {/* Technologies */}
                 <div className="flex flex-wrap gap-2 mb-3">
-                    {tecnologias.map((tech, index) => (
+                    {tecnologias.map((tech) => (
                         <span
-                            key={index}
+                            key={tech.id}
                             className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-200/50 dark:bg-slate-700/50 text-xs font-medium text-slate-700 dark:text-slate-300 h-max"
                         >
-                            <i className={tech!.icono}></i>
-                            {tech!.nombre}
+                            <i className={tech.icono}></i>
+                            {tech.nombre}
                         </span>
                     ))}
                 </div>
