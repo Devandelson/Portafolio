@@ -12,7 +12,6 @@ export default function Skills() {
 
     // ---- BackEnd
     const skillsBack = [
-        { name: "Visual Basic", icon: "fa-solid fa-code", color: "group-hover:text-blue-400", border: "hover:border-blue-400/40", shadow: "hover:shadow-[0_0_20px_rgba(96,165,250,0.25)]" },
         { name: "SQL Server", icon: "fa-solid fa-database", color: "group-hover:text-yellow-400", border: "hover:border-yellow-400/40", shadow: "hover:shadow-[0_0_20px_rgba(250,204,21,0.25)]" },
         { name: "MySQL", icon: "fa-solid fa-database", color: "group-hover:text-cyan-400", border: "hover:border-cyan-400/40", shadow: "hover:shadow-[0_0_20px_rgba(34,211,238,0.25)]" },
         { name: "XAMPP", icon: "fa-solid fa-server", color: "group-hover:text-orange-400", border: "hover:border-orange-400/40", shadow: "hover:shadow-[0_0_20px_rgba(251,146,60,0.25)]" },
@@ -45,24 +44,27 @@ export default function Skills() {
                 {/* GRID PRINCIPAL */}
                 <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-12">
                     {/* FRONTEND */}
-                    <ContainerCategorySkills Skills={skillsFront} />
+                    <ContainerCategorySkills Skills={skillsFront} title="Front - End" />
 
                     {/* BACKEND */}
-                    <ContainerCategorySkills Skills={skillsBack} />
+                    <ContainerCategorySkills Skills={skillsBack} title="Back - End" />
 
                     {/* HERRAMIENTAS */}
-                    <ContainerCategorySkills Skills={skillsTools} />
+                    <ContainerCategorySkills Skills={skillsTools} title="Herramientas"/>
                 </div>
             </div>
         </section>
     )
 }
 
-function ContainerCategorySkills({ Skills }: { Skills: { name: string, icon: string, color: string, border: string, shadow: string }[] }) {
+function ContainerCategorySkills({ Skills, title }: {
+    Skills: { name: string, icon: string, color: string, border: string, shadow: string }[]
+    title: string
+}) {
     return (
         <div>
             <h3 className="text-primary text-xl font-bold mb-6">
-                Front - End
+                {title}
             </h3>
 
             <div className="flex flex-wrap gap-4">
@@ -83,7 +85,7 @@ function ContainerCategorySkills({ Skills }: { Skills: { name: string, icon: str
 
 function SkillCard({ icon, title, color, border, shadow }: { icon: string, title: string, color: string, border: string, shadow: string }) {
     return (
-        <article className={`group relative p-5 py-6 w-40 grow flex flex-wrap justify-center text-center items-center gap-4 rounded-lg border border-white/5 bg-linear-to-br from-[#07121a] to-[#041018] transition-all duration-300 hover:-translate-y-1 ${border} ${shadow}`}>
+        <article className={`group relative p-5 py-6 w-50 grow flex flex-wrap justify-center text-center items-center gap-4 rounded-lg border border-white/5 bg-linear-to-br from-[#07121a] to-[#041018] transition-all duration-300 hover:-translate-y-1 bounceItem ${border} ${shadow}`}>
 
             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-current transition-all duration-500 group-hover:w-full"></span>
 

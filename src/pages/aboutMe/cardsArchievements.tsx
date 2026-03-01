@@ -24,7 +24,7 @@ export default function LogroCard({ logro, index }: LogroCardProps) {
             cursor-pointer
             duration-200
             group/article
-            h-87.5
+            h-87.5 bounceItem
             hover:shadow-2xl hover:shadow-blue-400/20
             ${isActive ? 'shadow-2xl shadow-blue-400/20' : ''}
             `}

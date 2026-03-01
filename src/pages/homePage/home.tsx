@@ -65,14 +65,14 @@ function HomePage() {
             <motion.img
               src={avatar}
               alt="Avatar del programador"
-              className='w-40 sm:w-60 md:w-80 lg:w-90 aspect-square object-cover rounded-full'
+              className='w-40 sm:w-60 md:w-80 lg:w-90 aspect-square object-cover rounded-full bounceItem'
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             />
 
             <motion.h1
-              className='mt-4 sm:mt-5 text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-center px-4 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent'
+              className='mt-4 sm:mt-5 text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-center px-4 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent bounceItem'
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -81,7 +81,7 @@ function HomePage() {
             </motion.h1>
 
             <motion.p
-              className='text-gray-400 text-base sm:text-xl md:text-2xl lg:text-3xl text-center px-4 mt-2'
+              className='text-gray-400 text-base sm:text-xl md:text-2xl lg:text-3xl text-center px-4 mt-2 bounceItem'
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
@@ -160,14 +160,15 @@ function NavigationCard({ index, title, action }: { index: number, title: string
         type: "spring",
         stiffness: 100
       }}
-      className='cursor-pointer group'
+      className='cursor-pointer group bounceItem'
       onClick={() => action ? action(title) : null}
     >
       <span className='w-max h-max p-1.5 sm:p-2 px-2 sm:px-3 relative block overflow-hidden
       after:absolute after:w-full after:h-1/2 after:bottom-0 after:bg-blue-400 after:rounded-lg
       after:left-0 after:transition-all after:duration-200
       hover:after:h-full hover:after:shadow-xl hover:after:shadow-blue-400/20
-      active:after:scale-95
+      active:after:scale-95 
+      
       '>
         <img
           src={img}
@@ -205,7 +206,7 @@ function Seeker() {
   }
   return (
     <motion.section
-      className='w-full max-w-3xl mx-auto mt-8 sm:mt-12 md:mt-15 p-4 sm:p-5 md:p-6 bg-black/40 backdrop-blur-xl rounded-2xl sm:rounded-3xl flex items-center gap-3 sm:gap-4 md:gap-5 group'
+      className='w-full max-w-3xl mx-auto mt-8 sm:mt-12 md:mt-15 p-4 sm:p-5 md:p-6 bg-black/40 backdrop-blur-xl rounded-2xl sm:rounded-3xl flex items-center gap-3 sm:gap-4 md:gap-5 group bounceItem'
       initial={{ opacity: 0, width: "50%" }}
       animate={{ opacity: 1, width: "100%" }}
       transition={{ duration: 0.7, delay: 0.6 }}

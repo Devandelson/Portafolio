@@ -1,6 +1,7 @@
 // hooks
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router';
-import { AnimatePresence } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
+import { useState } from 'react';
 
 // Contextos
 import { MenuProvider } from './context/menu/switchMenu.tsx';
@@ -15,21 +16,84 @@ import Proyect from './pages/proyects/proyects.tsx';
 // Componentes
 import Menu from './components/flotante/menu.tsx';
 import SocialFloat from './components/flotante/controles.tsx';
-import Musica from './components/flotante/musica.tsx';
+import Particle1 from './components/particulas/particle1.tsx';
+import Particle2 from './components/particulas/particle2.tsx';
+import Particle3 from './components/particulas/particle3.tsx';
+import LineaCodigo from './components/particulas/lineCode.tsx';
+import Sonido from './components/flotante/sonido.tsx';
+
+// Types
+import { type particle } from './types/particles/particle.ts';
+
+import SonidoEspacial from './assets/Sounds/sonido_ambiental.mp3';
+import SonidoJuego from './assets/Sounds/juego.wav';
+import SNavidad from './assets/Sounds/navidad.mp3';
+import SAmbiental from './assets/Sounds/musica_ambiente1.mp3';
+import Scodigo from './assets/Sounds/Codigos.mp3';
 
 // Layout que usa Outlet
 function Layout() {
+  const [particle, setParticle] = useState<particle[]>([
+    {
+      icon: 'fa-solid fa-ban',
+      particle: <></>,
+      isActive: true,
+      sonido: SAmbiental,
+    },
+    {
+      icon: 'fa-solid fa-circle',
+      particle: <Particle1 />,
+      isActive: false,
+      sonido: SonidoJuego,
+    },
+    {
+      icon: 'fa-solid fa-snowflake',
+      particle: <Particle2 />,
+      isActive: false,
+      sonido: SNavidad,
+    },
+    {
+      icon: 'fa-solid fa-code',
+      particle: <LineaCodigo />,
+      isActive: false,
+      sonido: Scodigo,
+    },
+    {
+      icon: 'fa-brands fa-space-awesome',
+      particle: <Particle3 />,
+      isActive: false,
+      sonido: SonidoEspacial,
+    }
+  ]);
+
+  const particleSelect = particle.find(item => item.isActive);
+
   return (
     <>
       <Menu>
         <AnimatePresence mode="wait">
           <div key={location.pathname}>
+            {/* Animar las partículas */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={particleSelect?.icon} // cambia cuando cambia la partícula activa
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{
+                  duration: 0.4,
+                }}
+                className='fixed top-0 left-0 overflow-hidden z-30'
+              >
+                {particleSelect?.particle}
+              </motion.div>
+            </AnimatePresence>
             <Outlet />
           </div>
         </AnimatePresence>
       </Menu>
-      <SocialFloat />
-      <Musica />
+      <SocialFloat setParticle={setParticle} particleSelect={particleSelect} particle={particle} />
+      <Sonido particleSelect={particleSelect}></Sonido>
     </>
   );
 }

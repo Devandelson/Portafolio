@@ -51,11 +51,11 @@ function HeaderAbout() {
                     <span className='md:text-right text-center order-2 md:order-1'>
                         <h2 className='flex items-center flex-wrap
                         md:justify-end justify-center
-                        gap-2 sm:gap-3 text-3xl sm:text-4xl md:text-5xl font-bold'>
+                        gap-2 sm:gap-3 text-3xl sm:text-4xl md:text-5xl font-bold bounceItem'>
                             <i className="fa-solid fa-code text-orange-400 text-2xl sm:text-3xl md:text-4xl"></i>
                             Soy Andelson
                         </h2>
-                        <h3 className='text-4xl sm:text-5xl md:text-6xl text-green-600 font-bold mt-1'>
+                        <h3 className='text-4xl sm:text-5xl md:text-6xl text-green-600 font-bold mt-1 bounceItem'>
                             Dev. FrontEnd
                         </h3>
 
@@ -64,7 +64,7 @@ function HeaderAbout() {
                             relative font-semibold text-xs sm:text-sm md:text-base
 
                             after:-bottom-1.5 sm:after:-bottom-2 after:-left-1.5 sm:after:-left-2 after:absolute after:w-full after:h-full after:bg-blue-400/10 after:rounded-lg after:-z-10
-                            '>
+                            bounceItem '>
                                 + 3 años de exp
                             </span>
 
@@ -72,6 +72,7 @@ function HeaderAbout() {
                             relative font-semibold text-xs sm:text-sm md:text-base
 
                             after:-bottom-1.5 sm:after:-bottom-2 after:-left-1.5 sm:after:-left-2 after:absolute after:w-full after:h-full after:bg-blue-400/10 after:rounded-lg after:-z-10
+                            bounceItem
                             '>
                                 + 15 proyectos realizados
                             </span>
@@ -80,11 +81,11 @@ function HeaderAbout() {
                     <img
                         src={perfil}
                         alt="imagen de perfil"
-                        className='w-40 sm:w-52 md:w-60 lg:w-70 aspect-square object-cover rounded-full shadow-2xl order-1 md:order-2'
+                        className='w-40 sm:w-52 md:w-60 lg:w-70 aspect-square object-cover rounded-full shadow-2xl order-1 md:order-2 bounceItem'
                     />
                 </div>
 
-                <button className='flex flex-col items-center gap-1 sm:gap-1.5 text-lg sm:text-xl md:text-2xl mt-6 sm:mt-8 md:mt-10 hover:text-blue-400 transition-colors'>
+                <button className='flex flex-col items-center gap-1 sm:gap-1.5 text-lg sm:text-xl md:text-2xl mt-6 sm:mt-8 md:mt-10 hover:text-blue-400 transition-colors bounceItem'>
                     Descubre más <i className="fa-solid fa-angle-down animate-bounce"></i>
                 </button>
             </div>
@@ -104,8 +105,8 @@ function InfoAboutMe() {
         <section className='w-full h-auto text-center'>
             <img src={mountain} className='w-full rotate-180 z-20 relative' alt="decorativo" />
             <div className='max-w-7xl mx-auto px-6 mt-10'>
-                <h2 className='text-6xl -mt-10 font-bold'>¿Quien soy?</h2>
-                <p className='mt-5 text-center text-xl'>Soy un dev Front - End con habilidades adiciones de Back - End. Mi portafolio refleja un crecimiento constante y un compromiso firme con la innovación. Cada proyecto que realizo es una fusión entre tecnología y creatividad.</p>
+                <h2 className='text-6xl -mt-10 font-bold bounceItem'>¿Quien soy?</h2>
+                <p className='mt-5 text-center text-xl bounceItem'>Soy un dev Front - End con habilidades adiciones de Back - End. Mi portafolio refleja un crecimiento constante y un compromiso firme con la innovación. Cada proyecto que realizo es una fusión entre tecnología y creatividad.</p>
             </div>
         </section>
     )
@@ -118,13 +119,13 @@ function History() {
             <section className='w-full h-90 bg-bPage flex items-center justify-center text-center p-4 mt-20 relative'>
                 {/* Texto con efecto hundido/grabado */}
                 <h2
-                    className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold"
+                    className="text-8xl sm:text-8xl md:text-9xl lg:text-9xl font-bold bounceItem"
                     style={{
                         color: '#0f2525',
                         textShadow: `
-            1px 1px 2px rgba(255, 255, 255, 0.08),
-            -1px -1px 1px rgba(0, 0, 0, 0.4)
-        `
+                            1px 1px 2px rgba(255, 255, 255, 0.10),
+                            -1px -1px 1px rgba(0, 0, 0, 20)
+                        `
                     }}
                 >
                     Mi historia
@@ -186,7 +187,7 @@ function HistoriaCard({ item }: HistoriaCardProps) {
         
         after:content-[""] after:absolute after:rounded-lg after:-z-2
         after:bg-white/5 after:border after:border-gray-300/5
-        after:w-full after:h-[85%] after:bottom-0 after:left-0
+        after:w-full after:h-[85%] after:bottom-0 after:left-0 bounceItem
         '>
             <div className='relative w-full group'>
                 <motion.img
@@ -249,12 +250,14 @@ function HistoriaCard({ item }: HistoriaCardProps) {
 function Achievements() {
     return (
         <div className='w-full p-4 max-w-7xl mx-auto'>
-            <section className='w-full flex items-center gap-4 sm:gap-7 flex-wrap justify-center text-center mb-10 mt-20 z-2 relative min-h-125 sm:min-h-100'>
+            <section className='w-full flex items-center gap-2 flex-wrap justify-center text-center mb-10 mt-20 z-2 relative min-h-125 sm:min-h-100'>
                 <img src={confeti} alt="Confeti" className='w-full h-full object-cover absolute top-0 left-0 -z-1' />
-                <img src={trofeo} alt="Trofeo" className='w-32 sm:w-50 md:w-70 object-center' />
+
+                <img src={trofeo} alt="Trofeo" className='w-[50%] object-fill bounceItem' />
+
                 <span className="p-4 sm:p-7 bg-bPage rounded-2xl font-bold text-5xl sm:text-6xl md:text-7xl lg:text-8xl block relative
                 
-                after:absolute after:-top-4 sm:after:-top-7 after:left-2 sm:after:left-4 after:content-['+_20'] after:text-3xl sm:after:text-5xl after:block after:z-10 after:text-white
+                after:absolute after:-top-4 sm:after:-top-7 after:left-2 sm:after:left-4 after:content-['+_5'] after:text-3xl sm:after:text-5xl after:block after:z-10 after:text-white bounceItem
                 ">
                     <h2>Logros</h2>
                 </span>
@@ -271,7 +274,7 @@ function Achievements() {
 
 function ContactForm() {
     return (
-        <div className="min-h-screen bg-linear-to-br from-slate-950 via-slate-900 to-emerald-950/30 flex items-center justify-center mt-10 p-4 sm:p-6 lg:p-8">
+        <div className="min-h-screen bg-linear-to-br from-slate-950 via-slate-900 to-emerald-950/30 flex items-center justify-center mt-10 p-4 sm:p-6 lg:p-8 bounceItem">
             <style>{`
         .input-glow:focus-within {
           box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);

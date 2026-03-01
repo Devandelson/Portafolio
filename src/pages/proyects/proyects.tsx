@@ -84,7 +84,7 @@ function Header() {
                 className='absolute top-0 left-0 w-full h-full -z-10 blur-sm object-cover'
             />
 
-            <h2 className='text-white text-5xl flex flex-col text-start font-bold max-w-md w-full 
+            <h2 className='text-white text-5xl flex flex-col text-start font-bold max-w-md w-full bounceItem
                 md:text-5xl md:text-start
                 max-md:text-3xl max-md:text-center max-md:mt-10 max-md:w-full max-md:px-4'>
                 Descubre lo que he
@@ -97,7 +97,7 @@ function Header() {
             <img
                 src={projectIcon}
                 alt="icono proyecto"
-                className='w-150 object-contain'
+                className='w-150 object-contain bounceItem'
             />
         </section>
     );
@@ -129,12 +129,12 @@ function Filters({ onFilterChange }: FiltersProps) {
     return (
         <section className="max-w-7xl mx-auto px-4 sm:px-7 mt-5">
             <div className="flex flex-col items-start gap-4 sm:gap-6 mb-8 sm:mb-12">
-                <div className="flex items-center space-x-2 sm:space-x-3 text-xl sm:text-2xl font-bold text-slate-800 dark:text-white">
+                <div className="flex items-center space-x-2 sm:space-x-3 text-xl sm:text-2xl font-bold text-slate-800 dark:text-white bounceItem">
                     <span>Categorías</span>
                     <i className="fas fa-chevron-right text-blue-600"></i>
                 </div>
 
-                <div className="flex flex-wrap gap-2 sm:gap-3">
+                <div className="flex flex-wrap gap-2 sm:gap-3 bounceItem">
                     {filterButtons.map((filter) => (
                         <button
                             key={filter.value}
@@ -175,7 +175,7 @@ function ProjectGrid({ proyectos, setOpen }: ProjectGridProps) {
     return (
         <section className="max-w-7xl mx-auto px-4 pb-8">
             {proyectos.length === 0 ? (
-                <div className="text-center py-20">
+                <div className="text-center py-20 bounceItem">
                     <i className="fas fa-folder-open text-6xl text-slate-400 mb-4"></i>
                     <p className="text-slate-400 text-xl">No hay proyectos en esta categoría</p>
                 </div>
@@ -277,7 +277,7 @@ function ProjectCard({ proyecto, variants, setOpen }: ProjectCardProps) {
 
     return (
         <motion.div 
-            className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl overflow-hidden group relative h-full grid grid-rows-[auto_1fr]"
+            className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl overflow-hidden group relative h-full grid grid-rows-[auto_1fr] bounceItem"
             variants={variants}
         >
             {/* Glow effect para destacados */}

@@ -1,13 +1,48 @@
 // Hooks
 import { motion } from "motion/react"
-import Swal from "sweetalert2"
+import { useEffect, useState } from "react";
 
-const SocialFloat = () => {
+// Type
+import { type particle } from "../../types/particles/particle.ts";
+
+const SocialFloat = ({ setParticle, particleSelect, particle }: {
+    setParticle: React.Dispatch<React.SetStateAction<particle[]>>,
+    particle: particle[],
+    particleSelect: particle | undefined
+}) => {
+    const [indiceParticle, setIndiceParticle] = useState(0);
+
+    function changeParticle() {
+        const totalParticle: number = particle.length - 1;
+        setIndiceParticle((prev) => {
+            const copyPrev = prev;
+            const upCount: number = copyPrev + 1;
+            if (upCount > totalParticle) {
+                return 0;
+            } else {
+                return upCount;
+            }
+        })
+    }
+
+    useEffect(() => {
+        particleSelect?.event?.();
+
+        setParticle((prev) => {
+            const copyPrev = [...prev];
+            copyPrev.map((item) => {
+                item.isActive = false;
+            })
+
+            copyPrev[indiceParticle].isActive = true;
+            return copyPrev;
+        })
+    }, [indiceParticle]);
+
     return (
-        <motion.ul className="flex gap-3 fixed items-center  bg-bgPage/30 backdrop-blur-lg p-2 px-4 rounded-full border border-white/5 z-10
+        <motion.ul className="flex gap-3 fixed items-center  bg-bgPage/30 backdrop-blur-lg p-2 px-4 rounded-full border border-white/5 z-40 top-5 right-5
 
-        md:top-5 md:right-5 md:translate-x-0
-        top-20 right-1/2 translate-x-1/2
+        max-md:top-23 max-md:right-[65%]
         "
             initial={{ opacity: 0, x: -100 }}
             animate={{ opacity: 1, x: 0 }}
@@ -19,19 +54,9 @@ const SocialFloat = () => {
                 color="hover:bg-gray-700 hover:shadow-gray-700"
             />
             <SocialOption
-                icon="fa-solid fa-ban"
+                icon={particleSelect?.icon ?? 'fa-solid fa-ban'}
                 color="hover:bg-red-500 hover:shadow-red-500"
-                onClick={() => {
-                    Swal.fire({
-                        title: 'Módulo en mantenimiento',
-                        text: 'Esta sección se encuentra actualmente en mantenimiento. Por favor, intenta nuevamente más tarde.',
-                        icon: 'info',
-                        confirmButtonText: 'Entendido',
-                        background: '#1a1a2e',
-                        color: '#fff',
-                        confirmButtonColor: '#3b82f6'
-                    });
-                }}
+                onClick={() => { changeParticle() }}
             />
         </motion.ul>
     );
