@@ -23,7 +23,7 @@ export default function VerImagen({ imagenes, indexInicial, onClose }: VerImagen
 
     return (
         <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+            className="fixed h-screen top-0 left-0 inset-0 z-60 flex items-center justify-center bg-black/80 backdrop-blur-sm"
 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

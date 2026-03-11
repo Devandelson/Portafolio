@@ -98,3 +98,8 @@ body {
   filter: drop-shadow(0px 0px 30px rgb(238, 97, 97)) !important;
   text-shadow: 0px 0px 30px rgb(238, 97, 97) !important;
 }
+
+.scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: dodgerblue transparent;
+}

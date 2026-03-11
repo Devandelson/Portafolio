@@ -13,6 +13,11 @@ declare module '*.jpg' {
   export default content;
 }
 
+declare module '*.jpeg' {
+  const content: string;
+  export default content;
+}
+
 declare module '*.mp3' {
   const content: string;
   export default content;
@@ -24,6 +29,11 @@ declare module '*.wav' {
 }
 
 declare module '*.pdf' {
+  const content: string;
+  export default content;
+}
+
+declare module '*.css' {
   const content: string;
   export default content;
 }

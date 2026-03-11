@@ -1,10 +1,12 @@
 // Importar todas las imágenes
 import rutafit1 from '../assets/rutafit1.png';
-import clasroom1 from '../assets/f1_clasroom.png';
-import clasroom2 from '../assets/f2_clasroom.png';
-import clasroom3 from '../assets/f3_clasroom.png';
-import clasroom4 from '../assets/f4_clasroom.png';
-import clasroom5 from '../assets/f5_clasroom.png';
+
+// import clasroom1 from '../assets/f1_clasroom.png';
+// import clasroom2 from '../assets/f2_clasroom.png';
+// import clasroom3 from '../assets/f3_clasroom.png';
+// import clasroom4 from '../assets/f4_clasroom.png';
+// import clasroom5 from '../assets/f5_clasroom.png';
+
 import ponse from '../assets/imgPonse.png';
 import appNotas from '../assets/fondo_app_nota.jpg';
 import claroClon from '../assets/claroClon.jpg';
@@ -30,6 +32,12 @@ import transacciones from '../assets/transacciones.png';
 import zypher from '../assets/Screenshot 2025-09-16 110502.png';
 import ordenix from '../assets/ordenix.png';
 
+import L_F from '../assets/L_F1.png';
+import L_F2 from '../assets/L_F2.png';
+import L_Fo3 from '../assets/L_F3.png';
+import L_Fo4 from '../assets/L_F4.png';
+import L_Fo5 from '../assets/F_F5.png';
+
 export interface Proyecto {
     id: number;
     categoria: 'destacado' | 'regular';
@@ -50,16 +58,6 @@ export const proyectosData: Proyecto[] = [
         imagenes: [rutafit1],
         enlace: 'https://rutafit.free.nf/',
         tipoBoton: 'visualizar',
-        logos: [2, 5, 6, 12, 13, 15, 16, 17, 18]
-    },
-    {
-        id: 2,
-        categoria: 'destacado',
-        titulo: 'Duplicado de Classroom',
-        descripcion: '¡Explora este increíble proyecto inspirado en Classroom! Una plataforma donde los estudiantes se conectan, comparten y crean asignaciones de forma interactiva. ¡Desliza para ver cómo la educación cobra vida con cada funcionalidad!',
-        imagenes: [clasroom1, clasroom2, clasroom3, clasroom4, clasroom5],
-        enlace: '',
-        tipoBoton: 'imagen',
         logos: [2, 5, 6, 12, 13, 15, 16, 17, 18]
     },
     {
@@ -241,5 +239,15 @@ export const proyectosData: Proyecto[] = [
         enlace: 'https://devandelson.github.io/ordenix/',
         tipoBoton: 'visualizar',
         logos: [9, 7, 17, 18]
-    }
+    },
+    {
+        id: 21,
+        categoria: 'destacado',
+        titulo: 'Learnify - Plataforma Educativa',
+        descripcion: 'Plataforma educativa a gran escala desarrollada para un cliente real. Cuenta con gestión de asignaturas, unidades, publicaciones (anuncios, tareas y evaluaciones), chat global, sistema de notificaciones, control de calificaciones, asistencia y un dashboard con estadísticas de progreso.',
+        imagenes: [L_F, L_F2, L_Fo3, L_Fo4, L_Fo5],
+        enlace: '',
+        tipoBoton: 'imagen',
+        logos: [2, 5, 6, 12, 13, 15, 16, 17, 18]
+    },
 ];

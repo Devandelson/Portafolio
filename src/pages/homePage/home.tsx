@@ -3,7 +3,6 @@ import avatar from '../../assets/Avatar-remove.png';
 import imgMi from '../../assets/Sobre Mí.png';
 import imgArchive from '../../assets/Archivos.png';
 import imgProyect from '../../assets/Proyectos.png';
-import fondoHome from '../../assets/fondo2_portafolio.jpeg';
 
 // Hooks
 import { motion, AnimatePresence } from "motion/react"
@@ -12,11 +11,18 @@ import Swal from 'sweetalert2';
 
 // -- contexts
 import { useMenu } from '../../context/menu/switchMenu.tsx';
+import { useSwitchAnimation } from '../../context/animations/switchAnimation.tsx';
+import useWallpaper from "../../context/pages/setting.tsx";
 
 // Componentes
 function HomePage() {
   const { listMenu, setTMenu } = useMenu();
   const [isLoading, setIsLoading] = useState(true);
+
+  const fondos = useWallpaper((state) => state.wallpapers);
+  const fondoHome = fondos.filter((item) => {
+    return item.selected;
+  })[0].src;
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -26,10 +32,21 @@ function HomePage() {
     return () => clearTimeout(timer);
   }, []);
 
+  const { animations } = useSwitchAnimation();
+  const animationActive = animations.find(animation => animation.active);
+  const animation = animationActive ? animationActive.animation : undefined;
+
   return (
-    <div className='w-full min-h-screen h-auto bg-bgPage text-txWhite flex items-center flex-col justify-center rounded-2xl sm:p-6 md:p-7 relative z-2'>
+    <motion.div className='w-full min-h-screen h-auto bg-bgPage text-txWhite flex items-center flex-col justify-center rounded-2xl sm:p-6 md:p-7 relative z-2'
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      variants={animation}
+      transition={{ duration: 0.4 }}
+      key={'home'}
+    >
       <img src={fondoHome} alt="Fondo de la pantalla de inicio" className='w-full h-full top-0 left-0 absolute -z-2 object-cover rounded-2xl' />
-      <span className='w-full h-full top-0 left-0 absolute -z-1 bg-black/20 rounded-2xl' ></span>
+      <span className='w-full h-full top-0 left-0 absolute -z-1 bg-black/30 rounded-2xl' ></span>
 
       <AnimatePresence mode="wait">
         {isLoading ? (
@@ -57,7 +74,7 @@ function HomePage() {
         ) : (
           <motion.div
             key="content"
-            className='w-full flex items-center flex-col justify-center relative z-2'
+            className='w-full flex flex-col justify-center items-center relative z-2 p-6 h-auto'
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
@@ -65,7 +82,7 @@ function HomePage() {
             <motion.img
               src={avatar}
               alt="Avatar del programador"
-              className='w-40 sm:w-60 md:w-80 lg:w-90 aspect-square object-cover rounded-full bounceItem'
+              className='w-40 sm:w-60 md:w-80 lg:w-90 m-auto aspect-square object-cover rounded-full bounceItem'
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -100,7 +117,7 @@ function HomePage() {
             </section>
 
             <motion.section
-              className='w-full max-w-3xl mt-8 sm:mt-10 px-4'
+              className='w-full max-w-3xl mt-15 sm:mt-10 px-4'
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 1.2 }}
@@ -124,14 +141,14 @@ function HomePage() {
                 <p className='flex items-center gap-1'>
                   <i className="fa-solid fa-calendar-day"></i>
                   <span className='hidden sm:inline'>Last Build:</span>
-                  <span className='sm:hidden'>Build:</span> 2.4.0 - 2/13/2026
+                  <span className='sm:hidden'>Build:</span> 3.0.0 - 3/10/2026
                 </p>
               </div>
             </motion.section>
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   )
 }
 

@@ -70,24 +70,26 @@ function Layout() {
 
   return (
     <>
+      {/* Animar las partículas */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={particleSelect?.icon} // cambia cuando cambia la partícula activa
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{
+            duration: 0.4,
+          }}
+          className='fixed top-0 left-0 w-full
+                h-full overflow-hidden z-30 rounded-2xl pointer-events-none bg-transparent'
+        >
+          {particleSelect?.particle}
+        </motion.div>
+      </AnimatePresence>
+      
       <Menu>
         <AnimatePresence mode="wait">
           <div key={location.pathname}>
-            {/* Animar las partículas */}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={particleSelect?.icon} // cambia cuando cambia la partícula activa
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{
-                  duration: 0.4,
-                }}
-                className='fixed top-0 left-0 overflow-hidden z-30'
-              >
-                {particleSelect?.particle}
-              </motion.div>
-            </AnimatePresence>
             <Outlet />
           </div>
         </AnimatePresence>

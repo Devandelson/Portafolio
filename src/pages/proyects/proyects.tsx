@@ -54,8 +54,8 @@ export default function Proyect() {
             >
                 <Header />
                 <Filters onFilterChange={setFilter} />
-                <ProjectGrid 
-                    key={filter} 
+                <ProjectGrid
+                    key={filter}
                     proyectos={proyectosFiltrados}
                     setOpen={setOpen}
                 />
@@ -77,7 +77,7 @@ export default function Proyect() {
 
 function Header() {
     return (
-        <section className='w-full min-h-90 h-auto overflow-hidden relative z-1 flex items-center justify-center gap-3.5 flex-wrap p-5'>
+        <section className='w-full min-h-90 h-auto overflow-hidden relative z-1 flex items-center justify-center gap-3.5 flex-wrap p-5 rounded-t-2xl'>
             <img
                 src={projectBackground}
                 alt="Fondo proyecto"
@@ -121,10 +121,10 @@ function Filters({ onFilterChange }: FiltersProps) {
         label: string;
         icon: string;
     }> = [
-        { value: 'todos', label: 'Todos', icon: 'fas fa-th' },
-        { value: 'destacado', label: 'Destacados', icon: 'fas fa-star' },
-        { value: 'regular', label: 'Regulares', icon: 'fas fa-folder' }
-    ];
+            { value: 'todos', label: 'Todos', icon: 'fas fa-th' },
+            { value: 'destacado', label: 'Destacados', icon: 'fas fa-star' },
+            { value: 'regular', label: 'Regulares', icon: 'fas fa-folder' }
+        ];
 
     return (
         <section className="max-w-7xl mx-auto px-4 sm:px-7 mt-5">
@@ -180,21 +180,27 @@ function ProjectGrid({ proyectos, setOpen }: ProjectGridProps) {
                     <p className="text-slate-400 text-xl">No hay proyectos en esta categoría</p>
                 </div>
             ) : (
-                <motion.div 
+                <motion.div
                     className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
                     variants={contaienerVariants}
                     initial="hidden"
                     animate="show"
                 >
                     <AnimatePresence>
-                        {proyectos.map(proyecto => (
-                            <ProjectCard 
-                                key={proyecto.id} 
-                                proyecto={proyecto} 
-                                variants={childrenVarints} 
-                                setOpen={setOpen} 
-                            />
-                        ))}
+                        {proyectos
+                            .sort((a, b) => {
+                                if (a.categoria === 'destacado' && b.categoria !== 'destacado') return -1;
+                                if (a.categoria !== 'destacado' && b.categoria === 'destacado') return 1;
+                                return 0;
+                            })
+                            .map(proyecto => (
+                                <ProjectCard
+                                    key={proyecto.id}
+                                    proyecto={proyecto}
+                                    variants={childrenVarints}
+                                    setOpen={setOpen}
+                                />
+                            ))}
                     </AnimatePresence>
                 </motion.div>
             )}
@@ -263,7 +269,7 @@ function ProjectCard({ proyecto, variants, setOpen }: ProjectCardProps) {
                                 isOpen: false,
                                 imagenes: [],
                                 indexInicial: 0,
-                                onClose: () => {}
+                                onClose: () => { }
                             })
                         });
                     }
@@ -276,7 +282,7 @@ function ProjectCard({ proyecto, variants, setOpen }: ProjectCardProps) {
     const buttonContent = getButtonContent();
 
     return (
-        <motion.div 
+        <motion.div
             className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl overflow-hidden group relative h-full grid grid-rows-[auto_1fr] bounceItem"
             variants={variants}
         >
@@ -347,7 +353,7 @@ function ProjectCard({ proyecto, variants, setOpen }: ProjectCardProps) {
                 </div>
 
                 <p
-                    className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-4 line-clamp-3"
+                    className="text-slate-500 dark:text-slate-400 text-sm mb-4 h-auto overflow-y-auto scrollbar max-h-50"
                     dangerouslySetInnerHTML={{ __html: proyecto.descripcion }}
                 />
 
