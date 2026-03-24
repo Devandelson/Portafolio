@@ -64,9 +64,9 @@ export const proyectosData: Proyecto[] = [
         id: 3,
         categoria: 'destacado',
         titulo: 'Periódico escolar',
-        descripcion: 'Desarrollado por mí y un amigo, este proyecto fue creado para solucionar el problema de comunicación que existía en nuestra escuela al interactuar con el resto del mundo. Además, te invito a visitar el portafolio de mi amigo en <a style="color: rgb(255, 255, 255);" href="https://ariscortico.github.io/portafolio/">ariscortico.com</a>.',
+        descripcion: 'Desarrollado en colaboración, este proyecto soluciona las brechas de comunicación de nuestra institución con el entorno global. Te invito a visitar el portafolio de mi colega en <a style="color: #ffffff; font-weight: bold;" href="https://ariscortico.github.io/portafolio/">ariscortico.com</a>.',
         imagenes: [ponse],
-        enlace: 'https://ponse1001.free.nf/',
+        enlace: 'https://ponse1001.infinityfreeapp.com/',
         tipoBoton: 'visualizar',
         logos: [2, 5, 6, 12, 13]
     },
@@ -156,7 +156,7 @@ export const proyectosData: Proyecto[] = [
         titulo: 'Juego de adivinanzas',
         descripcion: 'Creado durante un curso en el ITLA.',
         imagenes: [adivinanzas],
-        enlace: '../../uploadPages/Juego de adivinansas/index.html',
+        enlace: 'uploadPages/Juego de adivinansas/index.html',
         tipoBoton: 'visualizar',
         logos: [5, 6, 2]
     },
@@ -196,7 +196,7 @@ export const proyectosData: Proyecto[] = [
         titulo: 'APP Web simulación',
         descripcion: 'Desarrollé este sistema optimizar la gestión de estudiantes, calificaciones, profesores, mérito y otras operaciones escolares.',
         imagenes: [appSimulacion],
-        enlace: '../../uploadPages/app web simulacion/index.html',
+        enlace: 'uploadPages/app web simulacion/index.html',
         tipoBoton: 'visualizar',
         logos: [5, 2, 6]
     },
@@ -204,9 +204,9 @@ export const proyectosData: Proyecto[] = [
         id: 17,
         categoria: 'regular',
         titulo: 'Tienda de celulares',
-        descripcion: 'Hecho a través de HTML, CSS y JS. Donde cada detalle ofrece una experiencia de compra intuitiva y emocionante.',
+        descripcion: 'Este fue unos de mis primeros desafío en la web, donde utilicé HTML, CSS y JS para dar vida a una tienda funcional. Me enfoqué en que cada interacción fuera fluida y atractiva para el usuario.',
         imagenes: [store],
-        enlace: '../../uploadPages/Tienda celulares Anderson/index.html',
+        enlace: 'uploadPages/Tienda celulares Anderson/index.html',
         tipoBoton: 'visualizar',
         logos: [5, 2, 6]
     },
@@ -216,7 +216,7 @@ export const proyectosData: Proyecto[] = [
         titulo: 'Página de transacciones',
         descripcion: 'Simulación de una página de transacciones inspirada por un youtuber, desarrollada completamente por mí. ¡Descubre mi trabajo de principio a fin!',
         imagenes: [transacciones],
-        enlace: '../../uploadPages/Transacciones/index.html',
+        enlace: 'uploadPages/Transacciones/index.html',
         tipoBoton: 'visualizar',
         logos: [5, 2, 6]
     },

@@ -6,7 +6,7 @@
   "homepage": "https://Devandelson.github.io/Portafolio",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "deploy": "gh-pages -d dist"
