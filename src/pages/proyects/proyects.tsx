@@ -360,7 +360,7 @@ function ProjectCard({ proyecto, variants, setOpen }: ProjectCardProps) {
                 {buttonContent && (
                     <button
                         onClick={buttonContent.action}
-                        className="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-blue-600/10 dark:bg-blue-600/20 text-blue-600 hover:bg-blue-600 hover:text-white transition-all font-semibold text-sm"
+                        className="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-blue-600/10 dark:bg-blue-600/20 text-blue-600 hover:bg-blue-600 hover:text-white transition-all font-semibold text-sm cursor-pointer"
                     >
                         {buttonContent.text}
                         <i className={`${buttonContent.icon} ml-2 text-xs`}></i>

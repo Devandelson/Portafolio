@@ -66,7 +66,7 @@ export const proyectosData: Proyecto[] = [
         titulo: 'Periódico escolar',
         descripcion: 'Desarrollado en colaboración, este proyecto soluciona las brechas de comunicación de nuestra institución con el entorno global. Te invito a visitar el portafolio de mi colega en <a style="color: #ffffff; font-weight: bold;" href="https://ariscortico.github.io/portafolio/">ariscortico.com</a>.',
         imagenes: [ponse],
-        enlace: 'https://ponse1001.infinityfreeapp.com/',
+        enlace: 'https://ponse.free.nf/index.php',
         tipoBoton: 'visualizar',
         logos: [2, 5, 6, 12, 13]
     },
