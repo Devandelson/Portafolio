@@ -3,7 +3,6 @@ import VerImagen from './verImagen.tsx';
 
 // assets
 import projectBackground from '../../assets/proyect_BG.jpg';
-import projectIcon from '../../assets/3d proyecto.png';
 
 // hooks
 import { motion, AnimatePresence, type Variants } from "motion/react";

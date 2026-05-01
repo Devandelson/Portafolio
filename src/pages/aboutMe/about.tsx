@@ -1,5 +1,6 @@
 // -- assets
 import perfil from '../../assets/Mi foto.jpg';
+import perfil2 from '../../assets/Trofeo.svg';
 import trofeo from '../../assets/Trofeo.png';
 import bg_about from '../../assets/about-me5.png';
 import bg_about2 from '../../assets/about-me5.svg';
@@ -56,7 +57,7 @@ function HeaderAbout() {
                 <img src={bg_about} className='absolute w-full h-full top-0 left-0 z-10 object-cover' />
                 <img src={bg_about2} className='absolute w-full h-full top-0 left-0 z-30 object-cover' />
 
-                <div className='w-full h-screen flex flex-col items-center sm:top-5 md:top-7 max-w-7xl mx-auto p-4 sm:p-5
+                <div className='w-full h-screen flex flex-col items-center sm:top-5 md:top-7 max-w-7xl mx-auto p-4 sm:p-5 opacity-0
                 z-10
                 '>
                     <div className='flex flex-col md:flex-row items-center gap-4 sm:gap-5 md:gap-6 flex-wrap justify-center mt-100
@@ -93,7 +94,7 @@ function HeaderAbout() {
                             </div>
                         </span>
                         <img
-                            src={perfil}
+                            src={perfil2}
                             alt="imagen de perfil"
                             className='w-40 sm:w-52 md:w-60 lg:w-70 aspect-square object-cover rounded-full shadow-2xl order-1 md:order-2 bounceItem
                             
