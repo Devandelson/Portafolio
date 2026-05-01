@@ -27,15 +27,17 @@ export default function Skills() {
     ];
 
     return (
-        <section className="relative mt-15" id="skills">
+        <section className="relative block bg-bgPage
+        bg-linear-to-b from-black to-bgPage to-35% z-40 mb-20 p-10
+        " id="skills">
             <div className="container mx-auto px-6">
                 {/* HEADER */}
                 <div className="flex items-end justify-between mb-7 border-b border-gray-800 pb-4">
                     <div>
-                        <h2 className="text-3xl font-bold text-white mb-1">
-                            <span className="text-primary mr-2">///</span> Skills
+                        <h2 className="text-3xl font-bold text-white mb-1 mt-15 block bounceItem">
+                            <span className="text-primary mr-2">///</span> Habilidades
                         </h2>
-                        <p className="text-xs font-mono text-gray-500">
+                        <p className="text-xs font-mono text-gray-500 bounceItem">
                             Version 1.0.0
                         </p>
                     </div>

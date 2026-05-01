@@ -27,7 +27,7 @@ export function MenuProvider({ children }: MenuProviderProps) {
     const navigate = useNavigate();
 
     const [listMenu, setListMenu] = useState<listMenu[]>([
-        { name: "config", path: "/", icon: "fa-solid fa-gear", state: false },
+        { name: "config", path: "/setting", icon: "fa-solid fa-gear", state: false },
         { name: "Home", path: "/", icon: "fa-solid fa-house", state: true },
         { name: "Sobre mí", path: "/sobreMi", icon: "fa-solid fa-graduation-cap", state: false },
         { name: "Proyectos", path: "/proyectos", icon: "fa-solid fa-pager", state: false },

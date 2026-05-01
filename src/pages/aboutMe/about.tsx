@@ -1,8 +1,9 @@
 // -- assets
-import mountain from '../../assets/mountain.png';
 import perfil from '../../assets/Mi foto.jpg';
 import trofeo from '../../assets/Trofeo.png';
-import confeti from '../../assets/confeti.png';
+import bg_about from '../../assets/about-me5.png';
+import bg_about2 from '../../assets/about-me5.svg';
+import details from '../../assets/detail.svg';
 
 // hooks
 import { motion } from "motion/react"
@@ -25,7 +26,7 @@ export default function About() {
     const animation = animationActive ? animationActive.animation : undefined;
 
     return (
-        <motion.section className="w-full h-auto text-white"
+        <motion.section className="w-full h-auto text-white bg-bgPage"
             key={'about'}
             initial="hidden"
             animate="visible"
@@ -35,88 +36,172 @@ export default function About() {
         >
             <HeaderAbout />
             <InfoAboutMe />
-            <Skills />
-            <History />
-            <Achievements />
-            <ContactForm />
+            <div className='bg-bgPage relative z-30'>
+                <Skills />
+                <History />
+                <Achievements />
+                <ContactForm />
+            </div>
         </motion.section>
     )
 }
 
 function HeaderAbout() {
     return (
-        <header className='w-full h-auto relative'>
-            <div className='w-full h-max flex flex-col items-center sticky top-10 sm:top-5 md:top-7 max-w-7xl mx-auto p-4 sm:p-5'>
-                <div className='flex flex-col md:flex-row items-center gap-4 sm:gap-5 md:gap-6 flex-wrap justify-center'>
-                    <span className='md:text-right text-center order-2 md:order-1'>
-                        <h2 className='flex items-center flex-wrap
-                        md:justify-end justify-center
-                        gap-2 sm:gap-3 text-3xl sm:text-4xl md:text-5xl font-bold bounceItem'>
-                            <i className="fa-solid fa-code text-orange-400 text-2xl sm:text-3xl md:text-4xl"></i>
-                            Soy Andelson
-                        </h2>
-                        <h3 className='text-4xl sm:text-5xl md:text-6xl text-green-600 font-bold mt-1 bounceItem'>
-                            Dev. FrontEnd
-                        </h3>
+        <div className='w-full
+        
+        h-screen
+        relative'>
+            <header className='w-full h-full relative z-10'>
+                <img src={bg_about} className='absolute w-full h-full top-0 left-0 z-10 object-cover' />
+                <img src={bg_about2} className='absolute w-full h-full top-0 left-0 z-30 object-cover' />
 
-                        <div className='flex items-center md:justify-end justify-center gap-2 sm:gap-3 md:gap-3.5 flex-wrap mt-4 sm:mt-5 md:mt-6'>
-                            <span className='p-2 px-3 sm:p-2.5 sm:px-4 md:p-3 md:px-5 bg-bPage z-10 block w-max rounded-lg
+                <div className='w-full h-screen flex flex-col items-center sm:top-5 md:top-7 max-w-7xl mx-auto p-4 sm:p-5
+                z-10
+                '>
+                    <div className='flex flex-col md:flex-row items-center gap-4 sm:gap-5 md:gap-6 flex-wrap justify-center mt-100
+                    '>
+                        <span className='md:text-right text-center order-2 md:order-1'>
+                            <h2 className='flex items-center flex-wrap
+                        md:justify-end justify-center
+                        gap-2 sm:gap-3 text-3xl sm:text-4xl md:text-5xl font-bold bounceItem
+                        '>
+                                <i className="fa-solid fa-code text-orange-400 text-2xl sm:text-3xl md:text-4xl"></i>
+                                Soy Andelson
+                            </h2>
+                            <h3 className='text-4xl sm:text-5xl md:text-6xl text-green-600 font-bold mt-1 bounceItem'>
+                                Dev. FrontEnd
+                            </h3>
+
+                            <div className='flex items-center md:justify-end justify-center gap-2 sm:gap-3 md:gap-3.5 flex-wrap mt-4 sm:mt-5 md:mt-6'>
+                                <span className='p-2 px-3 sm:p-2.5 sm:px-4 md:p-3 md:px-5 bg-bPage z-10 block w-max rounded-lg
                             relative font-semibold text-xs sm:text-sm md:text-base
 
                             after:-bottom-1.5 sm:after:-bottom-2 after:-left-1.5 sm:after:-left-2 after:absolute after:w-full after:h-full after:bg-blue-400/10 after:rounded-lg after:-z-10
                             bounceItem '>
-                                + 3 años de exp
-                            </span>
+                                    + 3 años de exp
+                                </span>
 
-                            <span className='p-2 px-3 sm:p-2.5 sm:px-4 md:p-3 md:px-5 bg-bPage z-10 block w-max rounded-lg
+                                <span className='p-2 px-3 sm:p-2.5 sm:px-4 md:p-3 md:px-5 bg-bPage z-10 block w-max rounded-lg
                             relative font-semibold text-xs sm:text-sm md:text-base
 
                             after:-bottom-1.5 sm:after:-bottom-2 after:-left-1.5 sm:after:-left-2 after:absolute after:w-full after:h-full after:bg-blue-400/10 after:rounded-lg after:-z-10
                             bounceItem
                             '>
-                                + 15 proyectos realizados
-                            </span>
-                        </div>
-                    </span>
-                    <img
-                        src={perfil}
-                        alt="imagen de perfil"
-                        className='w-40 sm:w-52 md:w-60 lg:w-70 aspect-square object-cover rounded-full shadow-2xl order-1 md:order-2 bounceItem'
-                    />
+                                    + 15 proyectos realizados
+                                </span>
+                            </div>
+                        </span>
+                        <img
+                            src={perfil}
+                            alt="imagen de perfil"
+                            className='w-40 sm:w-52 md:w-60 lg:w-70 aspect-square object-cover rounded-full shadow-2xl order-1 md:order-2 bounceItem
+                            
+                            '
+                        />
+                    </div>
+
+                    <button className='flex flex-col items-center gap-1 sm:gap-1.5 text-lg sm:text-xl md:text-2xl mt-6 sm:mt-8 md:mt-10 hover:text-blue-400 transition-colors bounceItem'>
+                        Descubre más <i className="fa-solid fa-angle-down animate-bounce"></i>
+                    </button>
                 </div>
 
-                <button className='flex flex-col items-center gap-1 sm:gap-1.5 text-lg sm:text-xl md:text-2xl mt-6 sm:mt-8 md:mt-10 hover:text-blue-400 transition-colors bounceItem'>
-                    Descubre más <i className="fa-solid fa-angle-down animate-bounce"></i>
-                </button>
-            </div>
+                <div className='w-full h-max flex flex-col items-center top-10 max-md:top-20 max-w-7xl m-auto fixed
+                z-20
+                '>
+                    <div className='flex flex-col  md:flex-row items-center gap-3 sm:gap-5 md:gap-6 flex-wrap justify-center'>
+                        <span className='md:text-right text-center order-2 md:order-1'>
+                            <h2 className='flex items-center flex-wrap
+                        md:justify-end justify-center
+                        gap-2 sm:gap-3 text-3xl sm:text-4xl md:text-5xl font-bold bounceItem'>
+                                <i className="fa-solid fa-code text-orange-400 text-2xl sm:text-3xl md:text-4xl"></i>
+                                Soy Andelson
+                            </h2>
+                            <h3 className='text-4xl sm:text-5xl md:text-6xl text-green-600 font-bold mt-1 bounceItem'>
+                                Dev. FrontEnd
+                            </h3>
 
-            {/* Imagen con parallax */}
-            <motion.img
-                src={mountain}
-                alt="Decorativo"
-                className='relative bottom-0 left-0 w-full z-20 h-125 sm:h-175 md:h-200 lg:h-250 object-cover -mt-30 sm:-mt-28 md:-mt-50 lg:-mt-40'
-            />
-        </header>
+                            <div className='flex items-center md:justify-end justify-center gap-2 sm:gap-3 md:gap-3.5 flex-wrap mt-4 sm:mt-5 md:mt-6'>
+                                <span className='p-2 px-3 sm:p-2.5 sm:px-4 md:p-3 md:px-5 bg-bPage z-10 block w-max rounded-lg
+                            relative font-semibold text-xs sm:text-sm md:text-base
+
+                            after:-bottom-1.5 sm:after:-bottom-2 after:-left-1.5 sm:after:-left-2 after:absolute after:w-full after:h-full after:bg-blue-400/10 after:rounded-lg after:-z-10
+                            bounceItem '>
+                                    + 3 años de exp
+                                </span>
+
+                                <span className='p-2 px-3 sm:p-2.5 sm:px-4 md:p-3 md:px-5 bg-bPage z-10 block w-max rounded-lg
+                            relative font-semibold text-xs sm:text-sm md:text-base
+
+                            after:-bottom-1.5 sm:after:-bottom-2 after:-left-1.5 sm:after:-left-2 after:absolute after:w-full after:h-full after:bg-blue-400/10 after:rounded-lg after:-z-10
+                            bounceItem
+                            '>
+                                    + 15 proyectos realizados
+                                </span>
+                            </div>
+                        </span>
+                        <img
+                            src={perfil}
+                            alt="imagen de perfil"
+                            className='w-40 sm:w-52 md:w-60 lg:w-70 aspect-square object-cover rounded-full shadow-2xl order-1 md:order-2 bounceItem'
+                        />
+                    </div>
+
+                    <button className='flex flex-col items-center gap-1 sm:gap-1.5 text-lg sm:text-xl md:text-2xl mt-6 sm:mt-8 md:mt-10 hover:text-blue-400 transition-colors bounceItem'>
+                        Descubre más <i className="fa-solid fa-angle-down animate-bounce"></i>
+                    </button>
+                </div>
+            </header>
+        </div>
     )
 }
 
 function InfoAboutMe() {
     return (
-        <section className='w-full h-auto text-center'>
-            <img src={mountain} className='w-full rotate-180 z-20 relative' alt="decorativo" />
-            <div className='max-w-7xl mx-auto px-6 mt-10'>
-                <h2 className='text-6xl -mt-10 font-bold bounceItem'>¿Quien soy?</h2>
-                <p className='mt-5 text-center text-xl bounceItem'>Soy un dev Front - End con habilidades adiciones de Back - End. Mi portafolio refleja un crecimiento constante y un compromiso firme con la innovación. Cada proyecto que realizo es una fusión entre tecnología y creatividad.</p>
+        <section className='w-full h-screen text-center relative
+        bg-linear-to-t from-bgPage to-[#08061B] flex items-center justify-center
+        z-30
+        '>
+            {/* Transparente arriba → color de InfoAboutMe abajo */}
+            <span className='w-full h-24 bg-linear-to-b from-[#0E1F20] to-[#08061B] absolute -top-24 left-0 z-20 block' />
+
+            <div className="absolute inset-0 z-10">
+                <img
+                    src={details}
+                    alt="Bosque misterioso"
+                    className="w-full h-full object-cover opacity-90"
+                />
+                {/* Overlay sutil para oscurecer la zona central y ayudar al texto */}
+                <div className="absolute inset-0 bg-linear-to-b from-black/20 via-black/10 to-black/30" />
             </div>
+
+            <motion.div className="max-w-3xl mx-auto px-6 relative z-20"
+                initial={{ y: 80, scale: 0.5 }}
+                whileInView={{ scale: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+            >
+                <motion.h2
+                    className={`text-6xl md:text-7xl font-extrabold text-white mb-8 tracking-tighter bounceItem`}
+                >
+                    ¿Quién soy?
+                </motion.h2>
+
+                <p
+                    className={`mt-6 text-center text-xl md:text-2xl text-white leading-relaxed font-medium text-shadow-2xs/80 bounceItem`}
+                >
+                    Soy un dev <span className="text-emerald-300 font-bold">Front-End</span> con habilidades adicionales de <span className="text-emerald-300 font-bold">Back-End</span>.
+                    Mi portafolio refleja un crecimiento constante y un compromiso firme con la innovación.
+                    Cada proyecto que realizo es una <span className="text-emerald-100 font-semibold">fusión entre tecnología y creatividad</span>.
+                </p>
+            </motion.div>
         </section>
     )
 }
 
-
 function History() {
     return (
         <>
-            <section className='w-full h-90 bg-bPage flex items-center justify-center text-center p-4 mt-20 relative'>
+            <section className='w-full h-90 bg-bPage flex items-center justify-center text-center p-4 relative z-10'>
                 {/* Texto con efecto hundido/grabado */}
                 <h2
                     className="text-8xl sm:text-8xl md:text-9xl lg:text-9xl font-bold bounceItem"
@@ -132,28 +217,7 @@ function History() {
                 </h2>
             </section>
 
-            <section className='w-full max-w-7xl mx-auto h-auto relative mt-2 flex gap-5 flex-wrap p-4 sm:p-7 py-4 justify-center'>
-                {/* <article className='w-full sm:w-40 grow max-w-full sm:max-w-90 h-auto rounded-lg p-4 flex flex-col items-start gap-3 text-start relative z-2
-                
-                after:content-[""] after:absolute after:rounded-lg after:-z-2
-                after:bg-white/5 after:border after:border-gray-300/5
-                after:w-full after:h-[85%] after:bottom-0 after:left-0
-                '>
-                    <div className='relative w-full'>
-                        <img src={mountain} alt="imagen de proyecto" className='rounded-lg shadow-2xl' />
-
-                        <div className='absolute bottom-2 left-2 z-10 w-full flex items-center justify-start gap-2'>
-                            <button className='p-1 px-2.5 text-sm rounded-full bg-blue-400/50 text-white'> <i className="fa-solid fa-angle-left"></i> </button>
-
-                            <button className='p-1 px-2.5 text-sm rounded-full bg-blue-400/50 text-white'> <i className="fa-solid fa-angle-right"></i>  </button>
-                        </div>
-                    </div>
-
-                    <h3 className='font-bold text-xl sm:text-2xl'>Titulo del proyecto</h3>
-                    <p className='h-45 overflow-y-auto text-sm sm:text-base'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam quae deleniti expedita modi facilis voluptates beatae optio voluptate saepe autem!</p>
-                    <p className='text-white/15 text-sm'>Fecha: 15/2/2026</p>
-                </article> */}
-
+            <section className='w-full max-w-7xl mx-auto h-auto relative mt-2 flex gap-5 flex-wrap p-4 sm:p-7 py-4 justify-center z-10 bg-bgPage'>
                 {historiaData.map((item) => (
                     <HistoriaCard key={item.id} item={item} />
                 ))}
@@ -247,13 +311,34 @@ function HistoriaCard({ item }: HistoriaCardProps) {
     );
 }
 
-function Achievements() {
-    return (
-        <div className='w-full p-4 max-w-7xl mx-auto'>
-            <section className='w-full flex items-center gap-2 flex-wrap justify-center text-center mb-10 mt-20 z-2 relative min-h-125 sm:min-h-100'>
-                <img src={confeti} alt="Confeti" className='w-full h-full object-cover absolute top-0 left-0 -z-1' />
+import { useInView } from 'react-intersection-observer';
+import confetti from 'canvas-confetti';
 
-                <img src={trofeo} alt="Trofeo" className='w-[50%] object-fill bounceItem' />
+function Achievements() {
+    const { ref, inView } = useInView({ triggerOnce: true });
+
+    if (inView) {
+        confetti({
+            particleCount: 800,
+            spread: 800,
+            origin: { y: 0.6 },
+        });
+    }
+
+    return (
+        <div className='w-full p-4 max-w-7xl mx-auto'
+            ref={ref}
+        >
+            <section className='w-full flex items-center gap-2 flex-wrap justify-center text-center mb-10 mt-20 z-2 relative min-h-125 sm:min-h-100'>
+                <motion.img src={trofeo} alt="Trofeo" className='w-[50%] object-fill bounceItem'
+                    animate={{ y: -30 }}
+                    transition={{
+                        duration: 1,
+                        repeat: Infinity,
+                        repeatType: "reverse",
+                        ease: "easeInOut"
+                    }}
+                />
 
                 <span className="p-4 sm:p-7 bg-bPage rounded-2xl font-bold text-5xl sm:text-6xl md:text-7xl lg:text-8xl block relative
                 

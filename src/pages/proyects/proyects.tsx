@@ -2,7 +2,7 @@
 import VerImagen from './verImagen.tsx';
 
 // assets
-import projectBackground from '../../assets/fondo7_portafolio.jpg';
+import projectBackground from '../../assets/proyect_BG.jpg';
 import projectIcon from '../../assets/3d proyecto.png';
 
 // hooks
@@ -77,28 +77,23 @@ export default function Proyect() {
 
 function Header() {
     return (
-        <section className='w-full min-h-90 h-auto overflow-hidden relative z-1 flex items-center justify-center gap-3.5 flex-wrap p-5 rounded-t-2xl'>
+        <section className='w-full min-h-120 h-auto overflow-hidden relative z-1 flex items-center justify-center gap-3.5 flex-wrap p-5 rounded-br-3xl rounded-bl-3xl'>
             <img
                 src={projectBackground}
                 alt="Fondo proyecto"
-                className='absolute top-0 left-0 w-full h-full -z-10 blur-sm object-cover'
+                className='absolute top-0 left-0 w-full h-full -z-10 blur-sm object-cover
+                
+                '
             />
 
-            <h2 className='text-white text-5xl flex flex-col text-start font-bold max-w-md w-full bounceItem
-                md:text-5xl md:text-start
-                max-md:text-3xl max-md:text-center max-md:mt-10 max-md:w-full max-md:px-4'>
+            <h2 className='text-white text-6xl font-bold text-center bounceItem w-full max-w-4xl text-shadow-2xs/50'>
                 Descubre lo que he
-                <span className='font-bold bg-linear-to-r from-green-500 to-blue-500 bg-clip-text text-transparent 
+                <span className='font-bold bg-linear-to-r from-green-500 to-blue-500 bg-clip-text text-transparent ml-3 
                     md:text-6xl md:text-start
                     max-md:text-4xl max-md:text-center'>
                     creado con pasión.
                 </span>
             </h2>
-            <img
-                src={projectIcon}
-                alt="icono proyecto"
-                className='w-150 object-contain bounceItem'
-            />
         </section>
     );
 }
@@ -129,7 +124,7 @@ function Filters({ onFilterChange }: FiltersProps) {
     return (
         <section className="max-w-7xl mx-auto px-4 sm:px-7 mt-5">
             <div className="flex flex-col items-start gap-4 sm:gap-6 mb-8 sm:mb-12">
-                <div className="flex items-center space-x-2 sm:space-x-3 text-xl sm:text-2xl font-bold text-slate-800 dark:text-white bounceItem">
+                <div className="flex items-center space-x-2 sm:space-x-3 text-3xl font-bold text-slate-800 dark:text-white bounceItem">
                     <span>Categorías</span>
                     <i className="fas fa-chevron-right text-blue-600"></i>
                 </div>
@@ -280,93 +275,96 @@ function ProjectCard({ proyecto, variants, setOpen }: ProjectCardProps) {
     };
 
     const buttonContent = getButtonContent();
+    const stateProyect: boolean = proyecto?.state == false ? false : true; 
 
     return (
-        <motion.div
-            className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl overflow-hidden group relative h-full grid grid-rows-[auto_1fr] bounceItem"
-            variants={variants}
-        >
-            {/* Glow effect para destacados */}
-            {proyecto.categoria === 'destacado' && (
-                <div className="absolute -top-10 -right-10 w-32 h-32 bg-blue-600 opacity-20 blur-3xl group-hover:opacity-40 transition-opacity rounded-full"></div>
-            )}
-
-            {/* Image container */}
-            <div className="relative h-56 overflow-hidden">
-                <img
-                    alt={proyecto.titulo}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-200"
-                    src={proyecto.imagenes[currentImageIndex]}
-                />
-
-                {/* Navigation buttons - solo si hay más de 1 imagen */}
-                {proyecto.imagenes.length > 1 && (
-                    <>
-                        <div className="absolute bottom-3 left-3 flex space-x-2">
-                            <button
-                                onClick={handlePrevImage}
-                                className="w-7 h-7 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white hover:bg-blue-600 transition-colors active:scale-95"
-                            >
-                                <i className="fas fa-chevron-left text-xs"></i>
-                            </button>
-                            <button
-                                onClick={handleNextImage}
-                                className="w-7 h-7 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white hover:bg-blue-600 transition-colors active:scale-95"
-                            >
-                                <i className="fas fa-chevron-right text-xs"></i>
-                            </button>
-                        </div>
-
-                        {/* Indicador de imágenes */}
-                        <div className="absolute bottom-3 right-3 bg-black/50 backdrop-blur-sm px-2 py-1 rounded-full text-white text-xs">
-                            {currentImageIndex + 1} / {proyecto.imagenes.length}
-                        </div>
-                    </>
-                )}
-
-                {/* Badge de destacado */}
+        stateProyect && (
+            <motion.div
+                className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl overflow-hidden group relative h-full grid grid-rows-[auto_1fr] bounceItem"
+                variants={variants}
+            >
+                {/* Glow effect para destacados */}
                 {proyecto.categoria === 'destacado' && (
-                    <div className="absolute top-3 left-3 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
-                        <i className="fas fa-star mr-1"></i>
-                        Destacado
-                    </div>
+                    <div className="absolute -top-10 -right-10 w-32 h-32 bg-blue-600 opacity-20 blur-3xl group-hover:opacity-40 transition-opacity rounded-full"></div>
                 )}
-            </div>
 
-            {/* Content */}
-            <div className="p-5 relative z-10 grid grid-rows-[auto_auto_1fr_auto]">
-                <h3 className="text-lg font-bold mb-2 text-slate-800 dark:text-white">
-                    {proyecto.titulo}
-                </h3>
+                {/* Image container */}
+                <div className="relative h-56 overflow-hidden">
+                    <img
+                        alt={proyecto.titulo}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-200"
+                        src={proyecto.imagenes[currentImageIndex]}
+                    />
 
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-2 mb-3">
-                    {tecnologias.map((tech) => (
-                        <span
-                            key={tech.id}
-                            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-200/50 dark:bg-slate-700/50 text-xs font-medium text-slate-700 dark:text-slate-300 h-max"
-                        >
-                            <i className={tech.icono}></i>
-                            {tech.nombre}
-                        </span>
-                    ))}
+                    {/* Navigation buttons - solo si hay más de 1 imagen */}
+                    {proyecto.imagenes.length > 1 && (
+                        <>
+                            <div className="absolute bottom-3 left-3 flex space-x-2">
+                                <button
+                                    onClick={handlePrevImage}
+                                    className="w-7 h-7 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white hover:bg-blue-600 transition-colors active:scale-95"
+                                >
+                                    <i className="fas fa-chevron-left text-xs"></i>
+                                </button>
+                                <button
+                                    onClick={handleNextImage}
+                                    className="w-7 h-7 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white hover:bg-blue-600 transition-colors active:scale-95"
+                                >
+                                    <i className="fas fa-chevron-right text-xs"></i>
+                                </button>
+                            </div>
+
+                            {/* Indicador de imágenes */}
+                            <div className="absolute bottom-3 right-3 bg-black/50 backdrop-blur-sm px-2 py-1 rounded-full text-white text-xs">
+                                {currentImageIndex + 1} / {proyecto.imagenes.length}
+                            </div>
+                        </>
+                    )}
+
+                    {/* Badge de destacado */}
+                    {proyecto.categoria === 'destacado' && (
+                        <div className="absolute top-3 left-3 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
+                            <i className="fas fa-star mr-1"></i>
+                            Destacado
+                        </div>
+                    )}
                 </div>
 
-                <p
-                    className="text-slate-500 dark:text-slate-400 text-sm mb-4 h-auto overflow-y-auto scrollbar max-h-50"
-                    dangerouslySetInnerHTML={{ __html: proyecto.descripcion }}
-                />
+                {/* Content */}
+                <div className="p-5 relative z-10 grid grid-rows-[auto_auto_1fr_auto]">
+                    <h3 className="text-lg font-bold mb-2 text-slate-800 dark:text-white">
+                        {proyecto.titulo}
+                    </h3>
 
-                {buttonContent && (
-                    <button
-                        onClick={buttonContent.action}
-                        className="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-blue-600/10 dark:bg-blue-600/20 text-blue-600 hover:bg-blue-600 hover:text-white transition-all font-semibold text-sm cursor-pointer"
-                    >
-                        {buttonContent.text}
-                        <i className={`${buttonContent.icon} ml-2 text-xs`}></i>
-                    </button>
-                )}
-            </div>
-        </motion.div>
+                    {/* Technologies */}
+                    <div className="flex flex-wrap gap-2 mb-3">
+                        {tecnologias.map((tech) => (
+                            <span
+                                key={tech.id}
+                                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-200/50 dark:bg-slate-700/50 text-xs font-medium text-slate-700 dark:text-slate-300 h-max"
+                            >
+                                <i className={tech.icono}></i>
+                                {tech.nombre}
+                            </span>
+                        ))}
+                    </div>
+
+                    <p
+                        className="text-slate-500 dark:text-slate-400 text-sm mb-4 h-auto overflow-y-auto scrollbar max-h-50"
+                        dangerouslySetInnerHTML={{ __html: proyecto.descripcion }}
+                    />
+
+                    {buttonContent && (
+                        <button
+                            onClick={buttonContent.action}
+                            className="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-blue-600/10 dark:bg-blue-600/20 text-blue-600 hover:bg-blue-600 hover:text-white transition-all font-semibold text-sm cursor-pointer"
+                        >
+                            {buttonContent.text}
+                            <i className={`${buttonContent.icon} ml-2 text-xs`}></i>
+                        </button>
+                    )}
+                </div>
+            </motion.div>
+        )
     );
 }

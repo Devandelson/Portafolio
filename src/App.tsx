@@ -12,6 +12,7 @@ import HomePage from './pages/homePage/home.tsx';
 import About from './pages/aboutMe/about.tsx';
 import Archive from './pages/archive/archive.tsx';
 import Proyect from './pages/proyects/proyects.tsx';
+import Setting from "./pages/settings/setting.tsx";
 
 // Componentes
 import Menu from './components/flotante/menu.tsx';
@@ -112,6 +113,7 @@ function App() {
                 <Route path='/sobreMi' element={<About />} />
                 <Route path='/archivo' element={<Archive />} />
                 <Route path='/proyectos' element={<Proyect />} />
+                <Route path='/setting' element={<Setting />} />
               </Route>
             </Routes>
           </AnimatePresence>

@@ -47,7 +47,10 @@ export interface Proyecto {
     enlace: string;
     tipoBoton: 'visualizar' | 'github' | 'imagen';
     logos: number[]; // IDs de tecnologías
+    state?: boolean;
 }
+
+
 
 export const proyectosData: Proyecto[] = [
     {
@@ -58,7 +61,8 @@ export const proyectosData: Proyecto[] = [
         imagenes: [rutafit1],
         enlace: 'https://rutafit.free.nf/',
         tipoBoton: 'visualizar',
-        logos: [2, 5, 6, 12, 13, 15, 16, 17, 18]
+        logos: [2, 5, 6, 12, 13, 15, 16, 17, 18],
+        state: false
     },
     {
         id: 3,

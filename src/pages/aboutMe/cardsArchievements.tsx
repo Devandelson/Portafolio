@@ -28,6 +28,7 @@ export default function LogroCard({ logro, index }: LogroCardProps) {
             hover:shadow-2xl hover:shadow-blue-400/20
             ${isActive ? 'shadow-2xl shadow-blue-400/20' : ''}
             `}
+            
         >
             <img
                 src={logro.imagen}

@@ -249,7 +249,7 @@ function MotionType() {
 export default function Setting() {
     return (
         <motion.main
-            className="w-full h-screen overflow-y-auto fixed top-0 left-0 z-30 bg-[#f0f4f8] dark:bg-[#020617] transition-colors duration-200 scrollbar rounded-2xl"
+            className="w-full h-screen overflow-y-auto z-60 bg-[#f0f4f8] dark:bg-[#020617] transition-colors duration-200 scrollbar rounded-2xl"
             initial={{ x: "-100%", filter: "blur(10px)", opacity: 0 }}
             animate={{ x: 0, filter: "blur(0px)", opacity: 1 }}
             exit={{ x: "-100%", filter: "blur(10px)", opacity: 0 }}

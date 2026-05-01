@@ -40,9 +40,9 @@ const SocialFloat = ({ setParticle, particleSelect, particle }: {
     }, [indiceParticle]);
 
     return (
-        <motion.ul className="flex gap-3 fixed items-center  bg-bgPage/30 backdrop-blur-lg p-2 px-4 rounded-full border border-white/5 z-40 top-5 right-5
-
-        max-md:top-23 max-md:right-[65%]
+        <motion.ul className="flex gap-3 fixed items-center  bg-bgPage/30 backdrop-blur-lg p-2 px-4 rounded-full border border-white/5 z-70 top-5 right-5
+        w-max
+        max-md:top-23 max-md:left-5
         "
             initial={{ opacity: 0, x: -100 }}
             animate={{ opacity: 1, x: 0 }}

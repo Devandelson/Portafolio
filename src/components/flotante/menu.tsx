@@ -1,10 +1,6 @@
-// Components
-import Setting from "../../pages/settings/setting.tsx";
-
 // Hooks
 import { motion, AnimatePresence } from "motion/react"
 import { useState, type Dispatch, type ReactNode, type SetStateAction } from "react";
-import Swal from 'sweetalert2';
 
 // -- contexts
 import { useMenu } from '../../context/menu/switchMenu.tsx';
@@ -14,7 +10,7 @@ const Menu = ({ children }: { children: ReactNode }) => {
     const [activeSetting, setActiveSetting] = useState(false);
 
     return (
-        <div className="w-full min-h-screen relative h-auto bg-bPage/40 
+        <div className="w-full min-h-screen relative h-auto bg-bPage/40
          flex flex-col md:grid md:grid-cols-[auto_1fr] grid-rows-1
         ">
             {/* Menu Mobile - Horizontal en la parte superior */}
@@ -42,11 +38,15 @@ const Menu = ({ children }: { children: ReactNode }) => {
 
             {/* Menu Desktop - Vertical en el lado */}
             <motion.ul
-                className="hidden md:flex flex-col gap-5 items-center pt-13 h-max sticky top-0 left-1.5 w-18 z-50"
+                className="hidden md:flex flex-col gap-5 items-center pt-13 sticky z-50 pr-7 
+                w-max h-max top-0 left-3
+                "
                 initial={{ opacity: 0, x: -100 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
             >
+                <span className="w-7 h-screen absolute -right-4 z-10 bg-bgPage/40 top-0 content-none block">
+                </span>
                 {
                     listMenu.map((menu, index) => (
                         <MenuOption
@@ -63,15 +63,10 @@ const Menu = ({ children }: { children: ReactNode }) => {
                 }
             </motion.ul>
 
-            <div className="w-full flex items-center justify-center bg-bpage p-2 sm:p-3 md:p-4 px-1 sm:pr-3
-            h-full
-            ">
-                <div className="w-full h-full rounded-2xl relative bg-bgPage">
+            <div className="relative w-full h-screen flex flex-col items-center justify-center bg-bpage rounded-tl-4xl rounded-bl-4xl overflow-hidden z-60">
+                <div className="w-full h-full overflow-y-auto relative bg-bgPage">
                     <AnimatePresence mode="wait">
-                        {activeSetting ? 
-                            <Setting key={"setting"}></Setting>
-                            : <div key="childrenn">{children}</div>
-                        }
+                        <div key="children">{children}</div>
                     </AnimatePresence>
                 </div>
             </div>
@@ -89,29 +84,23 @@ function MenuOption(
         isMobile = false,
         animationConfig
     }:
-    {
-        icon: string,
-        isConfig: boolean,
-        isActive: boolean,
-        name?: string,
-        action?: (name: string) => void,
-        isMobile?: boolean,
-        animationConfig?: Dispatch<SetStateAction<boolean>>
-    }
+        {
+            icon: string,
+            isConfig: boolean,
+            isActive: boolean,
+            name?: string,
+            action?: (name: string) => void,
+            isMobile?: boolean,
+            animationConfig?: Dispatch<SetStateAction<boolean>>
+        }
 ) {
     const config = isConfig ? ['text-base sm:text-lg md:text-xl', isMobile ? '' : 'mb-4'] : ['text-xl sm:text-2xl', ''];
     const active = isActive ? 'bg-blue-400 shadow-lg text-white shadow-blue-400' : 'bg-bPage text-white/80';
 
-    const handleClick = 
-        isConfig 
-        ? () => {
-            animationConfig?.((prev) => !prev);
-        } 
-        :
-        () => {
-            action?.(name || '');
-            animationConfig?.(false);
-        };
+    const handleClick = () => {
+        action?.(name || '');
+        animationConfig?.(false);
+    };
 
     return (
         <li className={
