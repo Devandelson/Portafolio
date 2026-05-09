@@ -179,7 +179,9 @@ function ItemParticle({ data, mirror, onRemove, onUpdateY }: ItemParticleProps) 
                     width: '100%',
                     display: 'block',
                     filter: 'hue-rotate(85deg) saturate(1.3) brightness(1.0)',
+                    pointerEvents: 'none',
                 }}
+                className="max-md:pointer-events-none!"
             />
         </motion.div>
     );

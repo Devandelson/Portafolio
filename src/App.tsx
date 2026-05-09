@@ -17,13 +17,12 @@ const Setting = lazy(() => import('./pages/settings/setting.tsx'));
 // Componentes
 import Menu from './components/flotante/menu.tsx';
 import SocialFloat from './components/flotante/controles.tsx';
-const Particle1 = lazy(() => import('./components/particulas/particle1.tsx'));
-const Particle2 = lazy(() => import('./components/particulas/particle2.tsx'));
-const Particle3 = lazy(() => import('./components/particulas/particle3.tsx'));
-const LineaCodigo = lazy(() => import('./components/particulas/lineCode.tsx'));
+import Particle1 from './components/particulas/particle1.tsx';
+import Particle2 from './components/particulas/particle2.tsx';
+import Particle3 from './components/particulas/particle3.tsx';
+import LineaCodigo from './components/particulas/lineCode.tsx';
 import Loader from './components/flotante/LoadScreen.tsx';
 import Sonido from './components/flotante/sonido.tsx';
-
 
 // Types
 import { type particle } from './types/particles/particle.ts';
@@ -84,7 +83,7 @@ function Layout() {
             duration: 0.4,
           }}
           className='fixed top-0 left-0 w-full
-                h-full overflow-hidden z-70 rounded-2xl pointer-events-none bg-transparent'
+                h-full overflow-hidden z-70 rounded-2xl pointer-events-none! bg-white/0'
         >
           {particleSelect?.particle}
         </motion.div>

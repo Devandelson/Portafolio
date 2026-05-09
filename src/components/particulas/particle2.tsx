@@ -87,7 +87,7 @@ function ItemParticle({ item }: ItemParticleProps) {
 
     return (
         <motion.span
-            className="absolute p-6 pointer-events-auto"
+            className="absolute p-6 pointer-events-auto max-md:pointer-events-none!"
             style={{ x: offsetX, left: item.x, top: -100 }}
             animate={{ y: ["-30px", "130vh"] }}
             transition={{
