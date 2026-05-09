@@ -1,27 +1,29 @@
 // hooks
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router';
 import { AnimatePresence, motion } from 'motion/react';
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 
 // Contextos
 import { MenuProvider } from './context/menu/switchMenu.tsx';
 import { SwitchAnimationProvider } from './context/animations/switchAnimation.tsx';
 
 // Páginas
-import HomePage from './pages/homePage/home.tsx';
-import About from './pages/aboutMe/about.tsx';
-import Archive from './pages/archive/archive.tsx';
-import Proyect from './pages/proyects/proyects.tsx';
-import Setting from "./pages/settings/setting.tsx";
+const HomePage = lazy(() => import('./pages/homePage/home.tsx'));
+const About = lazy(() => import('./pages/aboutMe/about.tsx'));
+const Archive = lazy(() => import('./pages/archive/archive.tsx'));
+const Proyect = lazy(() => import('./pages/proyects/proyects.tsx'));
+const Setting = lazy(() => import('./pages/settings/setting.tsx'));
 
 // Componentes
 import Menu from './components/flotante/menu.tsx';
 import SocialFloat from './components/flotante/controles.tsx';
-import Particle1 from './components/particulas/particle1.tsx';
-import Particle2 from './components/particulas/particle2.tsx';
-import Particle3 from './components/particulas/particle3.tsx';
-import LineaCodigo from './components/particulas/lineCode.tsx';
+const Particle1 = lazy(() => import('./components/particulas/particle1.tsx'));
+const Particle2 = lazy(() => import('./components/particulas/particle2.tsx'));
+const Particle3 = lazy(() => import('./components/particulas/particle3.tsx'));
+const LineaCodigo = lazy(() => import('./components/particulas/lineCode.tsx'));
+import Loader from './components/flotante/LoadScreen.tsx';
 import Sonido from './components/flotante/sonido.tsx';
+
 
 // Types
 import { type particle } from './types/particles/particle.ts';
@@ -82,7 +84,7 @@ function Layout() {
             duration: 0.4,
           }}
           className='fixed top-0 left-0 w-full
-                h-full overflow-hidden z-30 rounded-2xl pointer-events-none bg-transparent'
+                h-full overflow-hidden z-70 rounded-2xl pointer-events-none bg-transparent'
         >
           {particleSelect?.particle}
         </motion.div>
@@ -108,7 +110,11 @@ function App() {
         <SwitchAnimationProvider>
           <AnimatePresence mode='wait'>
             <Routes>
-              <Route element={<Layout />}>
+              <Route element={
+                <Suspense fallback={<Loader />}>
+                  <Layout />
+                </Suspense>
+              }>
                 <Route path='/' element={<HomePage />} />
                 <Route path='/sobreMi' element={<About />} />
                 <Route path='/archivo' element={<Archive />} />

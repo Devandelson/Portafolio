@@ -4,7 +4,7 @@ import perfil2 from '../../assets/Trofeo.svg';
 import trofeo from '../../assets/Trofeo.png';
 import bg_about from '../../assets/about-me5.png';
 import bg_about2 from '../../assets/about-me5.svg';
-import details from '../../assets/detail.svg';
+import details from '../../assets/Detail.jpg';
 
 // hooks
 import { motion } from "motion/react"
@@ -53,7 +53,7 @@ function HeaderAbout() {
         
         h-screen
         relative'>
-            <header className='w-full h-full relative z-10'>
+            <header className='w-full h-full relative z-10 overflow-hidden'>
                 <img src={bg_about} className='absolute w-full h-full top-0 left-0 z-10 object-cover' />
                 <img src={bg_about2} className='absolute w-full h-full top-0 left-0 z-30 object-cover' />
 
@@ -107,10 +107,9 @@ function HeaderAbout() {
                     </button>
                 </div>
 
-                <div className='w-full h-max flex flex-col items-center top-10 max-md:top-20 max-w-7xl m-auto fixed
-                z-20
+                <div className='w-max h-max flex flex-col items-center top-10 max-md:top-20  fixed z-20 justify-center text-center left-1/2 -translate-x-[45%]
                 '>
-                    <div className='flex flex-col  md:flex-row items-center gap-3 sm:gap-5 md:gap-6 flex-wrap justify-center'>
+                    <div className='flex flex-col md:flex-row items-center gap-3 sm:gap-5 md:gap-6 flex-wrap justify-center w-max m-auto'>
                         <span className='md:text-right text-center order-2 md:order-1'>
                             <h2 className='flex items-center flex-wrap
                         md:justify-end justify-center
@@ -164,7 +163,7 @@ function InfoAboutMe() {
         z-30
         '>
             {/* Transparente arriba → color de InfoAboutMe abajo */}
-            <span className='w-full h-24 bg-linear-to-b from-[#0E1F20] to-[#08061B] absolute -top-24 left-0 z-20 block' />
+            <span className='w-full h-24 bg-linear-to-b from-[#0E1F20] to-[#010D0A] absolute -top-24 left-0 z-20 block' />
 
             <div className="absolute inset-0 z-10">
                 <img
@@ -177,9 +176,9 @@ function InfoAboutMe() {
             </div>
 
             <motion.div className="max-w-3xl mx-auto px-6 relative z-20"
-                initial={{ y: 80, scale: 0.5 }}
-                whileInView={{ scale: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
+                initial={{ y: 80, scale: 0.2, opacity: 0 }}
+                whileInView={{ scale: 1, y: 0, opacity: 1 }}
+                transition={{ duration: 0.8 }}
             >
                 <motion.h2
                     className={`text-6xl md:text-7xl font-extrabold text-white mb-8 tracking-tighter bounceItem`}

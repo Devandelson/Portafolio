@@ -28,7 +28,7 @@ export default function Skills() {
 
     return (
         <section className="relative block bg-bgPage
-        bg-linear-to-b from-black to-bgPage to-35% z-40 mb-20 p-10
+        bg-linear-to-b from-[#010D0A] to-bgPage to-35% z-40 mb-20 p-10
         " id="skills">
             <div className="container mx-auto px-6">
                 {/* HEADER */}

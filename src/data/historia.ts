@@ -52,7 +52,7 @@ export const historiaData: HistoriaItem[] = [
         descripcion: '¡Estoy súper emocionado! Logré hacer una interfaz de login completa sin ayuda de inteligencia artificial, usando Tailwind CSS. Ver el resultado final y saber que lo hice por mi cuenta es una gran satisfacción. ¡Vamos por más! 💻✨'
     },
     {
-        id: 12,
+        id: 13,
         fecha: '2025-11-11 - 2026-2-11',
         imagenes: [
             logro7
