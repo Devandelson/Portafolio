@@ -1,7 +1,6 @@
 // -- assets
 import perfil from '../../assets/Mi foto.jpg';
 import trofeo from '../../assets/Trofeo.png';
-import bg_about from '../../assets/Home_v2.jpg';
 import bg_about2 from '../../assets/Home_v2SS.png';
 import Moon from '../../assets/Moon.png';
 import sky from '../../assets/sky.png';
