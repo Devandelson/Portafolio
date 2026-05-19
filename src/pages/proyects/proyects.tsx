@@ -133,7 +133,7 @@ function Filters({ onFilterChange }: FiltersProps) {
                         <button
                             key={filter.value}
                             onClick={() => handleFilterClick(filter.value)}
-                            className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl font-medium shadow-md transition-all text-sm sm:text-base
+                            className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl font-medium shadow-md transition-all text-sm sm:text-base cursor-pointer
                                 ${activeFilter === filter.value
                                     ? 'bg-blue-600 text-white shadow-blue-600/20'
                                     : 'bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-white'
@@ -274,7 +274,7 @@ function ProjectCard({ proyecto, variants, setOpen }: ProjectCardProps) {
     };
 
     const buttonContent = getButtonContent();
-    const stateProyect: boolean = proyecto?.state == false ? false : true; 
+    const stateProyect: boolean = proyecto?.state == false ? false : true;
 
     return (
         stateProyect && (
@@ -289,11 +289,20 @@ function ProjectCard({ proyecto, variants, setOpen }: ProjectCardProps) {
 
                 {/* Image container */}
                 <div className="relative h-56 overflow-hidden">
-                    <img
-                        alt={proyecto.titulo}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-200"
-                        src={proyecto.imagenes[currentImageIndex]}
-                    />
+                    <AnimatePresence mode='wait'>
+                        <motion.img
+                            alt={proyecto.titulo}
+                            className="w-full h-full object-cover group-hover:scale-110 transition-all"
+                            src={proyecto.imagenes[currentImageIndex]}
+                            key={proyecto.imagenes[currentImageIndex]}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -20 }}
+                            transition={{
+                                duration: 0.2
+                            }}
+                        />
+                    </AnimatePresence>
 
                     {/* Navigation buttons - solo si hay más de 1 imagen */}
                     {proyecto.imagenes.length > 1 && (

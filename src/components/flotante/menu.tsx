@@ -11,7 +11,7 @@ const Menu = ({ children }: { children: ReactNode }) => {
 
     return (
         <div className="w-full min-h-screen relative h-auto bg-bPage/40
-         flex flex-col md:grid md:grid-cols-[auto_1fr] grid-rows-1
+         flex flex-col md:grid md:grid-cols-[auto_1fr] grid-rows-1 z-50 translate-0
         ">
             {/* Menu Mobile - Horizontal en la parte superior */}
             <motion.ul

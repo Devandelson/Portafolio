@@ -78,7 +78,7 @@ export const proyectosData: Proyecto[] = [
         id: 4,
         categoria: 'destacado',
         titulo: 'App de notas',
-        descripcion: 'Una app de notas personalizable y eficiente, desarrollada mientras curso Semillero Digital Intro de OGTIC, diseñada para crear, organizar y buscar notas de manera flexible y efectiva.',
+        descripcion: 'Una app de notas personalizable y eficiente, desarrollada mientras estube en el curso Semillero Digital Intro de OGTIC, diseñada para crear, organizar y buscar notas de manera flexible y efectiva.',
         imagenes: [appNotas],
         enlace: 'https://flexo.infinityfreeapp.com/index.php',
         tipoBoton: 'visualizar',
@@ -202,7 +202,8 @@ export const proyectosData: Proyecto[] = [
         imagenes: [appSimulacion],
         enlace: 'uploadPages/app web simulacion/index.html',
         tipoBoton: 'visualizar',
-        logos: [5, 2, 6]
+        logos: [5, 2, 6],
+        state: false
     },
     {
         id: 17,
@@ -212,7 +213,8 @@ export const proyectosData: Proyecto[] = [
         imagenes: [store],
         enlace: 'uploadPages/Tienda celulares Anderson/index.html',
         tipoBoton: 'visualizar',
-        logos: [5, 2, 6]
+        logos: [5, 2, 6],
+        state: false
     },
     {
         id: 18,
@@ -222,7 +224,8 @@ export const proyectosData: Proyecto[] = [
         imagenes: [transacciones],
         enlace: 'uploadPages/Transacciones/index.html',
         tipoBoton: 'visualizar',
-        logos: [5, 2, 6]
+        logos: [5, 2, 6],
+         state: false
     },
     {
         id: 19,
@@ -238,7 +241,7 @@ export const proyectosData: Proyecto[] = [
         id: 20,
         categoria: 'regular',
         titulo: 'Ordenix',
-        descripcion: 'Ordenix es la app perfecta para quienes buscan controlar sus ventas con estilo y eficiencia: desde la creación de pedidos hasta el seguimiento de ganancias diarias, todo está al alcance de un clic. Su diseño claro y moderno te permite ver productos, pagos y estados de entrega en segundos, haciendo que la gestión de tu negocio sea tan fluida como tus mejores días de ventas.',
+        descripcion: 'Ordenix, crud de practica completo en donde puedes controlar tus ventas con estilo y eficiencia: desde la creación de pedidos hasta el seguimiento de ganancias diarias, todo está al alcance de un clic. Su diseño claro y moderno te permite ver productos, pagos y estados de entrega en segundos, haciendo que la gestión de tu negocio sea tan fluida como tus mejores días de ventas.',
         imagenes: [ordenix],
         enlace: 'https://devandelson.github.io/ordenix/',
         tipoBoton: 'visualizar',

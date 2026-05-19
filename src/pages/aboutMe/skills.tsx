@@ -1,3 +1,5 @@
+import vsCode from '../../assets/vscode.png'
+
 export default function Skills() {
     // -- info
     // ---- FrontEnd
@@ -23,12 +25,11 @@ export default function Skills() {
     const skillsTools = [
         { name: "Figma", icon: "fa-brands fa-figma", color: "group-hover:text-pink-400", border: "hover:border-pink-400/40", shadow: "hover:shadow-[0_0_20px_rgba(244,114,182,0.25)]" },
         { name: "Git", icon: "fa-brands fa-git-alt", color: "group-hover:text-orange-500", border: "hover:border-orange-500/40", shadow: "hover:shadow-[0_0_20px_rgba(249,115,22,0.25)]" },
-        { name: "GitHub", icon: "fa-brands fa-github", color: "group-hover:text-white", border: "hover:border-white/40", shadow: "hover:shadow-[0_0_20px_rgba(255,255,255,0.25)]" },
+        { name: "Visual Studio Code", icon: "fa-regular fa-window-restore", color: "group-hover:text-white", border: "hover:border-white/40", shadow: "hover:shadow-[0_0_20px_rgba(255,255,255,0.25)]", img: vsCode},
     ];
 
     return (
-        <section className="relative block bg-bgPage
-        bg-linear-to-b from-[#010D0A] to-bgPage to-35% z-40 mb-20 p-10
+        <section className="relative block z-40 mb-20 p-10
         " id="skills">
             <div className="container mx-auto px-6">
                 {/* HEADER */}
@@ -60,7 +61,7 @@ export default function Skills() {
 }
 
 function ContainerCategorySkills({ Skills, title }: {
-    Skills: { name: string, icon: string, color: string, border: string, shadow: string }[]
+    Skills: { name: string, icon: string, color: string, border: string, shadow: string, img?: string }[]
     title: string
 }) {
     return (
@@ -78,6 +79,7 @@ function ContainerCategorySkills({ Skills, title }: {
                         color={skill.color}
                         border={skill.border}
                         shadow={skill.shadow}
+                        img={skill.img ?? ''}
                     />
                 ))}
             </div>
@@ -85,15 +87,19 @@ function ContainerCategorySkills({ Skills, title }: {
     )
 }
 
-function SkillCard({ icon, title, color, border, shadow }: { icon: string, title: string, color: string, border: string, shadow: string }) {
+function SkillCard({ icon, title, color, border, shadow, img }: { icon: string, title: string, color: string, border: string, shadow: string, img?: string }) {
     return (
-        <article className={`group relative p-5 py-6 w-50 grow flex flex-wrap justify-center text-center items-center gap-4 rounded-lg border border-white/5 bg-linear-to-br from-[#07121a] to-[#041018] transition-all duration-300 hover:-translate-y-1 bounceItem ${border} ${shadow}`}>
+        <article className={`group w-max relative p-5 py-6 grow flex flex-wrap justify-center text-center items-center gap-3 rounded-lg border border-white/5 bg-linear-to-br from-[#07121a] to-[#041018] transition-all duration-300 hover:-translate-y-1 bounceItem ${border} ${shadow}`}>
 
             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-current transition-all duration-500 group-hover:w-full"></span>
 
-            <i className={`${icon} text-5xl text-gray-500 transition-all duration-300 ${color}`}></i>
+            {img ? (
+                <img src={img} alt={title} className="w-8 aspect-square object-cover" />
+            ) : (
+                <i className={`${icon} text-3xl text-gray-500 transition-all duration-300 ${color}`}></i>
+            )}
 
-            <h4 className="text-2xl w-full font-bold transition-colors duration-300 group-hover:text-white break-all text-balance">{title}</h4>
+            <h4 className="text-xl font-bold transition-colors duration-300 group-hover:text-white break-all text-balance">{title}</h4>
         </article>
     )
 }
