@@ -64,7 +64,7 @@ const Menu = ({ children }: { children: ReactNode }) => {
             </motion.ul>
 
             <div className="relative w-full h-screen flex flex-col items-center justify-center bg-bpage rounded-tl-4xl rounded-bl-4xl overflow-hidden z-60">
-                <div className="w-full h-full overflow-y-auto relative bg-bgPage">
+                <div className="w-full h-full overflow-y-auto relative">
                     <AnimatePresence mode="wait">
                         <div key="children">{children}</div>
                     </AnimatePresence>

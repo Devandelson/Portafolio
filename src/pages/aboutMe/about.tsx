@@ -7,7 +7,8 @@ import sky from '../../assets/sky.png';
 
 // hooks
 import { motion, type Variants } from "motion/react"
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import Tilt from 'react-parallax-tilt';
 
 // -- contexts
 import { useSwitchAnimation } from '../../context/animations/switchAnimation.tsx';
@@ -25,6 +26,11 @@ export default function About() {
     const animationActive = animations.find(animation => animation.active);
     const animation = animationActive ? animationActive.animation : undefined;
 
+    const referensReft = useRef<HTMLDivElement | null>(null);
+    function goSection() {
+        referensReft.current?.scrollIntoView({behavior: 'smooth'})
+    }
+
     return (
         <motion.section className={`w-full h-auto text-white bg-bgPage`}
             key={'about'}
@@ -35,8 +41,8 @@ export default function About() {
             transition={{ duration: 0.4 }}
         >
 
-            <HeaderAbout />
-            <InfoAboutMe />
+            <HeaderAbout goSection={goSection} />
+            <InfoAboutMe referensReft={referensReft} />
             <div className='bg-bgPage relative z-30'>
                 <Skills />
                 <History />
@@ -59,7 +65,7 @@ function ButtonHeader({ title }: { title: string }) {
     )
 }
 
-function HeaderAbout() {
+function HeaderAbout({goSection}: {goSection: () => void}) {
     const cardVariants: Variants = {
         offscreen: {
             y: '100px',
@@ -134,7 +140,9 @@ function HeaderAbout() {
                         <ButtonHeader title="+ 15 proyectos realizados" />
                     </div>
 
-                    <button className='flex flex-col items-center gap-1 sm:gap-1.5 text-lg sm:text-xl md:text-2xl mt-6 sm:mt-8 md:mt-10 hover:text-blue-400 transition-colors bounceItem cursor-pointer'>
+                    <button className='flex flex-col items-center gap-1 sm:gap-1.5 text-lg sm:text-xl md:text-2xl mt-6 sm:mt-8 md:mt-10 hover:text-blue-400 transition-colors bounceItem cursor-pointer'
+                        onClick={goSection}
+                    >
                         Descubre más <i className="fa-solid fa-angle-down animate-bounce"></i>
                     </button>
                 </motion.div>
@@ -143,11 +151,13 @@ function HeaderAbout() {
     )
 }
 
-function InfoAboutMe() {
+function InfoAboutMe({referensReft}: {referensReft: React.RefObject<HTMLDivElement | null>}) {
     return (
         <section className='w-full min-h-[70vh] text-center relative
         bg-linear-to-t from-bgPage to-[#09192f] flex items-center justify-center
-        z-30'>
+        z-30'
+            ref={referensReft}
+        >
             <motion.div className="max-w-3xl mx-auto px-6 relative z-20"
                 initial={{ y: 80, opacity: 0, scale: 1 }}
                 whileInView={{ y: 0, opacity: 1, scale: 1 }}
@@ -304,15 +314,23 @@ function Achievements() {
             ref={ref}
         >
             <section className='w-full flex items-center gap-2 flex-wrap justify-center text-center mb-10 mt-20 z-2 relative min-h-125 sm:min-h-100'>
-                <motion.img src={trofeo} alt="Trofeo" className='w-[50%] object-fill bounceItem'
-                    animate={{ y: -30 }}
-                    transition={{
-                        duration: 1,
-                        repeat: Infinity,
-                        repeatType: "reverse",
-                        ease: "easeInOut"
-                    }}
-                />
+                <Tilt
+                    scale={1.15} transitionSpeed={2500} reset={false}
+                >
+                    <motion.img src={trofeo} alt="Trofeo" className='w-87.5 object-fill bounceItem cursor-pointer!'
+                        // 1. Activamos el arrastre en ambos ejes
+                        drag
+                        // 2. Limitamos el movimiento (0 significa que su "casa" es el centro)
+                        dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+                        // 3. Qué tan elástico es el rebote al jalarlo (0 = rígido, 1 = súper suelto)
+                        dragElastic={0.15}
+                        // 4. Suavidad de la física de retorno
+                        dragTransition={{ bounceStiffness: 600, bounceDamping: 15 }}
+                        // 5. Animación rápida mientras mantienes el touch/click presionado
+                        whileTap={{ scale: 0.95, cursor: "grabbing" }}
+                    />
+                </Tilt>
+
 
                 <span className="p-4 sm:p-7 bg-bPage rounded-2xl font-bold text-5xl sm:text-6xl md:text-7xl lg:text-8xl block relative
                 
@@ -358,12 +376,12 @@ function ContactForm() {
                     </div>
                     <div className="flex items-center justify-center gap-3 mb-3">
                         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white" style={{ fontFamily: "'Syne', sans-serif" }}>
-                            Contáctame aquí
+                            ¿Hablamos?
                         </h2>
                         <i className="fas fa-sparkles text-emerald-400 text-xl sm:text-2xl"></i>
                     </div>
-                    <p className="text-slate-400 text-sm sm:text-base">
-                        ¿Tienes un proyecto en mente? Hablemos y hagámoslo realidad
+                    <p className="text-slate-400 text-sm sm:text-base max-w-md mx-auto">
+                        Estoy buscando nuevas oportunidades profesionales. Si crees que mi perfil encaja en tu equipo, me encantaría conversar.
                     </p>
                 </div>
 
@@ -378,10 +396,10 @@ function ContactForm() {
                         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
                             <div>
                                 <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-                                    Envíame un mensaje
+                                    Ponte en contacto
                                 </h3>
                                 <p className="text-slate-400 text-xs sm:text-sm">
-                                    Lleva tu marca al siguiente nivel
+                                    Abierto a nuevas vacantes y desafíos técnicos
                                 </p>
                             </div>
                             <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-linear-to-br from-emerald-500 to-emerald-700 flex items-center justify-center shadow-lg">
@@ -400,14 +418,14 @@ function ContactForm() {
                                     htmlFor="email"
                                     className="block text-xs font-bold uppercase tracking-widest text-slate-500 group-hover:text-emerald-400 transition-colors mb-2 ml-1"
                                 >
-                                    Email
+                                    Tu Correo Institucional / Personal
                                 </label>
                                 <div className="input-glow rounded-xl transition-all duration-300">
                                     <input
                                         type="email"
                                         id="email"
                                         name="email"
-                                        placeholder="nombre@ejemplo.com"
+                                        placeholder="nombre@empresa.com"
                                         className="w-full px-4 py-4 bg-slate-800/50 border border-slate-700/50 rounded-xl focus:border-emerald-500/50 outline-none transition-all text-white placeholder:text-slate-600 font-medium"
                                     />
                                 </div>
@@ -420,13 +438,13 @@ function ContactForm() {
                                     className="block text-xs font-bold uppercase tracking-widest text-slate-500 group-hover:text-emerald-400 transition-colors mb-2 ml-1"
                                     style={{ fontFamily: "'Space Grotesk', sans-serif" }}
                                 >
-                                    Mensaje
+                                    Mensaje o Propuesta
                                 </label>
                                 <div className="input-glow rounded-xl transition-all duration-300">
                                     <textarea
                                         id="message"
                                         name="message"
-                                        placeholder="Cuéntame sobre tu proyecto..."
+                                        placeholder="Cuéntame sobre la vacante o el equipo..."
                                         rows={4}
                                         className="w-full px-4 py-4 bg-slate-800/50 border border-slate-700/50 rounded-xl focus:border-emerald-500/50 outline-none transition-all text-white placeholder:text-slate-600 resize-none font-medium"
                                         style={{ fontFamily: "'Space Grotesk', sans-serif" }}
@@ -440,7 +458,7 @@ function ContactForm() {
                                 className="w-full py-4 sm:py-5 bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-slate-900 font-bold text-base sm:text-lg rounded-xl shadow-lg hover:shadow-[0_0_30px_rgba(16,185,129,0.5)] transition-all transform active:scale-[0.98] flex justify-center items-center gap-3 group"
                                 style={{ fontFamily: "'Space Grotesk', sans-serif" }}
                             >
-                                <span>Enviar Mensaje</span>
+                                <span>Enviar Propuesta</span>
                                 <i className="fas fa-paper-plane text-lg transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"></i>
                             </button>
                         </form>

@@ -50,8 +50,6 @@ export interface Proyecto {
     state?: boolean;
 }
 
-
-
 export const proyectosData: Proyecto[] = [
     {
         id: 1,
