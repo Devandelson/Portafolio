@@ -57,8 +57,8 @@ export const proyectosData: Proyecto[] = [
         titulo: 'RutaFit optimizador de rutas.',
         descripcion: 'Un proyecto innovador que calcula rutas automáticamente mediante una API y cuenta con una excelente automatización. Fue desarrollado en el curso de la OGTIC (Semillero Digital Intro) para la institución FITMOVIT, dedicada a fideos y comiso, donde tuve el honor de liderar el equipo.',
         imagenes: [rutafit1],
-        enlace: 'https://rutafit.free.nf/',
-        tipoBoton: 'visualizar',
+        enlace: 'https://github.com/Devandelson/PublicFit',
+        tipoBoton: 'github',
         logos: [2, 5, 6, 12, 13, 15, 16, 17, 18],
         state: false
     },
