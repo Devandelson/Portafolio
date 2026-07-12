@@ -2,39 +2,33 @@
 import CircleProyect from '../../../assets/CircleProyect.svg';
 
 // Hooks ========================================
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Tilt from 'react-parallax-tilt';
 
 // types
 import { proyectosData, type Proyecto } from '../../../data/proyectos.ts';
 import { tecnologiasData } from '../../../data/tecnologias.ts';
 import type { OpenState } from '../utils/types.tsx';
 
+interface specialProyect extends Proyecto {
+    visible: boolean
+}
+
 // Utils ========================================
 import { getButtonContent } from '../utils/detectButton.tsx';
 
 
 export default function MainProyects({ setOpen }: { setOpen: (open: OpenState) => void }) {
-    const [dataProyects] = useState<Proyecto[]>(() =>
-        proyectosData.filter((item) => item.categoria === 'destacado')
-    );
-    const [current, setCurrent] = useState(0);
+    // formating data
+    const data: Proyecto[] = proyectosData.filter((item) => item.categoria === 'destacado');
+    const formatData = data.map((item) => {
+        return { ...item, visible: false }
+    });
+    formatData[0].visible = true;
 
-    const [rotation, setRotation] = useState(0);
-
-    const [animating, setAnimating] = useState(false);
-
-    const count = dataProyects.length;
-    const step = 360 / count;
-
-    const navigate = (dir: 1 | -1) => {
-        if (animating) return;
-        setAnimating(true);
-        setCurrent(prev => (prev + dir + count) % count);
-        setRotation(prev => prev - dir * step); // accumulates, never resets
-        setTimeout(() => setAnimating(false), 900);
-    };
+    const [dataProyects, setDataProyects] = useState<specialProyect[]>(formatData);
+    const count = dataProyects.length - 1;
+    const mainProyect = dataProyects.filter((item) => item.visible == true)[0];
 
     return (
         <section className="w-full h-max mb-40 overflow-hidden">
@@ -43,18 +37,15 @@ export default function MainProyects({ setOpen }: { setOpen: (open: OpenState) =
             </h3>
             <div className="grid grid-cols-1 max-lg:justify-center lg:grid-cols-2 gap-8 items-center mt-15 px-4">
                 <CardInfoProyect
-                    project={dataProyects[current]}
-                    current={current}
-                    total={count}
-                    animating={animating}
-                    onNext={() => navigate(1)}
-                    onPrev={() => navigate(-1)}
+                    project={mainProyect}
                     setOpen={setOpen}
+                    setDataProyects={setDataProyects}
+                    countProyects={(count + 1)}
+                    dataProyects={dataProyects}
                 />
                 <RotateImage
-                    projects={dataProyects}
-                    current={current}
-                    rotation={rotation}
+                    project={mainProyect}
+                    dataProyects={dataProyects}
                 />
             </div>
         </section>
@@ -64,46 +55,72 @@ export default function MainProyects({ setOpen }: { setOpen: (open: OpenState) =
 // ─── Info Card ────────────────────────────────────────────────────────────────
 
 interface CardProps {
-    project: Proyecto;
-    current: number;
-    total: number;
-    animating: boolean;
-    onNext: () => void;
-    onPrev: () => void;
+    project: specialProyect;
+    dataProyects: specialProyect[];
     setOpen: (open: OpenState) => void;
+    setDataProyects: React.Dispatch<React.SetStateAction<specialProyect[]>>;
+    countProyects: number
 }
 
-function CardInfoProyect({ project, current, total, animating, onNext, onPrev, setOpen }: CardProps) {
+function CardInfoProyect({ project, setOpen, setDataProyects, countProyects, dataProyects }: CardProps) {
     const buttonContent = getButtonContent(project, setOpen);
+    const indexActiveProyect = dataProyects.findIndex((item) => {
+        return item.visible == true;
+    })
+
+    function HandleControlsInfo(typeButton: 'next' | 'back') {
+        setDataProyects((prev) => {
+            const indexActive = prev.findIndex((item) => item.visible === true);
+
+            let nextIndex: number;
+            if (typeButton === 'next') {
+                nextIndex = indexActive === countProyects - 1 ? 0 : indexActive + 1;
+            } else {
+                nextIndex = indexActive === 0 ? countProyects - 1 : indexActive - 1;
+            }
+
+            // ✅ mapea creando objetos NUEVOS, sin mutar los originales
+            return prev.map((item, i) => ({
+                ...item,
+                visible: i === nextIndex
+            }));
+        });
+    }
 
     return (
         <article className="text-white max-w-md w-full max-lg:text-center max-lg:m-auto flex flex-col max-lg:justify-center">
             {/* Controls */}
             <span className="flex items-center gap-2 mb-6 max-lg:justify-center">
+                {/* Back */}
                 <button
-                    onClick={onPrev}
                     className="p-3 py-1.5 bg-white/20 text-white rounded-sm hover:bg-white/30 transition-colors"
+                    onClick={() => { HandleControlsInfo('back') }}
                 >
                     <i className="fa-solid fa-chevron-left" />
                 </button>
+                {/* Next */}
                 <button
-                    onClick={onNext}
                     className="p-3 py-1.5 bg-white/20 text-white rounded-sm hover:bg-white/30 transition-colors"
+                    onClick={() => { HandleControlsInfo('next') }}
                 >
                     <i className="fa-solid fa-chevron-right" />
                 </button>
+                {/* Active proyect */}
                 <span className="text-white/40 text-sm ml-1">
-                    {current + 1} / {total}
+                    {(indexActiveProyect + 1)} / {countProyects}
                 </span>
             </span>
 
             {/* Content — fades on change via opacity transition */}
             <AnimatePresence mode='wait'>
                 <motion.div
-                    key={String(animating)}
                     initial={{ y: 8, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     exit={{ y: 8, opacity: 0 }}
+                    transition={{
+                        duration: 0.5
+                    }}
+                    key={project.titulo}
                 >
                     <h4 className="text-3xl font-bold mb-2">{project.titulo}</h4>
 
@@ -114,8 +131,7 @@ function CardInfoProyect({ project, current, total, animating, onNext, onPrev, s
                             return (
                                 <span
                                     key={i}
-                                    className="inline-flex items-center gap-1.5 px-2.5 py-2 rounded-sm bg-slate-200/50 dark:bg-slate-700/50 text-xs font-medium text-slate-700 dark:text-slate-300"
-                                >
+                                    className="inline-flex items-center gap-1.5 px-2.5 py-2 rounded-sm bg-slate-200/50 dark:bg-slate-700/50 text-xs font-medium text-slate-700 dark:text-slate-300">
                                     <i className={icon?.icono} />
                                     {icon?.nombre}
                                 </span>
@@ -124,12 +140,10 @@ function CardInfoProyect({ project, current, total, animating, onNext, onPrev, s
                         )}
                     </section>
 
-
                     {<p
                         dangerouslySetInnerHTML={{ __html: project.descripcion }}
                         className="text-lg text-gray-400 font-semibold mb-10"
                     />}
-
 
                     {buttonContent && (
                         <button
@@ -149,13 +163,25 @@ function CardInfoProyect({ project, current, total, animating, onNext, onPrev, s
 // ─── Rotating Circle ──────────────────────────────────────────────────────────
 
 interface RotateProps {
-    projects: Proyecto[];
-    current: number;
-    rotation: number;
+    project: specialProyect;
+    dataProyects: specialProyect[];
 }
 
-function RotateImage({ projects, current, rotation }: RotateProps) {
-    const count = projects.length;
+function RotateImage({ project, dataProyects }: RotateProps) {
+    // const count = projects.length;
+    const [move, setMove] = useState(true);
+
+    useEffect(() => {
+        if (!dataProyects) return;
+
+        function switcht() {
+            setMove(false);
+            setTimeout(() => {
+                setMove(true);
+            }, 500);
+        };
+        switcht();
+    }, [dataProyects])
 
     return (
         // Responsive square container — all sizing is relative to this
@@ -163,72 +189,65 @@ function RotateImage({ projects, current, rotation }: RotateProps) {
 
             {/* Decorative circle SVG */}
             <AnimatePresence mode='wait'>
-                <motion.svg
-                    key={current}
-                    viewBox="0 0 100 100"
-                    className="absolute inset-0 w-full h-full"
-                    style={{ filter: 'brightness(0) invert(85%)' }}
-                    initial={{ rotate: -360, scale: 1.2, opacity: 0 }}
-                    animate={{ rotate: -140, scale: 1, opacity: 1 }}
-                    exit={{ rotate: -360, scale: 1.2, opacity: 0 }}
-                    transition={{
-                        duration: 1,
-                        ease: [0.4, 0, 0.2, 1],
-                    }}
-                >
-                    <image
-                        href={CircleProyect}
-                        x="0" y="0"
-                        width="100%" height="100%"
-                    />
-                </motion.svg>
+                {move && (
+                    <motion.svg
+                        key={project.titulo}
+                        viewBox="0 0 100 100"
+                        className="absolute w-[120%] top-1/2 -translate-y-1/2 left-30 aspect-square
+                    max-lg:rotate-90  max-lg:top-[95%] max-lg:left-1/2 max-lg:-translate-x-1/2
+                    "
+                        style={{ filter: 'brightness(0) invert(85%)' }}
+                        initial={{ rotate: 190, scale: 1.2, opacity: 0 }}
+                        animate={{ rotate: 50, scale: 1, opacity: 1 }}
+                        exit={{ rotate: -180, scale: 1, opacity: 0 }}
+                        transition={{
+                            duration: 0.5,
+                            ease: [0.4, 0, 0.2, 1],
+                        }}
+                    >
+                        <image
+                            href={CircleProyect}
+                            x="0" y="0"
+                            width="100%" height="100%"
+                        />
+                    </motion.svg>)}
             </AnimatePresence>
 
             {/* Single rotating assembly — circle + images all spin together */}
             <div
-                className="absolute inset-0"
-                style={{
-                    transform: `translate(-0%, 50%) rotate(${rotation}deg)`,
-                    transition: 'transform 2s cubic-bezier(0.4, 0, 0.2, 1)',
-                }}
+                className="absolute z-10 w-full max-w-87.5 aspect-square flex items-center justify-center
+                max-md:max-w-50
+                "
             >
-
                 {/* Images orbiting around the circle */}
-                {projects.map((project, i) => {
-                    // Distribute images evenly; start from the top (-90°)
-                    const angleDeg = (360 / count) * i - 90;
-                    const angleRad = (angleDeg * Math.PI) / 180;
-                    const radius = 50; // % from center — adjust to taste
-                    const cx = 50 + radius * Math.cos(angleRad); // % left
-                    const cy = 50 + radius * Math.sin(angleRad); // % top
-                    const isActive = i === current;
-
-                    return (
-                        <div
+                <AnimatePresence mode='wait'>
+                    {move && (
+                        <motion.div className="absolute rounded-2xl overflow-hidden -left-2
+                        w-full h-full
+                        max-lg:left-1/2 max-lg:-translate-x-1/2 max-lg:-top-15
+                        "
                             key={project.titulo}
-                            className="absolute rounded-2xl overflow-hidden"
-                            style={{
-                                // Responsive size: 38% of the container's width
-                                width: '80%',
-                                aspectRatio: '4 / 3',
-                                left: `${cx}%`,
-                                top: `${cy}%`,
-                                // Center on the orbit point, then counter-rotate to stay upright
-                                transform: `translate(-50%, -50%) rotate(${-rotation}deg)`,
-                                transition: 'transform 0.85s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.85s, box-shadow 0.5s',
-                                opacity: isActive ? 1 : 0,
-                                boxShadow: isActive ? '0 20px 50px rgba(0,0,0,0.6)' : 'none',
-                                zIndex: isActive ? 10 : 1,
+                            initial={{
+                                opacity: 0, translateY: -400, translateX: 300, scale: 0
+                            }}
+                            animate={{
+                                opacity: 1, translateY: 0, translateX: 0, scale: 1
+                            }}
+                            exit={{
+                                opacity: 0, translateY: 180, translateX: 130, scale: 0.4
+                            }}
+                            transition={{
+                                duration: 0.38
                             }}
                         >
                             <img
                                 src={project.imagenes[0]}
                                 alt={project.titulo}
-                                className="w-full h-full object-cover"
+                                className="w-full aspect-square object-cover"
                             />
-                        </div>
-                    );
-                })}
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
         </div>
     );

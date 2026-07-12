@@ -1,14 +1,20 @@
 // -- assets
 import perfil from '../../assets/Mi foto.jpg';
 import trofeo from '../../assets/Trofeo.png';
-import bg_about2 from '../../assets/Home_v2SS.png';
-import Moon from '../../assets/Moon.png';
-import sky from '../../assets/sky.png';
+import bg_about2 from '../../assets/bright.png';
+import part_bright from '../../assets/part_bright.png';
+import soon from '../../assets/Soon2.png';
+import Bird from '../../assets/png-bird.png';
+import Bird_fly from '../../assets/bird_fly.png'
+import sky from '../../assets/sky_soon.png';
+import sky_cloud from '../../assets/sky_cloud.png';
 
 // hooks
-import { motion, type Variants } from "motion/react"
-import { useRef, useState } from 'react';
 import Tilt from 'react-parallax-tilt';
+
+import { useEffect, useRef, useState } from 'react';
+import { Parallax, ParallaxLayer, type IParallax } from '@react-spring/parallax';
+import { motion, type Variants } from 'framer-motion';
 
 // -- contexts
 import { useSwitchAnimation } from '../../context/animations/switchAnimation.tsx';
@@ -28,7 +34,7 @@ export default function About() {
 
     const referensReft = useRef<HTMLDivElement | null>(null);
     function goSection() {
-        referensReft.current?.scrollIntoView({behavior: 'smooth'})
+        referensReft.current?.scrollIntoView({ behavior: 'smooth' })
     }
 
     return (
@@ -65,96 +71,191 @@ function ButtonHeader({ title }: { title: string }) {
     )
 }
 
-function HeaderAbout({goSection}: {goSection: () => void}) {
-    const cardVariants: Variants = {
-        offscreen: {
-            y: '100px',
-            scale: 0.8,
-            opacity: 0,
-        },
-        onscreen: {
-            y: 10,
-            scale: 1,
+function HeaderAbout({ goSection }: { goSection: () => void }) {
+    // 1. Definimos las variantes de animación
+    const containerVariants: Variants = {
+        hidden: { opacity: 0 },
+        visible: {
             opacity: 1,
             transition: {
-                type: "spring",
-                bounce: 0.4,
-                duration: 0.8,
-            },
-        },
-    }
+                // Tiempo de espera antes de iniciar la animación de los hijos
+                delayChildren: 0.2,
+                // Tiempo de retraso entre la aparición de cada elemento hijo
+                staggerChildren: 0.15
+            }
+        }
+    };
+
+    const itemVariants: Variants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { type: "spring", stiffness: 100, damping: 15 }
+        }
+    };
+
+    const birdVariants: Variants = {
+        hidden: { opacity: 0, x: -30, scale: 0.8 },
+        visible: {
+            opacity: 1,
+            x: 0,
+            scale: 1,
+            transition: { type: "spring", stiffness: 80, damping: 12 }
+        }
+    };
+
+    const parallaxRef = useRef<IParallax>(null);
+    const [top, setTop] = useState(0);
+
+    useEffect(() => {
+        const container = parallaxRef.current
+            ?.container.current;
+        if (!container) return;
+
+        const handleNativeScroll = () => {
+            const progress = container.scrollTop / (container.scrollHeight - container.clientHeight);
+            setTop(progress);
+        };
+
+        container.addEventListener('scroll', handleNativeScroll);
+        return () => container.removeEventListener('scroll', handleNativeScroll);
+    }, []);
 
     return (
         <div className={`w-full
-        h-auto min-h-screen
-        relative bg-linear-to-b from-slate-950 via-purple-900/40 to-orange-200`}>
+        h-auto
+        relative`}>
             <header className='w-full h-auto min-h-screen relative z-20 bg-transparent'>
-                <motion.img src={Moon} className='absolute w-80 aspect-square -top-20 -left-20 -z-10 object-cover'
-                    initial="offscreen"
-                    whileInView="onscreen"
-                    viewport={{ amount: 0.5 }}
-                    variants={cardVariants}
-                />
-
-                <span className='w-full h-full absolute top-0 left-0 overflow-hidden'>
-                    <motion.img src={sky} className='absolute w-full h-1/2 top-0 left-0 -z-10 object-cover'
-                        initial="offscreen"
-                        whileInView="onscreen"
-                        viewport={{ amount: 0.8 }}
-                        variants={cardVariants}
-                    />
-                </span>
-
-
-                <img src={bg_about2} className='absolute w-full h-full top-0 left-0 z-30 object-cover object-center pointer-events-none' />
-
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className='absolute bottom-0 z-40'><path fill="#09192f" fill-opacity="1" d="M0,32L72,64L144,288L216,160L288,288L360,288L432,128L504,96L576,160L648,96L720,256L792,96L864,96L936,256L1008,96L1080,224L1152,320L1224,128L1296,96L1368,192L1440,64L1440,320L1368,320L1296,320L1224,320L1152,320L1080,320L1008,320L936,320L864,320L792,320L720,320L648,320L576,320L504,320L432,320L360,320L288,320L216,320L144,320L72,320L0,320Z"></path></svg>
-
-                <motion.div className='w-full h-auto flex flex-col items-center z-20 justify-center text-center pointer-events-auto! sticky! top-25 md:top-10
-                '
-                    initial="offscreen"
-                    animate="onscreen"
-                    variants={cardVariants}
+                <Parallax pages={4}
+                    ref={parallaxRef}
                 >
-                    <div className='flex flex-row-reverse items-center gap-3 sm:gap-5 md:gap-6 flex-wrap justify-center w-max m-auto'>
-                        <span className='text-center order-2 md:order-1'>
-                            <h2 className='flex items-center flex-wrap
-                            max-md:justify-end justify-center
-                            gap-2 sm:gap-3 text-3xl md:text-5xl font-bold bounceItem'>
-                                <i className="fa-solid fa-code text-orange-400 text-2xl sm:text-3xl md:text-4xl"></i>
-                                Soy Andelson
-                            </h2>
-                            <h3 className='text-4xl md:text-6xl text-green-600 font-bold mt-1 bounceItem max-md:text-right'>
-                                Dev. FrontEnd
-                            </h3>
-                        </span>
-                        <img
-                            src={perfil}
-                            alt="imagen de perfil"
-                            className='w-40 max-md:w-25 aspect-square object-cover rounded-full shadow-2xl order-1 md:order-2 bounceItem'
-                        />
-                    </div>
+                    {/* Content */}
+                    <ParallaxLayer sticky={{ start: 0, end: 3 }} speed={0.5} style={{ zIndex: 60 }}>
+                        <motion.div
+                            className='w-full h-screen flex flex-col items-center justify-center text-center '
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="visible"
 
-                    <div className='flex items-center md:justify-end justify-center gap-2 sm:gap-3 md:gap-3.5 flex-wrap mt-4 sm:mt-5 md:mt-6'>
-                        <ButtonHeader title="+ 3 años de exp" />
-                        <ButtonHeader title="+ 15 proyectos realizados" />
-                    </div>
+                        >
+                            <div style={{
+                                marginTop: top > 0.3 ? '-120px' : 0,
+                                transition: 'all 300ms ease'
+                            }}>
+                                {/* 1. El Pájaro */}
+                                <motion.span className='w-50 h-20 block ml-20 relative' variants={birdVariants}>
+                                    <img src={Bird} className='absolute w-[150%] aspect-square object-contain top-5 -rotate-12 left-5 -z-20
+                                    max-md:rotate-y-180 max-md:left-11
+                                    ' alt="Bird" />
+                                </motion.span>
 
-                    <button className='flex flex-col items-center gap-1 sm:gap-1.5 text-lg sm:text-xl md:text-2xl mt-6 sm:mt-8 md:mt-10 hover:text-blue-400 transition-colors bounceItem cursor-pointer'
-                        onClick={goSection}
-                    >
-                        Descubre más <i className="fa-solid fa-angle-down animate-bounce"></i>
-                    </button>
-                </motion.div>
+                                {/* 2. Bloque de Perfil y Textos */}
+                                <div className='flex flex-row-reverse items-center gap-3 sm:gap-5 md:gap-6 flex-wrap justify-center w-max'>
+                                    <span className='text-center order-2 md:order-1'>
+                                        <motion.h2 className='flex items-center flex-wrap max-md:justify-end justify-center gap-2 sm:gap-3 text-3xl md:text-5xl font-bold bounceItem' variants={itemVariants}>
+                                            <i className="fa-solid fa-code text-orange-700 text-2xl sm:text-3xl md:text-4xl"></i>
+                                            Soy Andelson
+                                        </motion.h2>
+
+                                        <motion.h3 className='text-4xl md:text-6xl text-green-600 font-bold mt-1 bounceItem max-md:text-right' variants={itemVariants}>
+                                            Dev. FrontEnd
+                                        </motion.h3>
+                                    </span>
+
+                                    <motion.img
+                                        src={perfil}
+                                        alt="imagen de perfil"
+                                        className='w-35 max-md:w-25 aspect-square object-cover rounded-full shadow-2xl order-1 md:order-2 bounceItem'
+                                        variants={itemVariants}
+                                    />
+                                </div>
+                            </div>
+
+                            {/* 6. Los Botones de Experiencia */}
+                            <motion.div className='flex items-center md:justify-end justify-center gap-2 sm:gap-3 md:gap-3.5 flex-wrap mt-4 sm:mt-5 md:mt-9' variants={itemVariants}>
+                                <ButtonHeader title="+ 3 años de exp" />
+                                <ButtonHeader title="+ 15 proyectos realizados" />
+                            </motion.div>
+
+                            {/* 7. Botón de Acción Final */}
+                            <motion.button
+                                className='flex flex-col items-center gap-1 sm:gap-1.5 text-lg sm:text-xl md:text-2xl mt-6 sm:mt-8 md:mt-5 text-orange-600 hover:text-blue-600 transition-colors bounceItem cursor-pointer z-50 font-bold'
+                                onClick={() => {
+                                    goSection();
+                                    parallaxRef.current?.scrollTo(3);
+                                }}
+                                variants={itemVariants}
+                            >
+                                Descubre más <i className="fa-solid fa-angle-down animate-bounce"></i>
+                            </motion.button>
+                        </motion.div>
+                    </ParallaxLayer>
+
+                    {/* Background */}
+                    <ParallaxLayer
+                        sticky={{ start: 0, end: 1 }}
+                        style={{
+                            backgroundImage: 'linear-gradient(to bottom, #1d4ed8 0%, #60a5fa 40%, #93c5fd 70%, #fef08a 100%)',
+                            zIndex: 10,
+                            pointerEvents: 'none'
+                        }}
+                    />
+                    <ParallaxLayer
+                        sticky={{ start: 1.99, end: 3 }}
+                        style={{
+                            backgroundImage: 'linear-gradient(to bottom, #fef08a 0%, #f97316 30%, #ffedd5 70%, #0f172a 100%)',
+                            zIndex: 10,
+                            pointerEvents: 'none'
+                        }}
+                    />
+
+                    {/* elements fly */}
+                    <ParallaxLayer sticky={{ start: 2, end: 3 }} speed={0.5} style={{ zIndex: 80, pointerEvents: 'none' }}>
+                        <img src={soon} className='absolute w-[90%] aspect-square -top-40 -left-40 object-contain pointer-events-none' style={{
+                            opacity: top > 0.5 ? top + 0.3 : 0,
+                            transition: 'all 300ms ease'
+                        }} />
+
+                        <img src={Bird_fly} className='absolute w-[60%] -top-28 right-0 object-contain pointer-events-none max-md:w-full max-md:-right-10' style={{
+                            opacity: top > 0.5 ? top + 0.3 : 0,
+                            transition: 'all 300ms ease'
+                        }} />
+                    </ParallaxLayer>
+
+                    {/* Clouds */}
+                    <ParallaxLayer sticky={{ start: 1, end: 1 }} style={{ zIndex: 70, pointerEvents: 'none' }} speed={0.5}>
+                        <img src={sky} className='absolute w-full h-[100%] object-bottom -top-20 left-0 rotate-180 object-contain pointer-events-none z-10 max-md:top-0 ' />
+
+                        <img src={sky_cloud} className='absolute w-full object-bottom h-[100%] bottom-[97%] left-0 object-contain pointer-events-none z-10' />
+                    </ParallaxLayer>
+
+                    {/* Wave (parallax) */}
+                    <ParallaxLayer sticky={{ start: 1, end: 3 }} style={{ zIndex: 20, pointerEvents: 'none' }}>
+                        <div className='w-full h-screen relative mt-10 max-md:mt-0'>
+                            <img src={bg_about2} className='absolute w-full bottom-15 max-md:bottom-7 left-0 object-contain pointer-events-none -z-10' />
+
+                            <img src={part_bright} className='absolute w-[48.4%] bottom-15 max-md:bottom-7 left-[50.5%] -translate-x-1/2 object-contain pointer-events-none z-10' />
+
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600" className='absolute bottom-0 w-full h-auto -z-5'>
+                                <path d="M0,434 L206,400 L411,353 L617,391 L822,396 L1028,426 L1234,400 L1440,380 L1440,600 L0,600 Z" fill="#2d3748" />
+                                <path d="M0,406 L206,444 L411,460 L617,464 L822,465 L1028,437 L1234,455 L1440,405 L1440,600 L0,600 Z" fill="#222938" />
+                                <path d="M0,451 L206,469 L411,439 L617,449 L822,487 L1028,485 L1234,466 L1440,454 L1440,600 L0,600 Z" fill="#1a202c" />
+                                <path d="M0,542 L206,530 L411,501 L617,521 L822,529 L1028,511 L1234,483 L1440,495 L1440,600 L0,600 Z" fill="#11151e" />
+                                <path d="M0,555 L206,550 L411,534 L617,530 L822,567 L1028,554 L1234,530 L1440,557 L1440,600 L0,600 Z" fill="#090d16" />
+                            </svg>
+                        </div>
+                    </ParallaxLayer>
+                </Parallax>
             </header>
         </div>
     )
 }
 
-function InfoAboutMe({referensReft}: {referensReft: React.RefObject<HTMLDivElement | null>}) {
+function InfoAboutMe({ referensReft }: { referensReft: React.RefObject<HTMLDivElement | null> }) {
     return (
         <section className='w-full min-h-[70vh] text-center relative
-        bg-linear-to-t from-bgPage to-[#09192f] flex items-center justify-center
+        bg-linear-to-t from-bgPage to-[#090D16] flex items-center justify-center
         z-30'
             ref={referensReft}
         >

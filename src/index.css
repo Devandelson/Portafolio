@@ -3,6 +3,7 @@
 
 * {
   font-family: "Manrope", sans-serif;
+  interpolate-size: allow-keywords;
 }
 
 @theme {

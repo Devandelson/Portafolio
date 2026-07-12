@@ -15,7 +15,7 @@ const Menu = ({ children }: { children: ReactNode }) => {
         ">
             {/* Menu Mobile - Horizontal en la parte superior */}
             <motion.ul
-                className="flex md:hidden flex-row gap-3 items-center justify-center py-4 px-4 w-full bg-bPage/40 backdrop-blur-sm sticky top-0 z-50"
+                className="flex md:hidden flex-row gap-3 items-center justify-center py-4 px-4 w-full bg-bPage/40 backdrop-blur-sm sticky top-0 z-50 h-20"
                 initial={{ opacity: 0, y: -50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
@@ -63,7 +63,7 @@ const Menu = ({ children }: { children: ReactNode }) => {
                 }
             </motion.ul>
 
-            <div className="relative w-full h-screen flex flex-col items-center justify-center bg-bpage rounded-tl-4xl rounded-bl-4xl overflow-hidden z-60">
+            <div className="relative w-full h-[calc(100vh-80px)] flex flex-col items-center justify-center bg-bpage rounded-tl-4xl rounded-bl-4xl overflow-hidden z-60">
                 <div className="w-full h-full overflow-y-auto relative">
                     <AnimatePresence mode="wait">
                         <div key="children">{children}</div>

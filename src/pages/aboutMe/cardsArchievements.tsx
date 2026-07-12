@@ -42,11 +42,11 @@ export default function LogroCard({ logro, index }: LogroCardProps) {
             />
 
             <div
-                className={`absolute bottom-0 left-1/2 -translate-x-1/2 bg-bPage w-[90%] p-3 rounded-t-2xl text-center flex flex-col items-center justify-center h-max [interpolate-size:allow-keywords] overflow-hidden
+                className={`absolute -bottom-1 left-1/2 -translate-x-1/2 bg-bPage w-[90%] p-3 rounded-t-2xl text-center flex flex-col items-center justify-start overflow-hidden h-[40%]
                 
                 group-hover/article:w-full group-hover/article:h-full
                 group-hover/article:bg-bPage/60 group-hover/article:rounded-sm
-                backdrop-blur-sm
+                backdrop-blur-sm group-hover/article:bottom-0 group-hover/article:justify-center
                 
                 ${isActive ? 'h-0! p-0!' : ''}
 

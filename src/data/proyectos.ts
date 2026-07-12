@@ -110,7 +110,8 @@ export const proyectosData: Proyecto[] = [
         imagenes: [loginTailwind],
         enlace: 'https://devandelson.github.io/LoginTailwind/',
         tipoBoton: 'visualizar',
-        logos: [7, 9, 17, 18, 16]
+        logos: [7, 9, 17, 18, 16],
+        state: false
     },
     {
         id: 8,
