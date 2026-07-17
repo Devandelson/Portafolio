@@ -38,6 +38,9 @@ import L_Fo3 from '../assets/L_F3.png';
 import L_Fo4 from '../assets/L_F4.png';
 import L_Fo5 from '../assets/F_F5.png';
 
+import chat1 from '../assets/chat1.png';
+import chat2 from '../assets/chat2.png';
+
 export interface Proyecto {
     id: number;
     categoria: 'destacado' | 'regular';
@@ -74,7 +77,7 @@ export const proyectosData: Proyecto[] = [
     },
     {
         id: 4,
-        categoria: 'destacado',
+        categoria: 'regular',
         titulo: 'App de notas',
         descripcion: 'Una app de notas personalizable y eficiente, desarrollada mientras estube en el curso Semillero Digital Intro de OGTIC, diseñada para crear, organizar y buscar notas de manera flexible y efectiva.',
         imagenes: [appNotas],
@@ -224,7 +227,7 @@ export const proyectosData: Proyecto[] = [
         enlace: 'uploadPages/Transacciones/index.html',
         tipoBoton: 'visualizar',
         logos: [5, 2, 6],
-         state: false
+        state: false
     },
     {
         id: 19,
@@ -255,5 +258,15 @@ export const proyectosData: Proyecto[] = [
         enlace: '',
         tipoBoton: 'imagen',
         logos: [2, 5, 6, 12, 13, 15, 16, 17, 18]
+    },
+    {
+        id: 22,
+        categoria: 'destacado',
+        titulo: 'Chat online',
+        descripcion: 'Aplicación de chat en tiempo real. Ha sido un reto técnico emocionante y una de las primeras aplicaciones que he creado implementando comunicación en tiempo real, enfocándome en la fluidez de los mensajes y la sincronización instantánea de los usuarios.',
+        imagenes: [chat1, chat2],
+        enlace: 'https://front-chat-71nt.onrender.com/', 
+        tipoBoton: 'visualizar',
+        logos: [7, 17, 18, 9] 
     },
 ];

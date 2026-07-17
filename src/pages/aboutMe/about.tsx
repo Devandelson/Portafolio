@@ -124,9 +124,9 @@ function HeaderAbout({ goSection }: { goSection: () => void }) {
 
     return (
         <div className={`w-full
-        h-auto
+        h-auto min-h-screen max-md:min-h-[calc(100vh-5rem)] 
         relative`}>
-            <header className='w-full h-auto min-h-screen relative z-20 bg-transparent'>
+            <header className='w-full h-auto min-h-screen max-md:min-h-[calc(100vh-5rem)] relative z-20 bg-transparent'>
                 <Parallax pages={4}
                     ref={parallaxRef}
                 >
@@ -212,7 +212,7 @@ function HeaderAbout({ goSection }: { goSection: () => void }) {
 
                     {/* elements fly */}
                     <ParallaxLayer sticky={{ start: 2, end: 3 }} speed={0.5} style={{ zIndex: 80, pointerEvents: 'none' }}>
-                        <img src={soon} className='absolute w-[90%] aspect-square -top-40 -left-40 object-contain pointer-events-none' style={{
+                        <img src={soon} className='absolute w-[500px] max-w-[90%] aspect-square -top-40 -left-40 object-contain pointer-events-none' style={{
                             opacity: top > 0.5 ? top + 0.3 : 0,
                             transition: 'all 300ms ease'
                         }} />
@@ -231,11 +231,13 @@ function HeaderAbout({ goSection }: { goSection: () => void }) {
                     </ParallaxLayer>
 
                     {/* Wave (parallax) */}
-                    <ParallaxLayer sticky={{ start: 1, end: 3 }} style={{ zIndex: 20, pointerEvents: 'none' }}>
-                        <div className='w-full h-screen relative mt-10 max-md:mt-0'>
+                    <ParallaxLayer sticky={{ start: 1, end: 3 }} style={{ zIndex: 90, pointerEvents: 'none' }}>
+                        <div className='w-full h-screen max-md:h-[calc(100vh-5rem)] relative mt-10'>
                             <img src={bg_about2} className='absolute w-full bottom-15 max-md:bottom-7 left-0 object-contain pointer-events-none -z-10' />
 
                             <img src={part_bright} className='absolute w-[48.4%] bottom-15 max-md:bottom-7 left-[50.5%] -translate-x-1/2 object-contain pointer-events-none z-10' />
+
+                            <span className='w-full h-10 absolute -z-10 bg-[#090d16] -bottom-10 left-0'></span>
 
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600" className='absolute bottom-0 w-full h-auto -z-5'>
                                 <path d="M0,434 L206,400 L411,353 L617,391 L822,396 L1028,426 L1234,400 L1440,380 L1440,600 L0,600 Z" fill="#2d3748" />
