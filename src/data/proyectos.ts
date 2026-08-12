@@ -36,7 +36,11 @@ import L_F from '../assets/L_F1.png';
 import L_F2 from '../assets/L_F2.png';
 import L_Fo3 from '../assets/L_F3.png';
 import L_Fo4 from '../assets/L_F4.png';
-import L_Fo5 from '../assets/F_F5.png';
+import L_Fo5 from '../assets/L_F5.png';
+import L_Fo6 from '../assets/L_F6.png';
+import L_Fo7 from '../assets/L_F7.png';
+import L_Fo8 from '../assets/L_F8.png';
+import L_Fo9 from '../assets/L_F9.png';
 
 import chat1 from '../assets/chat1.png';
 import chat2 from '../assets/chat2.png';
@@ -253,8 +257,8 @@ export const proyectosData: Proyecto[] = [
         id: 21,
         categoria: 'destacado',
         titulo: 'Learnify - Plataforma Educativa',
-        descripcion: 'Plataforma educativa a gran escala desarrollada para un cliente real. Cuenta con gestión de asignaturas, unidades, publicaciones (anuncios, tareas y evaluaciones), chat global, sistema de notificaciones, control de calificaciones, asistencia y un dashboard con estadísticas de progreso.',
-        imagenes: [L_F, L_F2, L_Fo3, L_Fo4, L_Fo5],
+        descripcion: 'Plataforma de gestión educativa (LMS) desarrollada a la medida en PHP, diseñada en estrecha colaboración con el cliente para resolver y automatizar la operación académica de su academia. El sistema centraliza la administración de asignaturas, unidades y publicaciones avanzadas (tareas, exámenes con control de intentos, anuncios y enlaces a grabaciones), integrando módulos integrales para el seguimiento de calificaciones, registro de asistencia, chat global y notificaciones, todo respaldado por un panel con un control de estadísticas altamente completo para auditar el rendimiento y progreso general.',
+        imagenes: [L_F, L_F2, L_Fo3, L_Fo4, L_Fo5, L_Fo6, L_Fo7, L_Fo8, L_Fo9 ],
         enlace: '',
         tipoBoton: 'imagen',
         logos: [2, 5, 6, 12, 13, 15, 16, 17, 18]
