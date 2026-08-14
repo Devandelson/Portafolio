@@ -156,7 +156,7 @@ export const proyectosData: Proyecto[] = [
         titulo: 'Piedra, Papel o Tijera en JS',
         descripcion: 'Juega al clásico Piedra, Papel o Tijera contra la computadora, creado en JavaScript durante el curso Semillero Digital Intro (OGTIC). ¡Desafía tus reflejos!',
         imagenes: [juegoMano],
-        enlace: '/uploadPages/Juego%20de%20manos/index.html',
+        enlace: 'https://devandelson.github.io/Portafolio/uploadPages/Juego%20de%20manos/index.html',
         tipoBoton: 'visualizar',
         logos: [5, 2, 6, 17, 18]
     },
@@ -166,7 +166,7 @@ export const proyectosData: Proyecto[] = [
         titulo: 'Juego de adivinanzas',
         descripcion: 'Creado durante un curso en el ITLA.',
         imagenes: [adivinanzas],
-        enlace: '/uploadPages/Juego de adivinansas/index.html',
+        enlace: 'https://devandelson.github.io/Portafolio/uploadPages/Juego%20de%20adivinansas/index.html',
         tipoBoton: 'visualizar',
         logos: [5, 6, 2]
     },
@@ -257,10 +257,10 @@ export const proyectosData: Proyecto[] = [
         id: 21,
         categoria: 'destacado',
         titulo: 'Learnify - Plataforma Educativa',
-        descripcion: 'Plataforma de gestión educativa (LMS) desarrollada a la medida en PHP, diseñada en estrecha colaboración con el cliente para resolver y automatizar la operación académica de su academia. El sistema centraliza la administración de asignaturas, unidades y publicaciones avanzadas (tareas, exámenes con control de intentos, anuncios y enlaces a grabaciones), integrando módulos integrales para el seguimiento de calificaciones, registro de asistencia, chat global y notificaciones, todo respaldado por un panel con un control de estadísticas altamente completo para auditar el rendimiento y progreso general.',
+        descripcion: 'Plataforma de gestión educativa (LMS) desarrollada a la medida en PHP, diseñada en colaboración con el cliente para automatizar la operación académica de su academia. Centraliza la administración de asignaturas, unidades y publicaciones (tareas, exámenes con control de intentos, anuncios y enlaces a grabaciones), e integra seguimiento de calificaciones, asistencia, chat global y notificaciones, respaldado por un panel de estadísticas para auditar el rendimiento general.\n\nCredenciales de acceso (demo): Email-a@gmail.com | Contraseña-1212',
         imagenes: [L_F, L_F2, L_Fo3, L_Fo4, L_Fo5, L_Fo6, L_Fo7, L_Fo8, L_Fo9 ],
-        enlace: '',
-        tipoBoton: 'imagen',
+        enlace: 'https://learnifyclass.infinityfree.me/index.php',
+        tipoBoton: 'visualizar',
         logos: [2, 5, 6, 12, 13, 15, 16, 17, 18]
     },
     {
