@@ -156,7 +156,7 @@ export const proyectosData: Proyecto[] = [
         titulo: 'Piedra, Papel o Tijera en JS',
         descripcion: 'Juega al clásico Piedra, Papel o Tijera contra la computadora, creado en JavaScript durante el curso Semillero Digital Intro (OGTIC). ¡Desafía tus reflejos!',
         imagenes: [juegoMano],
-        enlace: 'https://devandelson.github.io/portafolio.github.io/Paginas/Juego%20de%20manos/index.html',
+        enlace: '/uploadPages/Juego%20de%20manos/index.html',
         tipoBoton: 'visualizar',
         logos: [5, 2, 6, 17, 18]
     },
@@ -166,7 +166,7 @@ export const proyectosData: Proyecto[] = [
         titulo: 'Juego de adivinanzas',
         descripcion: 'Creado durante un curso en el ITLA.',
         imagenes: [adivinanzas],
-        enlace: 'uploadPages/Juego de adivinansas/index.html',
+        enlace: '/uploadPages/Juego de adivinansas/index.html',
         tipoBoton: 'visualizar',
         logos: [5, 6, 2]
     },
