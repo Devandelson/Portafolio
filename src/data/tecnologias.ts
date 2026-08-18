@@ -8,7 +8,7 @@ export const tecnologiasData: Tecnologia[] = [
     { id: 2, nombre: 'HTML', icono: 'fab fa-html5' },
     { id: 5, nombre: 'CSS', icono: 'fab fa-css3-alt' },
     { id: 6, nombre: 'JavaScript', icono: 'fab fa-js' },
-    { id: 7, nombre: 'React', icono: 'fab fa-react' },
+    { id: 7, nombre: 'React', icono: 'fab fa-react' }, 
     { id: 9, nombre: 'Tailwind', icono: 'fas fa-wind' },
     { id: 10, nombre: 'Visual Basic', icono: 'fas fa-code' },
     { id: 11, nombre: 'SQL Server', icono: 'fas fa-database' },

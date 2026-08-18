@@ -45,6 +45,8 @@ import L_Fo9 from '../assets/L_F9.png';
 import chat1 from '../assets/chat1.png';
 import chat2 from '../assets/chat2.png';
 
+import recipe1 from '../assets/recipe1.png'
+
 export interface Proyecto {
     id: number;
     categoria: 'destacado' | 'regular';
@@ -71,7 +73,7 @@ export const proyectosData: Proyecto[] = [
     },
     {
         id: 3,
-        categoria: 'destacado',
+        categoria: 'regular',
         titulo: 'Periódico escolar',
         descripcion: 'Desarrollado en colaboración, este proyecto soluciona las brechas de comunicación de nuestra institución con el entorno global. Te invito a visitar el portafolio de mi colega en <a style="color: #ffffff; font-weight: bold;" href="https://ariscortico.github.io/portafolio/">ariscortico.com</a>.',
         imagenes: [ponse],
@@ -270,6 +272,16 @@ export const proyectosData: Proyecto[] = [
         descripcion: 'Aplicación de chat en tiempo real. Ha sido un reto técnico emocionante y una de las primeras aplicaciones que he creado implementando comunicación en tiempo real, enfocándome en la fluidez de los mensajes y la sincronización instantánea de los usuarios.',
         imagenes: [chat1, chat2],
         enlace: 'https://front-chat-71nt.onrender.com/', 
+        tipoBoton: 'visualizar',
+        logos: [7, 17, 18, 9] 
+    },
+    {
+        id: 22,
+        categoria: 'destacado',
+        titulo: 'Recipe Doc',
+        descripcion: 'Developed my first app in english that is an advanced React CRUD that implements complex state management, data validation, and real-time UI updates.',
+        imagenes: [recipe1],
+        enlace: 'https://devandelson.github.io/recipe-docs/', 
         tipoBoton: 'visualizar',
         logos: [7, 17, 18, 9] 
     },
