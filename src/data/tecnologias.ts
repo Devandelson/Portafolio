@@ -19,5 +19,6 @@ export const tecnologiasData: Tecnologia[] = [
     { id: 16, nombre: 'AJAX', icono: 'fas fa-sync' },
     { id: 17, nombre: 'Git', icono: 'fab fa-git-alt' },
     { id: 18, nombre: 'GitHub', icono: 'fab fa-github' },
-    { id: 19, nombre: 'Python', icono: 'fab fa-python' }
+    { id: 19, nombre: 'Python', icono: 'fab fa-python' },
+    { id: 20, nombre: 'Google ADK', icono: 'fa-brands fa-google' }
 ];
