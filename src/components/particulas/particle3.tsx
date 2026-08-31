@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { useEffect, useRef, useState } from 'react';
 
 // Assets
-import marco from '../../assets/Marco.svg';
+import marco from '../../assets/Marco.png';
 import nave from '../../assets/Nave.svg';
 
 // Sounds
@@ -39,7 +39,7 @@ function Particle3() {
 
     useEffect(() => {
         const SDisparo = new Audio(SonidoDisparo);
-        SDisparo.play().catch(() => {});
+        SDisparo.play().catch(() => { });
         const timer: ReturnType<typeof setTimeout> = setTimeout(() => {
             SDisparo.pause();
             SDisparo.currentTime = 0;
@@ -61,8 +61,14 @@ function Particle3() {
                 className="fixed top-0 left-0 w-full pointer-events-none z-30"
                 style={{
                     height: '100dvh',
-                    background: 'linear-gradient(135deg, rgba(0,20,60,0.45) 0%, rgba(0,80,140,0.25) 40%, rgba(0,180,200,0.15) 100%)',
-                    boxShadow: 'inset 0 0 80px rgba(0,150,255,0.08), 0 0 40px rgba(0,200,255,0.12)',
+                    background: `
+                        radial-gradient(ellipse at 15% 20%, rgba(140,50,255,0.4) 0%, transparent 45%),
+                        radial-gradient(ellipse at 85% 15%, rgba(255,60,180,0.3) 0%, transparent 45%),
+                        radial-gradient(ellipse at 70% 80%, rgba(0,220,255,0.35) 0%, transparent 50%),
+                        radial-gradient(ellipse at 30% 90%, rgba(80,0,200,0.3) 0%, transparent 50%)
+                    `,
+                    mixBlendMode: 'screen',
+                    boxShadow: 'inset 0 0 150px rgba(120,0,255,0.2), inset 0 0 80px rgba(0,220,255,0.15)',
                 }}
                 initial={{ scale: 1.5, opacity: 0, y: -20 }}
                 animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -136,16 +142,16 @@ interface BreakItemProps {
 function BreakItem({ mouseXRef, naveRef }: BreakItemProps) {
     const divRef = useRef<HTMLDivElement>(null);
     const spawnX = useRef<number>(mouseXRef.current);
-    const spawnY = useRef<number>(window.innerHeight - 100);
+    const spawnY = useRef<number>(Math.max(window.innerHeight - 100, 500));
 
     useEffect(() => {
         if (naveRef.current) {
             const rect = naveRef.current.getBoundingClientRect();
-            spawnY.current = rect.top;
+            spawnY.current = rect.top; // valor REAL, pero llega tarde
         }
         if (divRef.current) {
             divRef.current.style.left = `${spawnX.current}px`;
-            divRef.current.style.top  = `${spawnY.current}px`;
+            divRef.current.style.top = `${spawnY.current}px`; // corrección manual vía DOM
         }
     }, []);
 
@@ -153,8 +159,8 @@ function BreakItem({ mouseXRef, naveRef }: BreakItemProps) {
         if (!divRef.current) return;
         const rect = divRef.current.getBoundingClientRect();
         const projCenterX = rect.left + rect.width / 2;
-        const projTop     = rect.top;
-        const projBottom  = rect.bottom;
+        const projTop = rect.top;
+        const projBottom = rect.bottom;
 
         document.querySelectorAll('.bounceItem').forEach((item) => {
             if (item.classList.contains('elementoColisionado')) return;
@@ -165,7 +171,7 @@ function BreakItem({ mouseXRef, naveRef }: BreakItemProps) {
             if (overlapX && overlapY) {
                 item.classList.add('elementoColisionado');
                 const sfx = new Audio(SonidoColision);
-                sfx.play().catch(() => {});
+                sfx.play().catch(() => { });
                 const sfxTimer: ReturnType<typeof setTimeout> = setTimeout(() => {
                     sfx.pause();
                     sfx.currentTime = 0;
@@ -180,7 +186,7 @@ function BreakItem({ mouseXRef, naveRef }: BreakItemProps) {
         <motion.div
             ref={divRef}
             className="absolute -translate-x-1/2 z-30"
-            style={{ left: `${spawnX.current}px`, top: `${spawnY.current}px` }}
+            style={{ left: `${spawnX.current}px` }}
             onUpdate={checkCollision}
             animate={{ y: [0, -(spawnY.current + 100)] }}
             transition={{ duration: 2.5, ease: 'linear' }}

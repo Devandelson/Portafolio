@@ -34,7 +34,7 @@ function Sonido({ particleSelect }: { particleSelect: particle | undefined }) {
 
     return (
         <section
-            className="max-md:bottom-[inherit] max-md:top-23 fixed bottom-5 right-5 z-70 transition-[transform,opacity] duration-400"
+            className="relative max-md:bottom-[inherit] max-md:top-7 max-md:right-7 max-md:fixed z-90 transition-[transform,opacity] duration-400"
             style={{
                 transform: visible ? "translateY(0)" : "translateY(20px)",
                 opacity: visible ? 1 : 0,

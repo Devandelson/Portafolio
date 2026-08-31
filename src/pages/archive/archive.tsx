@@ -87,15 +87,15 @@ function TablaArchivos() {
                             </div>
                         </td>
                         <td className="px-6 lg:px-8 py-5 lg:py-6 bounceItem">
-                            <p className="text-arc-text-dim text-sm font-semibold">19/06/2025</p>
+                            <p className="text-arc-text-dim text-sm font-semibold">30/08/2026</p>
                         </td>
                         <td className="px-6 lg:px-8 py-5 lg:py-6 bounceItem">
-                            <p className="text-arc-text-dim text-sm font-semibold">1.05 MB</p>
+                            <p className="text-arc-text-dim text-sm font-semibold">400 KB</p>
                         </td>
                         <td className="px-6 lg:px-8 py-5 lg:py-6 text-right bounceItem">
                             <button className="inline-flex items-center gap-2 px-5 lg:px-6 py-2 lg:py-2.5 bg-white/10 hover:bg-primary hover:text-background-dark text-white rounded-xl text-sm font-bold transition-all border border-white/10 hover:border-primary shadow-sm">
                                 <i className="fa-solid fa-download text-base lg:text-lg"></i>
-                                <a href={cv} download='Andelson-Gonzalez-FrontEnd-CV'>Descargar</a>
+                                <a href={cv} download='Dev-Andelson-Gonzalez'>Descargar</a>
                             </button>
                         </td>
                     </tr>

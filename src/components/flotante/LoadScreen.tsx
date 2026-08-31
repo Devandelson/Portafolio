@@ -186,7 +186,7 @@ const loaderStyles = `
 
 export default function Loader({ text = "Cargando..." }) {
   return (
-    <section className="fixed top-0 left-0 w-full h-full bg-[#000000] z-50 flex items-center justify-center">
+    <section className="fixed top-0 left-0 w-full h-full bg-[#000000] z-90 flex items-center justify-center">
       <style>{loaderStyles}</style>
       <div className="loader">
         {Array.from({ length: 9 }).map((_, i) => (

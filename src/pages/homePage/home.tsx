@@ -6,7 +6,7 @@ import imgProyect from '../../assets/Proyectos.png';
 
 // Hooks
 import { motion, AnimatePresence } from "motion/react"
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 
 // -- contexts
@@ -17,20 +17,10 @@ import useWallpaper from "../../context/pages/setting.tsx";
 // Componentes
 function HomePage() {
   const { listMenu, setTMenu } = useMenu();
-  const [isLoading, setIsLoading] = useState(true);
-
   const fondos = useWallpaper((state) => state.wallpapers);
   const fondoHome = fondos.filter((item) => {
     return item.selected;
   })[0].src;
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000); // 2 segundos de carga
-
-    return () => clearTimeout(timer);
-  }, []);
 
   const { animations } = useSwitchAnimation();
   const animationActive = animations.find(animation => animation.active);
@@ -49,104 +39,80 @@ function HomePage() {
       <span className='w-full h-full top-0 left-0 absolute -z-1 bg-black/30 rounded-2xl' ></span>
 
       <AnimatePresence mode="wait">
-        {isLoading ? (
-          <motion.div
-            key="loader"
-            className='flex flex-col items-center gap-4 sm:gap-5'
+        <motion.div
+          key="content"
+          className='w-full flex flex-col justify-center items-center relative z-2 p-6 h-auto'
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <motion.img
+            src={avatar}
+            alt="Avatar del programador"
+            className='w-40 sm:w-60 md:w-80 lg:w-90 m-auto aspect-square object-cover rounded-full bounceItem'
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          />
+
+          <motion.h1
+            className='mt-4 sm:mt-5 text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-center px-4 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent bounceItem'
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            Bienvenido a mi Portafolio
+          </motion.h1>
+
+          <motion.p
+            className='text-gray-400 text-base sm:text-xl md:text-2xl lg:text-3xl text-center px-4 mt-2 bounceItem'
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            Explora mi trayectoria, proyectos y habilidades.
+          </motion.p>
+
+          <Seeker></Seeker>
+
+          <section className='w-full max-w-3xl mx-auto flex items-center justify-center gap-4 sm:gap-5 mt-6 sm:mt-7 flex-wrap px-4'>
+            {
+              listMenu.slice(1).map((data, index) => (
+                <NavigationCard key={index} index={index} action={setTMenu} title={data.name}></NavigationCard>
+              ))
+            }
+          </section>
+
+          <motion.section
+            className='w-full max-w-3xl mt-15 sm:mt-10 px-4'
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.6, delay: 1.2 }}
           >
-            <motion.div
-              className='w-16 h-16 sm:w-20 sm:h-20 border-4 border-blue-400/30 border-t-blue-400 rounded-full'
-              animate={{ rotate: 360 }}
-              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-            />
-            <motion.p
-              className='text-lg sm:text-xl md:text-2xl text-blue-400 font-medium text-center px-4'
-              animate={{ opacity: [0.5, 1, 0.5] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            >
-              Cargando portafolio...
-            </motion.p>
-          </motion.div>
-        ) : (
-          <motion.div
-            key="content"
-            className='w-full flex flex-col justify-center items-center relative z-2 p-6 h-auto'
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            <motion.img
-              src={avatar}
-              alt="Avatar del programador"
-              className='w-40 sm:w-60 md:w-80 lg:w-90 m-auto aspect-square object-cover rounded-full bounceItem'
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            />
-
-            <motion.h1
-              className='mt-4 sm:mt-5 text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-center px-4 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent bounceItem'
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              Bienvenido a mi Portafolio
-            </motion.h1>
-
-            <motion.p
-              className='text-gray-400 text-base sm:text-xl md:text-2xl lg:text-3xl text-center px-4 mt-2 bounceItem'
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              Explora mi trayectoria, proyectos y habilidades.
-            </motion.p>
-
-            <Seeker></Seeker>
-
-            <section className='w-full max-w-3xl mx-auto flex items-center justify-center gap-4 sm:gap-5 mt-6 sm:mt-7 flex-wrap px-4'>
-              {
-                listMenu.slice(2).map((data, index) => (
-                  <NavigationCard key={index} index={index} action={setTMenu} title={data.name}></NavigationCard>
-                ))
-              }
-            </section>
-
-            <motion.section
-              className='w-full max-w-3xl mt-15 sm:mt-10 px-4'
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 1.2 }}
-            >
-              <hr className='border-gray-50/10' />
-              <div className='w-full flex items-center gap-2 flex-wrap p-2 text-white/60 text-xs sm:text-sm md:text-base'>
-                <p className='flex items-center gap-1 sm:gap-2'>
-                  <motion.span
-                    className='w-2 aspect-square rounded-full bg-green-300 block'
-                    animate={{
-                      scale: [1, 1.2, 1, 1.2, 1]
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  />
-                  System Active |
-                </p>
-                <p className='flex items-center gap-1'>
-                  <i className="fa-solid fa-calendar-day"></i>
-                  <span className='hidden sm:inline'>Last Build:</span>
-                  <span className='sm:hidden'>Build:</span> 3.0.0 - 3/10/2026
-                </p>
-              </div>
-            </motion.section>
-          </motion.div>
-        )}
+            <hr className='border-gray-50/10' />
+            <div className='w-full flex items-center gap-2 flex-wrap p-2 text-white/60 text-xs sm:text-sm md:text-base'>
+              <p className='flex items-center gap-1 sm:gap-2'>
+                <motion.span
+                  className='w-2 aspect-square rounded-full bg-green-300 block'
+                  animate={{
+                    scale: [1, 1.2, 1, 1.2, 1]
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
+                System Active |
+              </p>
+              <p className='flex items-center gap-1'>
+                <i className="fa-solid fa-calendar-day"></i>
+                <span className='hidden sm:inline'>Last Build:</span>
+                <span className='sm:hidden'>Build:</span> 3.1 - 30/08/2026
+              </p>
+            </div>
+          </motion.section>
+        </motion.div>
       </AnimatePresence>
     </motion.div>
   )

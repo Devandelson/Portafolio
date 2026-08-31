@@ -12,7 +12,6 @@ const HomePage = lazy(() => import('./pages/homePage/home.tsx'));
 const About = lazy(() => import('./pages/aboutMe/about.tsx'));
 const Archive = lazy(() => import('./pages/archive/archive.tsx'));
 const Proyect = lazy(() => import('./pages/proyects/proyects.tsx'));
-const Setting = lazy(() => import('./pages/settings/setting.tsx'));
 
 // Componentes
 import Menu from './components/flotante/menu.tsx';
@@ -88,7 +87,7 @@ function Layout() {
           {particleSelect?.particle}
         </motion.div>
       </AnimatePresence>
-      
+
       <Menu>
         <AnimatePresence mode="wait">
           <div key={location.pathname}>
@@ -96,8 +95,10 @@ function Layout() {
           </div>
         </AnimatePresence>
       </Menu>
-      <SocialFloat setParticle={setParticle} particleSelect={particleSelect} particle={particle} />
-      <Sonido particleSelect={particleSelect}></Sonido>
+      <div className='w-full fixed top-2 h-max flex items-center justify-between z-90 p-3'>
+        <SocialFloat setParticle={setParticle} particleSelect={particleSelect} particle={particle} />
+        <Sonido particleSelect={particleSelect}></Sonido>
+      </div>
     </>
   );
 }
@@ -118,7 +119,6 @@ function App() {
                 <Route path='/sobreMi' element={<About />} />
                 <Route path='/archivo' element={<Archive />} />
                 <Route path='/proyectos' element={<Proyect />} />
-                <Route path='/setting' element={<Setting />} />
               </Route>
             </Routes>
           </AnimatePresence>
