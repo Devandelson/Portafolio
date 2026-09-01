@@ -8,7 +8,7 @@ import moon from '../../assets/Moon.png';
 // hooks
 import Tilt from 'react-parallax-tilt';
 
-import { useEffect, useRef, useState, type RefObject } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, type Variants } from 'framer-motion';
 
 // -- contexts
@@ -65,6 +65,7 @@ function HeaderAbout() {
     const moonReft = useRef<HTMLImageElement>(null);
     const capeReft = useRef<HTMLImageElement | null>(null);
     const capeReft2 = useRef<HTMLSpanElement | null>(null);
+    const backgroundRef = useRef<HTMLImageElement>(null);
 
     // 1. Definimos las variantes de animación
     const containerVariants: Variants = {
@@ -99,6 +100,10 @@ function HeaderAbout() {
             capeReft.current.style.transform = `translateY(-${window.scrollY * 0.8}px)`;
             capeReft2.current.style.transform = `translateY(-${window.scrollY * 0.8}px)`;
         }
+
+        if (backgroundRef.current) {
+            backgroundRef.current.style.transform = `scale(${Math.max(1 + window.scrollY * 0.0005, 1)}) translateY(-${window.scrollY * 0.2}px)`;
+        };
     };
 
     useEffect(() => {
@@ -107,10 +112,11 @@ function HeaderAbout() {
     }, []);
 
     return (
-        <div className={`w-full h-auto min-h-screen relative`}>
+        <div className={`w-full h-auto min-h-[80vh] relative`}>
             <header className='w-full h-auto min-h-screen relative z-20 bg-transparent overflow-hidden'>
-                <img src={bg_about} className='absolute top-0 left-0 w-full -z-20 h-full object-cover' />
+                <img src={bg_about} className='absolute top-0 left-0 w-full -z-20 h-full object-cover' ref={backgroundRef} />
                 <img src={cape_about} className='absolute h-full object-cover w-full bottom-0 left-0 block z-80' ref={capeReft} />
+
                 <span className='w-full bottom-[-80%] absolute block h-screen bg-[#0B1530] z-80' ref={capeReft2}></span>
 
                 <motion.img src={moon} className='absolute top-[-10%] left-[-10%] w-[35%] -z-20 aspect-square object-cover max-md:w-[50%]' ref={moonReft}
@@ -169,7 +175,7 @@ function HeaderAbout() {
 function InfoAboutMe() {
     return (
         <section className='w-full min-h-[70vh] text-center relative
-        bg-linear-to-t from-bgPage to-[#0B1530] flex items-center justify-center
+        bg-linear-to-t from-bgPage to-[#0B1530] flex items-start p-4 justify-center
         z-30'>
             <motion.div className="max-w-3xl mx-auto px-6 relative z-20"
                 initial={{ y: 80, opacity: 0, scale: 1 }}
@@ -186,9 +192,8 @@ function InfoAboutMe() {
                 <p
                     className={`mt-6 text-center text-xl md:text-2xl text-white leading-relaxed font-medium text-shadow-2xs/80 bounceItem`}
                 >
-                    Soy un dev <span className="text-emerald-300 font-bold">Front-End</span> con habilidades adicionales de <span className="text-emerald-300 font-bold">Back-End</span>.
-                    Mi portafolio refleja un crecimiento constante y un compromiso firme con la innovación.
-                    Cada proyecto que realizo es una <span className="text-emerald-100 font-semibold">fusión entre tecnología y creatividad</span>.
+                    Especializado en <span className="text-emerald-300 font-bold">Frontend</span>, con experiencia en la creación de interfaces escalables, intuitivas y de alto rendimiento, además de habilidades en integración con <span className="text-emerald-300 font-bold">Backend</span> para construir soluciones full-stack.
+                    Mi enfoque analítico se refleja en la <span className="text-emerald-100 font-semibold">optimización constante de la experiencia de usuario</span> y el desarrollo de software eficiente, bajo una mantenibilidad y trabajo colaborativo competentes.
                 </p>
             </motion.div>
         </section>

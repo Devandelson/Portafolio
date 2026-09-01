@@ -19,9 +19,8 @@ export default function Skills() {
         { name: "MySQL", icon: "fa-solid fa-database", color: "group-hover:text-cyan-400", border: "hover:border-cyan-400/40", shadow: "hover:shadow-[0_0_20px_rgba(34,211,238,0.25)]" },
         { name: "XAMPP", icon: "fa-solid fa-server", color: "group-hover:text-orange-400", border: "hover:border-orange-400/40", shadow: "hover:shadow-[0_0_20px_rgba(251,146,60,0.25)]" },
         { name: "PHP", icon: "fa-brands fa-php", color: "group-hover:text-indigo-400", border: "hover:border-indigo-400/40", shadow: "hover:shadow-[0_0_20px_rgba(129,140,248,0.25)]" },
-        { name: "AJAX", icon: "fa-solid fa-bolt", color: "group-hover:text-blue-300", border: "hover:border-blue-300/40", shadow: "hover:shadow-[0_0_20px_rgba(147,197,253,0.25)]" },
-        { name: "Python", icon: "fab fa-python", color: "group-hover:text-yellow-400", border: "hover:border-yellow-400/40", shadow: "hover:shadow-[0_0_20px_rgba(250,204,21,0.25)]" },
-        { name: "Google ADK", icon: "fa-brands fa-google", color: "group-hover:text-emerald-400", border: "hover:border-emerald-400/40", shadow: "hover:shadow-[0_0_20px_rgba(52,211,153,0.25)]" },
+        { name: "AJAX (JS)", icon: "fa-solid fa-repeat", color: "group-hover:text-blue-300", border: "hover:border-blue-300/40", shadow: "hover:shadow-[0_0_20px_rgba(147,197,253,0.25)]" },
+        { name: "Node JS", icon: "fa-brands fa-node-js", color: "group-hover:text-blue-300", border: "hover:border-blue-300/40", shadow: "hover:shadow-[0_0_20px_rgba(147,197,253,0.25)]" },
     ];
 
     // ---- Herramientas
@@ -42,7 +41,7 @@ export default function Skills() {
                             <span className="text-primary mr-2">///</span> Habilidades
                         </h2>
                         <p className="text-xs font-mono text-gray-500 bounceItem">
-                            Version 1.0.0
+                            Version 3.1
                         </p>
                     </div>
                 </div>
