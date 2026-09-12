@@ -192,8 +192,8 @@ function InfoAboutMe() {
                 <p
                     className={`mt-6 text-center text-xl md:text-2xl text-white leading-relaxed font-medium text-shadow-2xs/80 bounceItem`}
                 >
-                    Especializado en <span className="text-emerald-300 font-bold">Frontend</span>, con experiencia en la creación de interfaces escalables, intuitivas y de alto rendimiento, además de habilidades en integración con <span className="text-emerald-300 font-bold">Backend</span> para construir soluciones full-stack.
-                    Mi enfoque analítico se refleja en la <span className="text-emerald-100 font-semibold">optimización constante de la experiencia de usuario</span> y el desarrollo de software eficiente, bajo una mantenibilidad y trabajo colaborativo competentes.
+                    <span className="text-emerald-300 font-bold">Desarrollador Frontend</span> con experiencia en construir interfaces escalables, rentables y con posibilidad de integrar el <span className="text-emerald-300 font-bold">Backend</span> para entregar soluciones full-stack completas.
+                    Aporto una mirada analítica orientada a la <span className="text-emerald-100 font-semibold">confianza del usuario</span> en una aplicación y indiscutiblemente siempre trabajando en equipo.
                 </p>
             </motion.div>
         </section>

@@ -9,6 +9,7 @@ export default function Skills() {
         { name: "Bootstrap", icon: "fa-brands fa-bootstrap", color: "group-hover:text-purple-500", border: "hover:border-purple-500/40", shadow: "hover:shadow-[0_0_20px_rgba(168,85,247,0.25)]" },
         { name: "HTML5", icon: "fa-brands fa-html5", color: "group-hover:text-orange-500", border: "hover:border-orange-500/40", shadow: "hover:shadow-[0_0_20px_rgba(249,115,22,0.25)]" },
         { name: "JavaScript", icon: "fa-brands fa-js", color: "group-hover:text-yellow-400", border: "hover:border-yellow-400/40", shadow: "hover:shadow-[0_0_20px_rgba(250,204,21,0.25)]" },
+        { name: "Typescript", icon: "fa-brands fa-typescript", color: "group-hover:text-yellow-400", border: "hover:border-yellow-400/40", shadow: "hover:shadow-[0_0_20px_rgba(250,204,21,0.25)]" },
         { name: "React", icon: "fa-brands fa-react", color: "group-hover:text-cyan-400", border: "hover:border-cyan-400/40", shadow: "hover:shadow-[0_0_20px_rgba(34,211,238,0.25)]" },
         { name: "Tailwind", icon: "fa-solid fa-wind", color: "group-hover:text-sky-400", border: "hover:border-sky-400/40", shadow: "hover:shadow-[0_0_20px_rgba(56,189,248,0.25)]" },
     ];

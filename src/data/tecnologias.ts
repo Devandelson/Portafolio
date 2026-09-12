@@ -8,6 +8,7 @@ export const tecnologiasData: Tecnologia[] = [
     { id: 2, nombre: 'HTML', icono: 'fab fa-html5' },
     { id: 5, nombre: 'CSS', icono: 'fab fa-css3-alt' },
     { id: 6, nombre: 'JavaScript', icono: 'fab fa-js' },
+    { id: 21, nombre: 'Typescript', icono: 'fa-brands fa-typescript' },
     { id: 7, nombre: 'React', icono: 'fab fa-react' }, 
     { id: 9, nombre: 'Tailwind', icono: 'fas fa-wind' },
     { id: 10, nombre: 'Visual Basic', icono: 'fas fa-code' },
@@ -19,6 +20,8 @@ export const tecnologiasData: Tecnologia[] = [
     { id: 16, nombre: 'AJAX', icono: 'fas fa-sync' },
     { id: 17, nombre: 'Git', icono: 'fab fa-git-alt' },
     { id: 18, nombre: 'GitHub', icono: 'fab fa-github' },
+
+    
     { id: 19, nombre: 'Python', icono: 'fab fa-python' },
     { id: 20, nombre: 'Google ADK', icono: 'fa-brands fa-google' }
 ];
