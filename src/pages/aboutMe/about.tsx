@@ -8,19 +8,20 @@ import moon from '../../assets/Moon.png';
 // hooks
 import Tilt from 'react-parallax-tilt';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { motion, type Variants } from 'framer-motion';
 
 // -- contexts
 import { useSwitchAnimation } from '../../context/animations/switchAnimation.tsx';
 
 // -- Data
-import { type HistoriaItem, historiaData } from '../../data/historia.ts';
+// import { type HistoriaItem, historiaData } from '../../data/historia.ts';
 import LogroCard from './cardsArchievements.tsx';
 import { logrosData } from '../../data/logro.ts';
 
 // -- components
 import Skills from './skills.tsx';
+import HistorySlider from './historySlider.tsx';
 
 export default function About() {
     const { animations } = useSwitchAnimation();
@@ -210,7 +211,7 @@ function History() {
                     style={{
                         color: '#0f2525',
                         textShadow: `
-                            1px 1px 2px rgba(255, 255, 255, 0.10),
+                            1px 1px 2px rgba(255, 255, 255, 0.30),
                             -1px -1px 1px rgba(0, 0, 0, 20)
                         `
                     }}
@@ -219,99 +220,95 @@ function History() {
                 </h2>
             </section>
 
-            <section className='w-full max-w-7xl mx-auto h-auto relative mt-2 flex gap-5 flex-wrap p-4 sm:p-7 py-4 justify-center z-10 bg-bgPage'>
-                {historiaData.map((item) => (
-                    <HistoriaCard key={item.id} item={item} />
-                ))}
-            </section>
+            <HistorySlider></HistorySlider>
         </>
     )
 }
 
 
-interface HistoriaCardProps {
-    item: HistoriaItem;
-}
+// interface HistoriaCardProps {
+//     item: HistoriaItem;
+// }
 
-function HistoriaCard({ item }: HistoriaCardProps) {
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+// function HistoriaCard({ item }: HistoriaCardProps) {
+//     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-    const handlePrevImage = () => {
-        setCurrentImageIndex((prev) =>
-            prev === 0 ? item.imagenes.length - 1 : prev - 1
-        );
-    };
+//     const handlePrevImage = () => {
+//         setCurrentImageIndex((prev) =>
+//             prev === 0 ? item.imagenes.length - 1 : prev - 1
+//         );
+//     };
 
-    const handleNextImage = () => {
-        setCurrentImageIndex((prev) =>
-            prev === item.imagenes.length - 1 ? 0 : prev + 1
-        );
-    };
+//     const handleNextImage = () => {
+//         setCurrentImageIndex((prev) =>
+//             prev === item.imagenes.length - 1 ? 0 : prev + 1
+//         );
+//     };
 
-    return (
-        <article className='w-80 grow max-w-100 sm:max-w-90 h-auto rounded-lg p-4 flex flex-col items-start gap-3 text-start relative z-2
-        
-        after:content-[""] after:absolute after:rounded-lg after:-z-2
-        after:bg-white/5 after:border after:border-gray-300/5
-        after:w-full after:h-[85%] after:bottom-0 after:left-0 bounceItem
-        '>
-            <div className='relative w-full group'>
-                <motion.img
-                    src={item.imagenes[currentImageIndex]}
-                    key={item.imagenes[currentImageIndex]}
-                    alt={`Imagen ${currentImageIndex + 1} del proyecto`}
-                    className='rounded-lg shadow-2xl w-full h-64 object-cover transition-opacity duration-300'
+//     return (
+//         <article className='w-80 grow max-w-100 sm:max-w-90 h-auto rounded-lg p-4 flex flex-col items-start gap-3 text-start relative z-2
 
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                />
+//         after:content-[""] after:absolute after:rounded-lg after:-z-2
+//         after:bg-white/5 after:border after:border-gray-300/5
+//         after:w-full after:h-[85%] after:bottom-0 after:left-0 bounceItem
+//         '>
+//             <div className='relative w-full group'>
+//                 <motion.img
+//                     src={item.imagenes[currentImageIndex]}
+//                     key={item.imagenes[currentImageIndex]}
+//                     alt={`Imagen ${currentImageIndex + 1} del proyecto`}
+//                     className='rounded-lg shadow-2xl w-full h-64 object-cover transition-opacity duration-300'
 
-                {item.imagenes.length > 1 && (
-                    <>
-                        <div className='absolute bottom-2 left-2 z-10 flex items-center gap-2'>
-                            <button
-                                onClick={handlePrevImage}
-                                className='p-1 px-2.5 text-sm rounded-full bg-blue-400/50 hover:bg-blue-400/70 text-white transition-all active:scale-95'
-                            >
-                                <i className="fa-solid fa-angle-left"></i>
-                            </button>
+//                     initial={{ opacity: 0, y: 10 }}
+//                     animate={{ opacity: 1, y: 0 }}
+//                     exit={{ opacity: 0, y: -10 }}
+//                 />
 
-                            <button
-                                onClick={handleNextImage}
-                                className='p-1 px-2.5 text-sm rounded-full bg-blue-400/50 hover:bg-blue-400/70 text-white transition-all active:scale-95'
-                            >
-                                <i className="fa-solid fa-angle-right"></i>
-                            </button>
-                        </div>
+//                 {item.imagenes.length > 1 && (
+//                     <>
+//                         <div className='absolute bottom-2 left-2 z-10 flex items-center gap-2'>
+//                             <button
+//                                 onClick={handlePrevImage}
+//                                 className='p-1 px-2.5 text-sm rounded-full bg-blue-400/50 hover:bg-blue-400/70 text-white transition-all active:scale-95'
+//                             >
+//                                 <i className="fa-solid fa-angle-left"></i>
+//                             </button>
 
-                        {/* Indicador de imágenes */}
-                        <div className='absolute bottom-2 right-2 z-10 bg-black/50 backdrop-blur-sm px-2 py-1 rounded-full text-white text-xs'>
-                            {currentImageIndex + 1} / {item.imagenes.length}
-                        </div>
-                    </>
-                )}
-            </div>
+//                             <button
+//                                 onClick={handleNextImage}
+//                                 className='p-1 px-2.5 text-sm rounded-full bg-blue-400/50 hover:bg-blue-400/70 text-white transition-all active:scale-95'
+//                             >
+//                                 <i className="fa-solid fa-angle-right"></i>
+//                             </button>
+//                         </div>
 
-            <div className='flex-1 flex flex-col gap-3 w-full'>
-                <p
-                    className='text-sm sm:text-base leading-relaxed overflow-y-auto max-h-40 p-1 text-balance'
-                    style={{
-                        scrollbarWidth: 'thin',
-                        scrollbarColor: '#064e3b transparent',
-                    }}
+//                         {/* Indicador de imágenes */}
+//                         <div className='absolute bottom-2 right-2 z-10 bg-black/50 backdrop-blur-sm px-2 py-1 rounded-full text-white text-xs'>
+//                             {currentImageIndex + 1} / {item.imagenes.length}
+//                         </div>
+//                     </>
+//                 )}
+//             </div>
 
-                    dangerouslySetInnerHTML={{ __html: item.descripcion }}
-                />
+//             <div className='flex-1 flex flex-col gap-3 w-full'>
+//                 <p
+//                     className='text-sm sm:text-base leading-relaxed overflow-y-auto max-h-40 p-1 text-balance'
+//                     style={{
+//                         scrollbarWidth: 'thin',
+//                         scrollbarColor: '#064e3b transparent',
+//                     }}
 
-                <p className='text-white/30 text-sm mt-auto'>
-                    <i className="fa-solid fa-calendar-day mr-1"></i>
-                    Fecha: {item.fecha}
-                </p>
-            </div>
-        </article>
-    );
-}
+//                     dangerouslySetInnerHTML={{ __html: item.descripcion }}
+//                 />
+
+//                 <p className='text-white/30 text-sm mt-auto'>
+//                     <i className="fa-solid fa-calendar-day mr-1"></i>
+//                     Fecha: {item.fecha}
+//                 </p>
+//             </div>
+//         </article>
+//     );
+// }
 
 import { useInView } from 'react-intersection-observer';
 import confetti from 'canvas-confetti';

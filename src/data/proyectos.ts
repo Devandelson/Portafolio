@@ -47,6 +47,8 @@ import chat2 from '../assets/chat2.png';
 
 import recipe1 from '../assets/recipe1.png'
 
+import imgPrt from '../assets/prt.png';
+
 export interface Proyecto {
     id: number;
     categoria: 'destacado' | 'regular';
@@ -85,7 +87,7 @@ export const proyectosData: Proyecto[] = [
         id: 4,
         categoria: 'regular',
         titulo: 'App de notas',
-        descripcion: 'Una app de notas personalizable y eficiente, desarrollada mientras estube en el curso Semillero Digital Intro de OGTIC, diseñada para crear, organizar y buscar notas de manera flexible y efectiva.',
+        descripcion: 'Desarrollado durante el programa Semillero Digital Intro de la OGTIC.Diseñé y construí desde cero una solución integral y eficiente para la creación, organización y búsqueda de información. A diferencia de las aplicaciones de notas convencionales, este sistema permite a cualquier usuario estructurar datos de manera flexible mediante formularios dinámicos, ofreciendo una experiencia similar a una hoja de cálculo (Excel) pero con interfaz intuitiva y sin necesidad de escribir código.',
         imagenes: [appNotas],
         enlace: 'https://flexo.infinityfreeapp.com/index.php',
         tipoBoton: 'visualizar',
@@ -166,7 +168,7 @@ export const proyectosData: Proyecto[] = [
         id: 12,
         categoria: 'regular',
         titulo: 'Juego de adivinanzas',
-        descripcion: 'Creado durante un curso en el ITLA.',
+        descripcion: 'Creado durante un curso en el ITLA, con un tiempo limite para la realización del mismo para acercarnos a lo que es un entorno real en la creación de aplicaciones web.',
         imagenes: [adivinanzas],
         enlace: 'https://devandelson.github.io/Portafolio/uploadPages/Juego%20de%20adivinansas/index.html',
         tipoBoton: 'visualizar',
@@ -176,7 +178,7 @@ export const proyectosData: Proyecto[] = [
         id: 13,
         categoria: 'regular',
         titulo: 'Sistema de farmacia',
-        descripcion: 'Desarrollé este sistema optimizar la gestión de inventario, ventas y otras operaciones en farmacias. Si deseas conocer más detalles, ¡no dudes en contactarme!.',
+        descripcion: 'Desarrollé este segundo sistema en el "Politecnico Nuestra Señora De La Esperanza" como parte de un trabajo final y el sistema se trato de una farmacia en donde se queria gestionar el inventario, ventas y otras operaciones relevantes en farmacias.',
         imagenes: [farmaciaFactura, farmaciaInicio, farmaciaRegistro],
         enlace: '',
         tipoBoton: 'imagen',
@@ -186,7 +188,7 @@ export const proyectosData: Proyecto[] = [
         id: 14,
         categoria: 'regular',
         titulo: 'Sistema de recursos humanos',
-        descripcion: 'Desarrollé este sistema optimizar la gestión de empleados, renumeración y otras operaciones de recursos humanos. Si deseas conocer más detalles, ¡no dudes en contactarme!',
+        descripcion: 'Durante mis años en una escuela tecnica, desarrolle este primer sistema para una competencia de desarrollo de software en donde me centre en optimizar la gestión de empleados, renumeración y otras operaciones de recursos humanos para al final establecer una mejor relación del empleado y la empresa.',
         imagenes: [rhControl, rhInicio, rhRegistro],
         enlace: '',
         tipoBoton: 'imagen',
@@ -196,7 +198,7 @@ export const proyectosData: Proyecto[] = [
         id: 15,
         categoria: 'regular',
         titulo: 'Sistema Escolar',
-        descripcion: 'Desarrollé este sistema optimizar la gestión de estudiantes, calificaciones, profesores, mérito y otras operaciones escolares.',
+        descripcion: 'Desarrollé este sistema para optimizar la gestión de estudiantes, calificaciones, profesores, méritos y otras operaciones escolares. Además de la programación, me encargué de planificar y gestionar todas las tareas del desarrollo. Al ser mi primer proyecto para un cliente real, representó un gran reto, pero me dejó la valiosa lección de que cualquier desafío técnico se puede superar con esfuerzo y organización.',
         imagenes: [escolarCalificacion, escolarEstudiante, escolarNL],
         enlace: '',
         tipoBoton: 'imagen',
@@ -239,7 +241,7 @@ export const proyectosData: Proyecto[] = [
         id: 19,
         categoria: 'regular',
         titulo: 'Zypher',
-        descripcion: '🚀 ¡Otro proyecto publicado! <br> 🎯 He desarrollado un CRUD completo en React que consume una API y permite trabajar con imágenes de usuario. <br> 🧩 Funcionalidades principales: <br> ✅ Visualización de usuarios desde API <br> ✅ Creación y edición de datos en tiempo real <br> ✅ Subida de imágenes <br> ✅ Diseño responsivo con estilo limpio <br> 🛠️ Tecnologías utilizadas: <br> React | Fetch API | Hooks | TailwindCSS | Frame motion <br> 🔍 Este proyecto me ayudó a reforzar conceptos clave como: <br> - Manejo de estado y formularios controlados <br> - Comunicación cliente-servidor <br> - Subida y renderizado de imágenes <br> - Reutilización de componentes <br> 📁 Código disponible si deseas revisarlo o colaborar 🙌 <br> (<a target="_blank" href="https://github.com/Devandelson/Crud-React">LINK</a>)',
+        descripcion: '🚀 ¡Otro proyecto publicado! 🎯 He desarrollado un CRUD completo en React que consume una API y permite gestionar imágenes de usuario. Entre sus funcionalidades principales destacan la visualización, creación y edición de datos en tiempo real, junto con un diseño responsivo y limpio. 🛠️ Para construirlo, utilicé React, Fetch API, Hooks, TailwindCSS y Framer Motion. 🔍 Este proyecto ha sido clave para reforzar mis conocimientos en el manejo de estados, formularios controlados, comunicación cliente-servidor y reutilización de componentes. 📁 El código está abierto para quienes deseen revisarlo o colaborar 🙌. Enlace: https://github.com/Devandelson/Crud-React',
         imagenes: [zypher],
         enlace: 'https://devandelson.github.io/Crud-React/',
         tipoBoton: 'visualizar',
@@ -260,29 +262,39 @@ export const proyectosData: Proyecto[] = [
         categoria: 'destacado',
         titulo: 'Learnify - Plataforma Educativa',
         descripcion: 'Plataforma de gestión educativa (LMS) desarrollada a la medida en PHP, diseñada en colaboración con el cliente para automatizar la operación académica de su academia. Centraliza la administración de asignaturas, unidades y publicaciones (tareas, exámenes con control de intentos, anuncios y enlaces a grabaciones), e integra seguimiento de calificaciones, asistencia, chat global y notificaciones, respaldado por un panel de estadísticas para auditar el rendimiento general.\n\nCredenciales de acceso (demo): Email-a@gmail.com | Contraseña-1212',
-        imagenes: [L_F, L_F2, L_Fo3, L_Fo4, L_Fo5, L_Fo6, L_Fo7, L_Fo8, L_Fo9 ],
+        imagenes: [L_F, L_F2, L_Fo3, L_Fo4, L_Fo5, L_Fo6, L_Fo7, L_Fo8, L_Fo9],
         enlace: 'https://learnifyclass.infinityfree.me/index.php',
         tipoBoton: 'visualizar',
         logos: [2, 5, 6, 12, 13, 15, 16, 17, 18]
     },
     {
         id: 22,
-        categoria: 'destacado',
+        categoria: 'regular',
         titulo: 'Chat online',
         descripcion: 'Aplicación de chat en tiempo real. Ha sido un reto técnico emocionante y una de las primeras aplicaciones que he creado implementando comunicación en tiempo real, enfocándome en la fluidez de los mensajes y la sincronización instantánea de los usuarios.',
         imagenes: [chat1, chat2],
-        enlace: 'https://front-chat-71nt.onrender.com/', 
+        enlace: 'https://front-chat-71nt.onrender.com/',
         tipoBoton: 'visualizar',
-        logos: [7, 17, 18, 9] 
+        logos: [7, 17, 18, 9]
     },
     {
-        id: 22,
+        id: 23,
         categoria: 'destacado',
         titulo: 'Recipe Doc',
-        descripcion: 'Developed my first app in english that is an advanced React CRUD that implements complex state management, data validation, and real-time UI updates.',
+        descripcion: 'Developed my first app in english that is an advanced React CRUD that implements complex state management, data validation, real-time UI updates and also for a plus I include an scroll infinity for better the performance.',
         imagenes: [recipe1],
-        enlace: 'https://devandelson.github.io/recipe-docs/', 
+        enlace: 'https://devandelson.github.io/recipe-docs/',
         tipoBoton: 'visualizar',
-        logos: [7, 17, 18, 9] 
+        logos: [7, 17, 18, 9]
+    },
+    {
+        id: 24,
+        categoria: 'destacado',
+        titulo: 'Plataforma de votación y registro',
+        descripcion: 'Aplicación web de votación hecha a la medida de un cliente, pensada para que cualquier persona pueda votar y compartir de forma intuitiva, sin tantas explicaciones, con una paginación clara y bien resuelta. Surgió para solucionar un problema real del cliente en la gestión de sus votos, e incluye un panel administrativo donde se puede ver desde qué lugar votó cada participante. Lo más destacable es el FrontEnd, donde puse la mayor parte del esfuerzo: interfaz limpia, formularios claros y una experiencia fluida. En el BackEnd implementé protección contra inyección SQL mediante consultas parametrizadas y almacenamiento seguro de contraseñas con hash.',
+        imagenes: [imgPrt],
+        enlace: 'https://votacionprt.infinityfreeapp.com/',
+        tipoBoton: 'visualizar',
+        logos: [2, 5, 6, 12]
     },
 ];

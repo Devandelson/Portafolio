@@ -37,8 +37,7 @@ export default function LogroCard({ logro, index }: LogroCardProps) {
                 group-hover/article:scale-110
                 group-hover/article:blur-sm
                 duration-200
-                ${isActive ? 'blur-none!' : ''}
-                `}
+                ${isActive ? 'blur-none! object-contain!' : ''}`}
             />
 
             <div
