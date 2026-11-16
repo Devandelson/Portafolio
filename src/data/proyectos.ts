@@ -49,6 +49,8 @@ import recipe1 from '../assets/recipe1.png'
 
 import imgPrt from '../assets/prt.png';
 
+import imgMandaoPedido from '../assets/mandao1.png'
+
 export interface Proyecto {
     id: number;
     categoria: 'destacado' | 'regular';
@@ -296,5 +298,15 @@ export const proyectosData: Proyecto[] = [
         enlace: 'https://votacionprt.infinityfreeapp.com/',
         tipoBoton: 'visualizar',
         logos: [2, 5, 6, 12]
+    },
+    {
+        id: 26,
+        categoria: 'destacado',
+        titulo: 'Mandao: el colmado de siempre, a un toque',
+        descripcion: 'Plataforma web que acerca al cliente con el colmado de su barrio sin perder la familiaridad de WhatsApp: el cliente arma su pedido y lo sigue en una conversación, y el colmado organiza su día por cliente, fecha y número de orden. Mi mayor esfuerzo estuvo en el FrontEnd con React, TypeScript y Tailwind, y construí el BackEnd con Node.js y PostgreSQL.',
+        imagenes: [ imgMandaoPedido],
+        enlace: 'https://mimandao.onrender.com', // pon aquí la URL real
+        tipoBoton: 'visualizar',
+        logos: [7, 21, 9, 22, 23, 17] // React, TypeScript, Tailwind, Node.js, PostgreSQL, Git
     },
 ];

@@ -1,221 +1,172 @@
-// resources
+import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
-import { type HistoriaItem, historiaData } from '../../data/historia.ts';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { AnimatePresence, MotionConfig, motion, type Variants } from 'motion/react'
+import { historiaData as data } from '../../data/historia.ts'
 
-// Hooks
-import { useState } from 'react';
+const ease = [0.22, 1, 0.36, 1] as const
+const spring = { type: 'spring', stiffness: 220, damping: 28 } as const
+const VISIBLE = 4 // active image + 3 peeking behind it
 
-// tools
-import { motion, AnimatePresence } from 'motion/react'
+// d = direction (1 forward, -1 back) so everything enters/leaves from the correct side
+const tile: Variants = {
+    enter: (d: number) => ({ opacity: 0, x: d * 60, scale: 0.9, filter: 'blur(8px)' }),
+    show: { opacity: 1, x: 0, scale: 1, filter: 'blur(0px)' },
+    exit: (d: number) => ({ opacity: 0, x: d * -60, scale: 0.9, filter: 'blur(8px)' }),
+}
+const text: Variants = {
+    enter: (d: number) => ({ opacity: 0, y: d * 24 }),
+    show: { opacity: 1, y: 0 },
+    exit: (d: number) => ({ opacity: 0, y: d * -24 }),
+}
+// side tiles hide on small screens so the active image keeps its space
+const responsive = ['', '', 'max-sm:hidden', 'max-lg:hidden']
 
 export default function HistorySlider() {
-    const [hData, setHData] = useState<HistoriaItem[]>(() =>
-        historiaData.map((item, i) => ({ ...item, estado: i === 0 }))
-    );
-    const [listNumber, setListNumber] = useState<number>(0);
-    const [imgIndex, setImgIndex] = useState<number>(0); // imagen activa dentro del artículo
+    const [[index, dir], setNav] = useState<[number, number]>([0, 1])
+    const [img, setImg] = useState(0) // active image inside the active article
+    const total = data.length
+    const active = data[index]
+    const order = Array.from({ length: Math.min(VISIBLE, total) }, (_, k) => data[(index + k) % total])
 
-    // variables -----------------
-    const activeHData = hData[0];
-    const totalImgs = activeHData.imagenes.length;
-    const hasMultiple = totalImgs > 1;
-    const currentSrc = activeHData.imagenes[imgIndex] ?? activeHData.imagenes[0];
-    const imgs = hData.map((item) => [item.imagenes[0], item.estado]);
-    const ease = [0.22, 1, 0.36, 1] as const;
-    const spring = { type: "spring", stiffness: 220, damping: 28, mass: 0.9 } as const;
-
-    function next() {
-        setHData((prev) => {
-            const [first, ...rest] = prev;
-            return [...rest, first].map((it, i) => ({ ...it, estado: i === 0 }));
-        });
-        setListNumber((prev) => (prev + 1) % hData.length);
-        setImgIndex(0);
+    const go = (i: number, d: number) => {
+        setNav([(i + total) % total, d])
+        setImg(0)
     }
-
-    function back() {
-        setHData((prev) => {
-            const last = prev[prev.length - 1];
-            return [last, ...prev.slice(0, -1)].map((it, i) => ({ ...it, estado: i === 0 }));
-        });
-        setListNumber((prev) => (prev - 1 + hData.length) % hData.length);
-        setImgIndex(0);
-    }
-
-    function nextImg() {
-        setImgIndex((prev) => (prev + 1) % totalImgs);
-    }
-
-    function prevImg() {
-        setImgIndex((prev) => (prev - 1 + totalImgs) % totalImgs);
-    }
+    const step = (d: number) => setImg((p) => (p + d + active.imagenes.length) % active.imagenes.length)
 
     return (
-        <section
-            className="relative z-10 mx-auto mt-2 grid w-full max-w-7xl grid-cols-1 gap-5 bg-bgPage p-4
-            sm:p-7 lg:grid-cols-[auto_minmax(0,450px)_minmax(0,1fr)] lg:gap-8"
-        >
-            {/* NUMEROS: horizontal en móvil, vertical en escritorio */}
-            <nav className="order-2 min-w-0 lg:order-none lg:h-full">
-                <ul
-                    className="relative flex list-none items-center justify-between gap-2 overflow-x-auto px-2 py-2
-                    lg:h-full lg:flex-col lg:gap-8 lg:overflow-visible lg:px-6 lg:py-0"
-                >
-                    {/* línea */}
-                    <span
-                        className="absolute left-0 top-1/2 w-full -translate-y-1/2 border-t border-white
-                        lg:left-1/2 lg:top-0 lg:h-full lg:w-0 lg:-translate-x-1/2 lg:translate-y-0 lg:border-l lg:border-t-0"
-                    />
-                    {hData.map((_, index) => (
-                        <li
-                            key={index}
-                            className={`z-10 shrink-0 rounded-full border border-transparent text-center text-sm font-semibold transition-all sm:text-base
-                            ${listNumber === index
-                                    ? 'border-white bg-black p-2 px-3.5 text-white sm:px-4'
-                                    : 'bg-white p-1 px-2.5 text-black'}`}
-                        >
-                            {index + 1}
-                        </li>
-                    ))}
-                </ul>
-            </nav>
+        <MotionConfig reducedMotion="user">
+            <section className="relative z-10 mx-auto mt-2 grid w-full max-w-7xl grid-cols-1 gap-6 bg-bgPage p-4 sm:p-7 lg:grid-cols-[auto_minmax(0,400px)_minmax(0,1fr)] lg:gap-10">
+                {/* RAIL: click any number; the green pill slides to it */}
+                <nav className="order-2 min-w-0 lg:order-none">
+                    <ul className="relative flex items-center justify-between gap-2 overflow-x-auto p-2 lg:h-full lg:flex-col lg:overflow-visible lg:px-4 lg:py-0">
+                        <span className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-white/15 lg:left-1/2 lg:top-0 lg:h-full lg:w-px lg:-translate-x-1/2 lg:translate-y-0" />
+                        {data.map((it, i) => (
+                            <li key={it.id} className="relative z-10 shrink-0">
+                                <button
+                                    type="button"
+                                    aria-label={`Ir a ${it.titulo}`}
+                                    aria-current={i === index}
+                                    onClick={() => go(i, i > index ? 1 : -1)}
+                                    className={`relative grid h-9 w-9 cursor-pointer place-items-center rounded-full text-sm font-semibold transition-colors
+                                    ${i === index ? 'text-black' : 'bg-neutral-800 text-white/60 hover:text-white'}`}
+                                >
+                                    {i === index && (
+                                        <motion.span layoutId="rail-pill" transition={spring} className="absolute inset-0 rounded-full bg-green-500" />
+                                    )}
+                                    <span className="relative">{i + 1}</span>
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
 
-            {/* TEXTO */}
-            <article className="order-3 grid w-full grid-rows-[auto_1fr_auto] lg:order-none lg:max-w-[450px]">
-                <h3 className="text-3xl font-bold sm:text-4xl lg:text-5xl">
-                    {activeHData.titulo}
-                </h3>
-                <p className="mt-3 text-base sm:mt-4 sm:text-lg">
-                    {activeHData.descripcion}
-                </p>
-
-                <section className="mt-5 flex flex-wrap items-center gap-2">
-                    <ButtonHistory label="atras" funcion={back} />
-                    <ButtonHistory label="alante" funcion={next} />
-                </section>
-            </article>
-
-            {/* IMAGENES: arriba en móvil */}
-            <div className="order-1 min-w-0 lg:order-none lg:min-h-[350px]">
-                <div className="relative flex h-64 w-full flex-nowrap items-center gap-1.5 overflow-hidden sm:h-80 lg:h-full">
-                    <AnimatePresence mode="popLayout" initial={false}>
-                        {/* Active image (contenedor con botones internos) */}
+                {/* TEXT */}
+                <article className="order-3 flex min-h-48 flex-col lg:order-none">
+                    <AnimatePresence mode="wait" custom={dir} initial={false}>
                         <motion.div
-                            key={`active-${activeHData.id}`}
-                            layout
-                            className="group/img relative h-full w-full max-w-[70%] shrink-0 overflow-hidden rounded-lg bg-gray-50
-                            transition-[max-width,border-radius] duration-500
-                            sm:max-w-[60%] lg:max-w-[55%] lg:hover:max-w-[80%] lg:hover:rounded-xl"
-                            style={{ willChange: "transform, opacity, filter" }}
-                            initial={{ y: -20, opacity: 0, filter: "blur(10px)", scale: 0.96 }}
-                            animate={{ y: 0, opacity: 1, filter: "blur(0px)", scale: 1 }}
-                            exit={{ y: 20, opacity: 0, filter: "blur(10px)", scale: 0.96 }}
-                            transition={{
-                                layout: spring,
-                                y: spring,
-                                scale: spring,
-                                opacity: { duration: 0.4, ease },
-                                filter: { duration: 0.4, ease },
-                            }}
+                            key={active.id}
+                            custom={dir}
+                            variants={text}
+                            initial="enter"
+                            animate="show"
+                            exit="exit"
+                            transition={{ duration: 0.35, ease }}
+                            className='max-h-100 h-auto overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-green-600'
                         >
-                            {/* cambio suave entre las imágenes del mismo artículo */}
-                            <AnimatePresence mode="wait" initial={false}>
-                                <motion.img
-                                    key={currentSrc}
-                                    src={String(currentSrc)}
-                                    alt={activeHData.titulo || 'Imagen del logro'}
-                                    className="h-full w-full object-cover"
-                                    initial={{ opacity: 0, scale: 1.03 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ duration: 0.25, ease }}
-                                />
-                            </AnimatePresence>
-
-                            {hasMultiple && (
-                                <>
-                                    <ButtonImage direction="left" funcion={prevImg} />
-                                    <ButtonImage direction="right" funcion={nextImg} />
-
-                                    {/* contador */}
-                                    <span className="absolute right-2 top-2 rounded-full bg-black/60 px-2.5 py-0.5 text-xs font-semibold text-white">
-                                        {imgIndex + 1} / {totalImgs}
-                                    </span>
-
-                                    {/* puntos */}
-                                    <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-1.5">
-                                        {activeHData.imagenes.map((_, i) => (
-                                            <span
-                                                key={i}
-                                                className={`h-1.5 rounded-full transition-all ${i === imgIndex ? 'w-4 bg-white' : 'w-1.5 bg-white/50'}`}
-                                            />
-                                        ))}
-                                    </div>
-                                </>
-                            )}
+                            <h3 className="text-balance font-bold leading-tight sm:text-2xl lg:text-3xl">{active.titulo}</h3>
+                            <p className="mt-4 text-base leading-relaxed text-white/75 sm:text-lg">{active.descripcion}</p>
                         </motion.div>
+                    </AnimatePresence>
 
-                        {/* Side images */}
-                        {imgs.map((imgItem, i) =>
-                            imgItem[1] === false && (
-                                <motion.img
-                                    key={`side-${imgItem[0]}`}
-                                    layout
-                                    src={String(imgItem[0])}
-                                    alt=""
-                                    className="h-full w-full max-w-[35%] shrink-0 rounded-lg bg-gray-50 object-cover sm:max-w-[40%]"
-                                    style={{ willChange: "transform, opacity, filter" }}
-                                    initial={{ x: -40, opacity: 0, filter: "blur(10px)", scale: 0.9 }}
-                                    animate={{ x: 0, opacity: 1, filter: "blur(0px)", scale: 0.9 }}
-                                    exit={{ x: -40, opacity: 0, filter: "blur(10px)", scale: 0.9 }}
-                                    transition={{
-                                        layout: spring,
-                                        x: spring,
-                                        scale: spring,
-                                        opacity: { duration: 0.4, ease, delay: i * 0.04 },
-                                        filter: { duration: 0.4, ease, delay: i * 0.04 },
-                                    }}
-                                />
-                            )
-                        )}
+                    <div className="mt-auto flex gap-3 pt-6">
+                        <button
+                            type="button"
+                            onClick={() => go(index - 1, -1)}
+                            className="flex cursor-pointer items-center gap-2 rounded-full border border-white/25 px-5 py-3 font-semibold text-white transition hover:bg-white/10 active:scale-95"
+                        >
+                            <FontAwesomeIcon icon={faChevronLeft} /> Anterior
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => go(index + 1, 1)}
+                            className="flex cursor-pointer items-center gap-2 rounded-full bg-green-500 px-6 py-3 font-semibold text-black transition hover:bg-green-400 active:scale-95"
+                        >
+                            Siguiente <FontAwesomeIcon icon={faChevronRight} />
+                        </button>
+                    </div>
+                </article>
+
+                {/* IMAGES: active card up front, the next ones peek behind at descending heights */}
+                <div className="relative order-1 flex h-72 min-w-0 items-center gap-3 sm:h-[420px] lg:order-none lg:h-[480px]">
+                    <AnimatePresence mode="popLayout" custom={dir} initial={false}>
+                        {order.map((it, k) => (
+                            <motion.div
+                                key={it.id}
+                                layout
+                                custom={dir}
+                                variants={tile}
+                                initial="enter"
+                                animate="show"
+                                exit="exit"
+                                transition={{ layout: spring, default: { duration: 0.5, ease } }}
+                                style={{ flex: k === 0 ? 3.2 : 1, height: `${100 - k * 16}%`, borderRadius: 24 }}
+                                className={`relative min-w-0 overflow-hidden bg-neutral-800 ${responsive[k]}`}
+                            >
+                                <motion.img layout src={String(it.imagenes[0])} alt={k === 0 ? it.titulo : ''} className="absolute inset-0 h-full w-full object-cover" />
+
+                                {k === 0 ? (
+                                    <>
+                                        {/* extra photos of the same article crossfade over the first one */}
+                                        <AnimatePresence initial={false}>
+                                            {img > 0 && (
+                                                <motion.img
+                                                    key={img}
+                                                    src={String(it.imagenes[img])}
+                                                    alt=""
+                                                    className="absolute inset-0 h-full w-full object-cover"
+                                                    initial={{ opacity: 0, scale: 1.04 }}
+                                                    animate={{ opacity: 1, scale: 1 }}
+                                                    exit={{ opacity: 0 }}
+                                                    transition={{ duration: 0.35, ease }}
+                                                />
+                                            )}
+                                        </AnimatePresence>
+                                        {it.imagenes.length > 1 && (
+                                            <motion.div
+                                                initial={{ opacity: 0, y: 8 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                transition={{ delay: 0.3 }}
+                                                className="absolute bottom-3 left-1/2 flex -translate-x-1/2 items-center gap-2 rounded-full bg-black/50 p-1 backdrop-blur-md"
+                                            >
+                                                <button type="button" aria-label="Imagen anterior" onClick={() => step(-1)} className="grid h-8 w-8 cursor-pointer place-items-center rounded-full text-white transition hover:bg-white/20 active:scale-90">
+                                                    <FontAwesomeIcon icon={faChevronLeft} />
+                                                </button>
+                                                <span className="flex items-center gap-1.5">
+                                                    {it.imagenes.map((_, j) => (
+                                                        <span key={j} className={`h-1.5 rounded-full transition-all ${j === img ? 'w-4 bg-white' : 'w-1.5 bg-white/50'}`} />
+                                                    ))}
+                                                </span>
+                                                <button type="button" aria-label="Imagen siguiente" onClick={() => step(1)} className="grid h-8 w-8 cursor-pointer place-items-center rounded-full text-white transition hover:bg-white/20 active:scale-90">
+                                                    <FontAwesomeIcon icon={faChevronRight} />
+                                                </button>
+                                            </motion.div>
+                                        )}
+                                    </>
+                                ) : (
+                                    <button
+                                        type="button"
+                                        aria-label={`Ir a ${it.titulo}`}
+                                        onClick={() => go((index + k) % total, 1)}
+                                        className="absolute inset-0 cursor-pointer bg-black/35 transition-colors duration-300 hover:bg-black/10"
+                                    />
+                                )}
+                            </motion.div>
+                        ))}
                     </AnimatePresence>
                 </div>
-            </div>
-        </section>
-    )
-}
-
-function ButtonHistory({ label, funcion }: { label: 'alante' | 'atras', funcion: () => void }) {
-    return (
-        <button
-            aria-label={label}
-            className="group relative cursor-pointer overflow-hidden rounded-lg border-2 border-green-500 px-5 py-2 transition-all active:scale-90"
-            onClick={funcion}
-        >
-            <span className="relative z-10 text-xl font-bold text-white duration-500 group-hover:text-green-500">
-                <FontAwesomeIcon icon={label === 'alante' ? faChevronRight : faChevronLeft} />
-            </span>
-            <span className="absolute left-0 top-0 h-full w-full bg-green-500 duration-500 group-hover:-translate-x-full" />
-            <span className="absolute left-0 top-0 h-full w-full bg-green-500 duration-500 group-hover:translate-x-full" />
-            <span className="absolute left-0 top-0 h-full w-full bg-green-500 duration-500 delay-300 group-hover:-translate-y-full" />
-            <span className="absolute left-0 top-0 h-full w-full bg-green-500 delay-300 duration-500 group-hover:translate-y-full" />
-        </button>
-    )
-}
-
-// Botones dentro de la imagen
-function ButtonImage({ direction, funcion }: { direction: 'left' | 'right', funcion: () => void }) {
-    return (
-        <button
-            type="button"
-            aria-label={direction === 'left' ? 'Imagen anterior' : 'Imagen siguiente'}
-            onClick={funcion}
-            className={`absolute top-1/2 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full
-            bg-black/55 text-white backdrop-blur-sm transition-all hover:bg-green-500 active:scale-90
-            ${direction === 'left' ? 'left-2' : 'right-2'}`}
-        >
-            <FontAwesomeIcon icon={direction === 'left' ? faChevronLeft : faChevronRight} />
-        </button>
+            </section>
+        </MotionConfig>
     )
 }
