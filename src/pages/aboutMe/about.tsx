@@ -52,11 +52,21 @@ export default function About() {
 // -- COMPONENTES
 function ButtonHeader({ title }: { title: string }) {
     return (
-        <span className='p-2 px-3 sm:p-2.5 sm:px-4 md:p-3 md:px-5 bg-bPage z-10 block w-max rounded-lg
-                            relative font-semibold text-xs sm:text-sm md:text-base
+        <span
+            className='relative z-10 inline-flex w-max items-center gap-2 sm:gap-2.5
+        rounded-lg border border-blue-400/30 bg-bPage
+        px-3 py-2 sm:px-4 sm:py-2.5 md:px-5 md:py-3
+        text-xs sm:text-sm md:text-base font-semibold tracking-wide text-white
+        shadow-lg shadow-blue-500/10
 
-                            after:-bottom-1.5 sm:after:-bottom-2 after:-left-1.5 sm:after:-left-2 after:absolute after:w-full after:h-full after:bg-blue-400/10 after:rounded-lg after:-z-10
-                            bounceItem '>
+        before:size-1.5 sm:before:size-2 before:shrink-0 before:rounded-full
+        before:bg-linear-to-r before:from-green-400 before:to-blue-500
+
+        after:absolute after:-bottom-1.5 after:-left-1.5 sm:after:-bottom-2 sm:after:-left-2
+        after:-z-10 after:size-full after:rounded-lg
+        after:border after:border-blue-400/20 after:bg-blue-400/10
+        bounceItem'
+        >
             {title}
         </span>
     )
@@ -153,18 +163,20 @@ function HeaderAbout() {
                                 </motion.h3>
                             </span>
 
-                            <motion.img
-                                src={perfil}
-                                alt="imagen de perfil"
-                                className='w-35 max-md:w-25 aspect-square object-cover rounded-full shadow-2xl order-1 md:order-2 bounceItem'
-                                variants={itemVariants}
-                            />
+
+                            <div className='overflow-hidden rounded-full'>
+                                <motion.img
+                                    src={perfil}
+                                    alt="imagen de perfil"
+                                    className='w-35 max-md:w-25 aspect-square scale-125 object-cover rounded-full shadow-2xl order-1 md:order-2 bounceItem'
+                                    variants={itemVariants}
+                                />
+                            </div>
                         </div>
                     </div>
 
                     {/* 6. Los Botones de Experiencia */}
                     <motion.div className='flex items-center md:justify-end justify-center gap-2 sm:gap-3 md:gap-3.5 flex-wrap mt-4 sm:mt-5 md:mt-9' variants={itemVariants}>
-                        <ButtonHeader title="+ 3 años de exp" />
                         <ButtonHeader title="+ 15 proyectos realizados" />
                     </motion.div>
                 </motion.div>

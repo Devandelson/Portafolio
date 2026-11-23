@@ -28,7 +28,7 @@ export default function ProjectGrid({ proyectos, setOpen, setElementRegular }: P
     };
 
     return (
-        <section className="max-w-7xl mx-auto px-4 pb-8">
+        <section className="max-w-7xl mx-auto px-4 pb-40">
             {proyectos.length === 0 ? (
                 <div className="text-center py-20 bounceItem">
                     <i className="fas fa-folder-open text-6xl text-slate-400 mb-4"></i>
@@ -88,7 +88,9 @@ function ProjectCard({ proyecto, variants, setElementRegular, setOpen }: Project
     return (
         stateProyect && (
             <motion.div
-                className={`bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl overflow-hidden group relative h-full grid grid-rows-[auto_1fr] bounceItem`}
+                className={`bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl overflow-hidden group relative h-full grid grid-rows-[auto_1fr] bounceItem
+                    particleUp
+                `}
                 variants={variants}
                 onClick={() => {
                     setElementRegular(proyecto.id);

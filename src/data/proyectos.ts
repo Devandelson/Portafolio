@@ -66,14 +66,14 @@ export interface Proyecto {
 export const proyectosData: Proyecto[] = [
     {
         id: 1,
-        categoria: 'destacado',
+        categoria: 'regular',
         titulo: 'RutaFit optimizador de rutas.',
         descripcion: 'Un proyecto innovador que calcula rutas automáticamente mediante una API y cuenta con una excelente automatización. Fue desarrollado en el curso de la OGTIC (Semillero Digital Intro) para la institución FITMOVIT, dedicada a fideos y comiso, donde tuve el honor de liderar el equipo.',
         imagenes: [rutafit1],
         enlace: 'https://github.com/Devandelson/PublicFit',
         tipoBoton: 'github',
         logos: [2, 5, 6, 12, 13, 15, 16, 17, 18],
-        state: false
+        state: true
     },
     {
         id: 3,
@@ -94,6 +94,16 @@ export const proyectosData: Proyecto[] = [
         enlace: 'https://flexo.infinityfreeapp.com/index.php',
         tipoBoton: 'visualizar',
         logos: [2, 5, 6, 12, 13, 15, 16]
+    },
+    {
+        id: 21,
+        categoria: 'destacado',
+        titulo: 'Learnify - Plataforma Educativa',
+        descripcion: 'Plataforma de gestión educativa (LMS) desarrollada a la medida en PHP, diseñada en colaboración con el cliente para automatizar la operación académica de su academia. Centraliza la administración de asignaturas, unidades y publicaciones (tareas, exámenes con control de intentos, anuncios y enlaces a grabaciones), e integra seguimiento de calificaciones, asistencia, chat global y notificaciones, respaldado por un panel de estadísticas para auditar el rendimiento general.\n\nCredenciales de acceso (demo): Email-a@gmail.com | Contraseña-1212',
+        imagenes: [L_F, L_F2, L_Fo3, L_Fo4, L_Fo5, L_Fo6, L_Fo7, L_Fo8, L_Fo9],
+        enlace: 'https://learnifyclass.infinityfree.me/index.php',
+        tipoBoton: 'visualizar',
+        logos: [2, 5, 6, 12, 13, 15, 16, 17, 18]
     },
     {
         id: 5,
@@ -260,16 +270,6 @@ export const proyectosData: Proyecto[] = [
         logos: [9, 7, 17, 18]
     },
     {
-        id: 21,
-        categoria: 'destacado',
-        titulo: 'Learnify - Plataforma Educativa',
-        descripcion: 'Plataforma de gestión educativa (LMS) desarrollada a la medida en PHP, diseñada en colaboración con el cliente para automatizar la operación académica de su academia. Centraliza la administración de asignaturas, unidades y publicaciones (tareas, exámenes con control de intentos, anuncios y enlaces a grabaciones), e integra seguimiento de calificaciones, asistencia, chat global y notificaciones, respaldado por un panel de estadísticas para auditar el rendimiento general.\n\nCredenciales de acceso (demo): Email-a@gmail.com | Contraseña-1212',
-        imagenes: [L_F, L_F2, L_Fo3, L_Fo4, L_Fo5, L_Fo6, L_Fo7, L_Fo8, L_Fo9],
-        enlace: 'https://learnifyclass.infinityfree.me/index.php',
-        tipoBoton: 'visualizar',
-        logos: [2, 5, 6, 12, 13, 15, 16, 17, 18]
-    },
-    {
         id: 22,
         categoria: 'regular',
         titulo: 'Chat online',
@@ -304,7 +304,7 @@ export const proyectosData: Proyecto[] = [
         categoria: 'destacado',
         titulo: 'Mandao: el colmado de siempre, a un toque',
         descripcion: 'Plataforma web que acerca al cliente con el colmado de su barrio sin perder la familiaridad de WhatsApp: el cliente arma su pedido y lo sigue en una conversación, y el colmado organiza su día por cliente, fecha y número de orden. Mi mayor esfuerzo estuvo en el FrontEnd con React, TypeScript y Tailwind, y construí el BackEnd con Node.js y PostgreSQL.',
-        imagenes: [ imgMandaoPedido],
+        imagenes: [imgMandaoPedido],
         enlace: 'https://mimandao.onrender.com', // pon aquí la URL real
         tipoBoton: 'visualizar',
         logos: [7, 21, 9, 22, 23, 17] // React, TypeScript, Tailwind, Node.js, PostgreSQL, Git

@@ -1,48 +1,11 @@
 // Hooks
 import { motion } from "motion/react"
-import { useEffect, useState } from "react";
 
 // Type
-import { type particle } from "../../types/particles/particle.ts";
 
-const SocialFloat = ({ setParticle, particleSelect, particle }: {
-    setParticle: React.Dispatch<React.SetStateAction<particle[]>>,
-    particle: particle[],
-    particleSelect: particle | undefined
-}) => {
-    const [indiceParticle, setIndiceParticle] = useState(0);
-
-    function changeParticle() {
-        const totalParticle: number = particle.length - 1;
-        setIndiceParticle((prev) => {
-            const copyPrev = prev;
-            const upCount: number = copyPrev + 1;
-            if (upCount > totalParticle) {
-                return 0;
-            } else {
-                return upCount;
-            }
-        })
-    }
-
-    useEffect(() => {
-        particleSelect?.event?.();
-
-        setParticle((prev) => {
-            const copyPrev = [...prev];
-            copyPrev.map((item) => {
-                item.isActive = false;
-            })
-
-            copyPrev[indiceParticle].isActive = true;
-            return copyPrev;
-        })
-    }, [indiceParticle]);
-
+const SocialFloat = () => {
     return (
-        <motion.ul className="flex gap-3 relative  items-center bg-bgPage/30 backdrop-blur-lg p-2 px-4 rounded-full border border-white/5 z-90
-        w-max max-md:fixed max-md:top-5 max-md:left-5
-        "
+        <motion.ul
             initial={{ opacity: 0, x: -100 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
@@ -50,12 +13,7 @@ const SocialFloat = ({ setParticle, particleSelect, particle }: {
             <SocialOption
                 icon="fa-brands fa-github"
                 href="https://github.com/Devandelson"
-                color="hover:bg-gray-700 hover:shadow-gray-700"
-            />
-            <SocialOption
-                icon={particleSelect?.icon ?? 'fa-solid fa-ban'}
-                color="hover:bg-red-500 hover:shadow-red-500"
-                onClick={() => { changeParticle() }}
+                color="hover:bg-gray-700 hover:shadow-gray-700 w-max absolute top-4 left-5"
             />
         </motion.ul>
     );
@@ -90,7 +48,7 @@ function SocialOption(
                 onClick={handleClick}
                 className={`
                     py-2.5 px-2.5 rounded-full flex items-center justify-center 
-                    transition-all cursor-pointer
+                    transition-all duration-100 cursor-pointer
                     bg-bgPage/50 text-white/90 border border-gray-50/20
                     hover:text-white hover:scale-110 hover:shadow-lg
                     active:scale-95

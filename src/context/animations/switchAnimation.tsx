@@ -80,8 +80,35 @@ export function SwitchAnimationProvider({ children }: { children: React.ReactNod
         exit: { opacity: 1, transition: { duration: 0 } }
     }
 
+    const ani11: Variants = { // Rubik
+        hidden: {
+            opacity: 0,
+            rotateY: 70,
+            x: "35%", 
+            transformPerspective: 3000,
+            transformOrigin: "50% 50% 0px", 
+        },
+        visible: {
+            opacity: 1,
+            rotateY: 0,
+            x: "0%",
+            transformPerspective: 3000,
+            transformOrigin: "50% 50% 0px",
+            transition: { duration: 0.7, ease: [0.77, 0, 0.175, 1] }
+        },
+        exit: {
+            opacity: 0,
+            rotateY: -70,
+            x: "-35%",
+            transformPerspective: 3000,
+            transformOrigin: "50% 50% 0px",
+            transition: { duration: 0.5, ease: [0.77, 0, 0.175, 1] }
+        }
+    }
+
     const [animations, setAnimations] = useState<AnimationType[]>([
         { name: "smooth", active: true, animation: ani1, label: "Smooth", badge: "Default", icon: "fa-solid fa-wand-magic-sparkles" },
+        { name: "rubik", active: false, animation: ani11, label: "Rubik", badge: "New", icon: "fa-solid fa-cube" },
         { name: "fast", active: false, animation: ani2, label: "Fast", badge: null, icon: "fa-solid fa-bolt" },
         { name: "relaxed", active: false, animation: ani3, label: "Relaxed", badge: null, icon: "fa-solid fa-hourglass" },
         { name: "organic", active: false, animation: ani4, label: "Organic", badge: null, icon: "fa-solid fa-leaf" },

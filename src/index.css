@@ -104,3 +104,24 @@ body {
   scrollbar-width: thin;
   scrollbar-color: dodgerblue transparent;
 }
+
+/* Animation for proyects cards */
+.particleUp {
+  animation: particleUpFrame both;
+  animation-timeline: view();
+  animation-range: entry cover 40%;
+}
+
+@keyframes particleUpFrame {
+  from {
+    scale: 0;
+    filter: blur(50px);
+    transform: translateX(200px);
+  }
+
+  to {
+    scale: 1;
+    filter: blur(0px);
+   transform: translateX(0px);
+  }
+}

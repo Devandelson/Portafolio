@@ -12,24 +12,26 @@ import img6 from '../../assets/fondo7_portafolio.jpg';
 // Context
 import { useSwitchAnimation } from '../../context/animations/switchAnimation.tsx';
 import useWallpaper from "../../context/pages/setting.tsx";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 // ── Data ─────────────────────────────────────────────────────────────────────
 
 const COLOR_THEMES_Default = [
     { id: "normal", label: "Normal", bg: "bg-blue-800/5", selected: true, bg1: "#101D22", bg2: "#1C2E35" },
-    
+
     // Richer deep navy with clear blue identity
     { id: "ocean", label: "Ocean Blue", bg: "bg-blue-500", selected: false, bg1: "#050e1f", bg2: "#0c1e3d" },
-    
+
     // Deeper forest green, more color presence
     { id: "jade", label: "Jade Forest", bg: "bg-emerald-500", selected: false, bg1: "#041510", bg2: "#082a18" },
-    
+
     // Warm dark amber/rust, feels like sunset
     { id: "sunset", label: "Sunset Clay", bg: "bg-amber-600", selected: false, bg1: "#1c0d00", bg2: "#341800" },
-    
+
     // True deep indigo/violet, clearly purple
     { id: "indigo", label: "Midnight Indigo", bg: "bg-indigo-600", selected: false, bg1: "#07051a", bg2: "#110d30" },
-    
+
     // Cool blue-gray, distinct from normal
     { id: "slate", label: "Slate Gray", bg: "bg-slate-400", selected: false, bg1: "#0d1017", bg2: "#181c26" },
 ]
@@ -53,9 +55,6 @@ function SettingHeader() {
             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight dark:text-white uppercase">
                 Configuración del <span className="text-primary">Portafolio</span>
             </h1>
-            <p className="mt-4 text-slate-500 dark:text-slate-400 max-w-xl text-lg font-medium">
-                Personaliza tu espacio de trabajo creativo con herramientas de alta fidelidad.
-            </p>
         </header>
     )
 }
@@ -140,8 +139,8 @@ function WallpaperThumbs({ WALLPAPER_THUMBS, setWallpapers }) {
                 <div key={thumb.id} className={`aspect-square rounded-lg overflow-hidden cursor-pointer transition-all active:scale-[0.95] ${thumb.selected
                     ? "border-2 border-amber-600 scale-105"
                     : "opacity-50 hover:opacity-100 hover:scale-110"
-                    }  `} 
-                onClick={() => {changeWallpaper(thumb.id)}}    
+                    }  `}
+                    onClick={() => { changeWallpaper(thumb.id) }}
                 >
                     <img alt="Thumb" className="w-full h-full object-cover" src={thumb.src} />
                 </div>
@@ -246,7 +245,7 @@ function MotionType() {
 
 // ── Root export ───────────────────────────────────────────────────────────────
 
-export default function Setting() {
+export default function Setting({setOpcion}: {setOpcion: React.Dispatch<React.SetStateAction<boolean>>}) {
     return (
         <motion.main
             className="w-full h-screen overflow-y-auto z-70 bg-[#f0f4f8] dark:bg-[#020617] transition-colors duration-200 scrollbar rounded-2xl fixed top-0 left-0"
@@ -254,6 +253,24 @@ export default function Setting() {
             animate={{ x: 0, filter: "blur(0px)", opacity: 1 }}
             exit={{ x: "-100%", filter: "blur(10px)", opacity: 0 }}
         >
+            <button
+                type="button"
+                aria-label="Cerrar"
+                className="absolute top-3 left-3 flex items-center group cursor-pointer active:scale-95 transition-all"
+                onClick={() => {setOpcion(false)}}
+            >
+                <span className="relative z-10 w-9 h-9 bg-red-800 flex items-center justify-center rounded-full shrink-0">
+                    <FontAwesomeIcon
+                        icon={faCircleXmark}
+                        className="text-4xl text-red-400"
+                    />
+                </span>
+
+                <span className="relative -ml-4 pl-5 p-2 bg-red-700 text-white text-sm font-medium rounded-r-md opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 pointer-events-none" onClick={() => {setOpcion(false)}}>
+                    cerrar
+                </span>
+            </button>
+
             <div className="max-w-6xl mx-auto px-8 py-12 relative z-10">
                 <SettingHeader />
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-6">

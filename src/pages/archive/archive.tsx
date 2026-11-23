@@ -1,11 +1,87 @@
 // hooks
-import { motion } from "motion/react"
+import { motion, MotionConfig, type Variants } from "motion/react";
 
 // -- contexts
 import { useSwitchAnimation } from '../../context/animations/switchAnimation.tsx';
 
-// -- asstes
+// -- assets
 import cv from '../../assets/Cv dev-Andelson Gonzalez.pdf';
+
+const EASE_OUT = [0.16, 1, 0.3, 1] as const; // easeOutExpo
+
+const stage: Variants = {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
+};
+
+const glow: Variants = {
+    hidden: { scale: 0, opacity: 0 },
+    visible: {
+        scale: [0, 1.6, 1],
+        opacity: [0, 0.9, 0.5],
+        transition: { duration: 1.4, ease: EASE_OUT },
+    },
+};
+
+// Icono
+const iconPop: Variants = {
+    hidden: { scale: 0, rotate: -180, opacity: 0 },
+    visible: {
+        scale: 1,
+        rotate: 0,
+        opacity: 1,
+        transition: { type: "spring", stiffness: 200, damping: 14, mass: 0.8 },
+    },
+};
+
+// Letras del título
+const titleWrap: Variants = {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.05 } },
+};
+
+const letter: Variants = {
+    hidden: { y: "110%", opacity: 0, filter: "blur(12px)", rotateX: -90 },
+    visible: {
+        y: "0%",
+        opacity: 1,
+        filter: "blur(0px)",
+        rotateX: 0,
+        transition: { duration: 0.7, ease: EASE_OUT },
+    },
+};
+
+// Panel
+const panel: Variants = {
+    hidden: { clipPath: "inset(0% 0% 100% 0% round 24px)", opacity: 0, y: 30 },
+    visible: {
+        clipPath: "inset(0% 0% 0% 0% round 24px)",
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.9,
+            ease: EASE_OUT,
+            when: "beforeChildren",
+            staggerChildren: 0.1,
+        },
+    },
+};
+
+const row: Variants = {
+    hidden: { opacity: 0, x: -40, filter: "blur(8px)" },
+    visible: {
+        opacity: 1,
+        x: 0,
+        filter: "blur(0px)",
+        transition: { duration: 0.6, ease: EASE_OUT },
+    },
+};
+
+const fadeUp: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE_OUT } },
+};
+
 
 export default function Archive() {
     const { animations } = useSwitchAnimation();
@@ -13,52 +89,90 @@ export default function Archive() {
     const animation = animationActive ? animationActive.animation : undefined;
 
     return (
-        <motion.div className="w-full max-w-7xl mx-auto min-h-screen h-auto relative"
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            key={'archive'}
-            variants={animation}
-            transition={{ duration: 0.4 }}
-        >
-            <span className="w-32 sm:w-40 md:w-50 aspect-square absolute top-0 left-0 rounded-full bg-blue-400/50 blur-3xl"></span>
+        <MotionConfig reducedMotion="user">
+            <motion.div
+                className="w-full max-w-7xl mx-auto min-h-screen h-auto relative"
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                key={'archive'}
+                variants={animation}
+                transition={{ duration: 0.4 }}
+            >
+                <motion.span
+                    variants={glow}
+                    className="w-32 sm:w-40 md:w-50 aspect-square absolute top-0 left-0 rounded-full bg-blue-400/50 blur-3xl"
+                />
 
-            <div className="p-4 sm:p-6 md:p-10 w-full h-auto relative overflow-hidden">
-                <Headerarchive />
-                <div className="overflow-y-auto custom-scrollbar mt-6 md:mt-10">
-                    <div className="bg-white/5 border border-white/10 rounded-2xl md:rounded-3xl overflow-hidden backdrop-blur-sm">
-                        <TablaArchivos />
+                <motion.div
+                    variants={stage}
+                    initial="hidden"
+                    animate="visible"
+                    className="p-4 sm:p-6 md:p-10 w-full h-auto relative overflow-hidden"
+                >
+                    <Headerarchive />
 
-                        <span className="p-10 sm:p-16 md:p-20 flex flex-col items-center justify-center text-center text-white">
-                            <div className="size-12 sm:size-14 md:size-16 rounded-full bg-white/5 flex items-center justify-center mb-3 md:mb-4">
-                                <i className="fa-solid fa-inbox text-arc-text-dim/50 text-2xl sm:text-3xl"></i>
-                            </div>
-                            <p className="text-arc-text-dim text-xs sm:text-sm font-medium">Fin de los archivos públicos</p>
-                        </span>
+                    <div className="overflow-y-auto custom-scrollbar mt-6 md:mt-10">
+                        <motion.div
+                            variants={panel}
+                            className="bg-white/5 border border-white/10 rounded-2xl md:rounded-3xl overflow-hidden backdrop-blur-sm"
+                        >
+                            <TablaArchivos />
+
+                            <motion.span
+                                variants={fadeUp}
+                                className="p-10 sm:p-16 md:p-20 flex flex-col items-center justify-center text-center text-white"
+                            >
+                                <div className="size-12 sm:size-14 md:size-16 rounded-full bg-white/5 flex items-center justify-center mb-3 md:mb-4">
+                                    <i className="fa-solid fa-inbox text-arc-text-dim/50 text-2xl sm:text-3xl"></i>
+                                </div>
+                                <p className="text-arc-text-dim text-xs sm:text-sm font-medium">Fin de los archivos públicos</p>
+                            </motion.span>
+                        </motion.div>
                     </div>
-                </div>
-            </div>
-        </motion.div>
-    )
+                </motion.div>
+            </motion.div>
+        </MotionConfig>
+    );
 }
 
 function Headerarchive() {
+    const text = "Archivos";
+
     return (
         <header className="flex items-center gap-3 sm:gap-4 md:gap-6">
-            <section className="relative group bounceItem">
+            <motion.section variants={iconPop} className="relative group">
                 <div className="absolute -inset-1 bg-primary/20 rounded-xl md:rounded-2xl blur-xl group-hover:bg-primary/30 transition-all"></div>
                 <div className="relative flex items-center justify-center size-14 sm:size-16 md:size-20 bg-linear-to-br from-primary to-[#0e8eb8] rounded-xl md:rounded-2xl shadow-2xl border border-white/20">
                     <i className="fa-solid fa-folder-open text-3xl sm:text-4xl md:text-5xl text-white"></i>
-                    <div className="absolute -top-1 -right-1 size-5 sm:size-6 bg-white/20 backdrop-blur-md rounded-lg border border-white/30 flex items-center justify-center">
+                    <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: 0.9, type: "spring", stiffness: 400, damping: 10 }}
+                        className="absolute -top-1 -right-1 size-5 sm:size-6 bg-white/20 backdrop-blur-md rounded-lg border border-white/30 flex items-center justify-center"
+                    >
                         <i className="fa-solid fa-plus text-[10px] sm:text-xs text-white"></i>
-                    </div>
+                    </motion.div>
                 </div>
-            </section>
+            </motion.section>
 
-            <h1 className="text-white text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-2 bounceItem">Archivos</h1>
+            <motion.h1
+                variants={titleWrap}
+                aria-label={text}
+                className="text-white text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-2 flex [perspective:600px]"
+            >
+                {text.split("").map((char, i) => (
+                    <span key={i} className="overflow-hidden inline-block" aria-hidden="true">
+                        <motion.span variants={letter} className="inline-block origin-bottom">
+                            {char}
+                        </motion.span>
+                    </span>
+                ))}
+            </motion.h1>
         </header>
     );
 }
+
 
 function TablaArchivos() {
     return (
@@ -66,16 +180,16 @@ function TablaArchivos() {
             {/* Vista Desktop (tabla normal) */}
             <table className="hidden md:table w-full text-left border-collapse">
                 <thead>
-                    <tr className="border-b border-white/5 bg-white/[0.02]">
-                        <th className="px-6 lg:px-8 py-4 lg:py-5 text-arc-text-dim font-bold text-xs uppercase tracking-widest bounceItem">Nombre del archivo</th>
-                        <th className="px-6 lg:px-8 py-4 lg:py-5 text-arc-text-dim font-bold text-xs uppercase tracking-widest bounceItem">Fecha</th>
-                        <th className="px-6 lg:px-8 py-4 lg:py-5 text-arc-text-dim font-bold text-xs uppercase tracking-widest bounceItem">Tamaño</th>
-                        <th className="px-6 lg:px-8 py-4 lg:py-5 text-arc-text-dim font-bold text-xs uppercase tracking-widest text-right bounceItem">Controles</th>
-                    </tr>
+                    <motion.tr variants={row} className="border-b border-white/5 bg-white/[0.02]">
+                        <th className="px-6 lg:px-8 py-4 lg:py-5 text-arc-text-dim font-bold text-xs uppercase tracking-widest">Nombre del archivo</th>
+                        <th className="px-6 lg:px-8 py-4 lg:py-5 text-arc-text-dim font-bold text-xs uppercase tracking-widest">Fecha</th>
+                        <th className="px-6 lg:px-8 py-4 lg:py-5 text-arc-text-dim font-bold text-xs uppercase tracking-widest">Tamaño</th>
+                        <th className="px-6 lg:px-8 py-4 lg:py-5 text-arc-text-dim font-bold text-xs uppercase tracking-widest text-right">Controles</th>
+                    </motion.tr>
                 </thead>
                 <tbody className="divide-y divide-white/5">
-                    <tr className="group hover:bg-white/[0.03] transition-colors">
-                        <td className="px-6 lg:px-8 py-5 lg:py-6 bounceItem">
+                    <motion.tr variants={row} className="group hover:bg-white/[0.03] transition-colors">
+                        <td className="px-6 lg:px-8 py-5 lg:py-6">
                             <div className="flex items-center gap-3 lg:gap-4">
                                 <div className="size-10 lg:size-12 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500 ring-1 ring-red-500/20 group-hover:scale-110 transition-transform">
                                     <i className="fa-solid fa-file-pdf text-xl lg:text-2xl"></i>
@@ -86,54 +200,65 @@ function TablaArchivos() {
                                 </div>
                             </div>
                         </td>
-                        <td className="px-6 lg:px-8 py-5 lg:py-6 bounceItem">
-                            <p className="text-arc-text-dim text-sm font-semibold">30/08/2026</p>
+                        <td className="px-6 lg:px-8 py-5 lg:py-6">
+                            <p className="text-arc-text-dim text-sm font-semibold">22/11/2026</p>
                         </td>
-                        <td className="px-6 lg:px-8 py-5 lg:py-6 bounceItem">
-                            <p className="text-arc-text-dim text-sm font-semibold">90 KB</p>
+                        <td className="px-6 lg:px-8 py-5 lg:py-6">
+                            <p className="text-arc-text-dim text-sm font-semibold">87.4 KB</p>
                         </td>
-                        <td className="px-6 lg:px-8 py-5 lg:py-6 text-right bounceItem">
-                            <button className="inline-flex items-center gap-2 px-5 lg:px-6 py-2 lg:py-2.5 bg-white/10 hover:bg-primary hover:text-background-dark text-white rounded-xl text-sm font-bold transition-all border border-white/10 hover:border-primary shadow-sm">
+                        <td className="px-6 lg:px-8 py-5 lg:py-6 text-right">
+                            <a
+                                href={cv}
+                                download="Dev-Andelson-Gonzalez"
+                                className="inline-flex items-center gap-2 px-5 lg:px-6 py-2 lg:py-2.5 bg-white/10 hover:bg-primary hover:text-background-dark text-white rounded-xl text-sm font-bold transition-all border border-white/10 hover:border-primary shadow-sm"
+                            >
                                 <i className="fa-solid fa-download text-base lg:text-lg"></i>
-                                <a href={cv} download='Dev-Andelson-Gonzalez'>Descargar</a>
-                            </button>
+                                Descargar
+                            </a>
                         </td>
-                    </tr>
+                    </motion.tr>
                 </tbody>
             </table>
 
             {/* Vista Mobile (cards) */}
             <div className="md:hidden space-y-4 p-4">
-                <div className="bg-white/[0.03] rounded-2xl p-4 border border-white/5 hover:bg-white/[0.05] transition-colors">
-                    <div className="flex items-start gap-3 mb-4 bounceItem">
+                <motion.div
+                    variants={row}
+                    className="bg-white/[0.03] rounded-2xl p-4 border border-white/5 hover:bg-white/[0.05] transition-colors"
+                >
+                    <div className="flex items-start gap-3 mb-4">
                         <div className="size-12 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500 ring-1 ring-red-500/20">
                             <i className="fa-solid fa-file-pdf text-2xl"></i>
                         </div>
                         <div className="flex-1">
                             <p className="text-white font-bold text-base leading-tight mb-1">Curriculum</p>
-                            <p className="text-arc-text-dim text-xs font-medium">Curriculum_Vitae_Updated.pdf</p>
-                        </div>
-                    </div>
-                    
-                    <div className="flex items-center justify-between mb-4">
-                        <div className="bounceItem">
-                            <p className="text-arc-text-dim text-[10px] uppercase tracking-wider font-bold mb-1">Fecha</p>
-                            <p className="text-white text-sm font-semibold">19/06/2025</p>
-                        </div>
-                        <div className="bounceItem">
-                            <p className="text-arc-text-dim text-[10px] uppercase tracking-wider font-bold mb-1">Tamaño</p>
-                            <p className="text-white text-sm font-semibold">1.04 MB</p>
+                            <p className="text-arc-text-dim text-xs font-medium">Cv - Andelson Gonzalez.pdf</p>
                         </div>
                     </div>
 
-                    <button className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 bg-white/10 hover:bg-primary hover:text-background-dark text-white rounded-xl text-sm font-bold transition-all border border-white/10 hover:border-primary shadow-sm bounceItem">
+                    <div className="flex items-center justify-between mb-4">
+                        <div>
+                            <p className="text-arc-text-dim text-[10px] uppercase tracking-wider font-bold mb-1">Fecha</p>
+                            <p className="text-white text-sm font-semibold">22/11/2026</p>
+                        </div>
+                        <div>
+                            <p className="text-arc-text-dim text-[10px] uppercase tracking-wider font-bold mb-1">Tamaño</p>
+                            <p className="text-white text-sm font-semibold">87.4 KB</p>
+                        </div>
+                    </div>
+
+                    <a
+                        href={cv}
+                        download="Dev-Andelson-Gonzalez"
+                        className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 bg-white/10 hover:bg-primary hover:text-background-dark text-white rounded-xl text-sm font-bold transition-all border border-white/10 hover:border-primary shadow-sm"
+                    >
                         <i className="fa-solid fa-download text-base"></i>
                         <span>Descargar</span>
-                    </button>
-                </div>
+                    </a>
+                </motion.div>
 
                 {/* Puedes repetir más cards aquí */}
             </div>
         </div>
-    )
+    );
 }
