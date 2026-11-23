@@ -367,9 +367,9 @@ function Achievements() {
                 </span>
             </section>
 
-            <section className='w-full h-auto relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-center'>
-                {logrosData.map((logro, index) => (
-                    <LogroCard key={logro.id} logro={logro} index={index} />
+            <section className="columns-1 sm:columns-2 lg:columns-3 gap-4">
+                {logrosData.map((logro) => (
+                    <LogroCard key={logro.id} logro={logro} />
                 ))}
             </section>
         </div>

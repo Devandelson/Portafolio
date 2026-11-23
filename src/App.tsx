@@ -1,7 +1,7 @@
 // hooks
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router';
 import { AnimatePresence } from 'motion/react';
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 
 // Contextos
 import { MenuProvider } from './context/menu/switchMenu.tsx';
@@ -16,6 +16,7 @@ const Proyect = lazy(() => import('./pages/proyects/proyects.tsx'));
 // Componentes
 import Menu from './components/flotante/menu.tsx';
 import Loader from './components/flotante/LoadScreen.tsx';
+import AOS from "aos";
 
 // Layout que usa Outlet
 function Layout() {
@@ -33,8 +34,15 @@ function Layout() {
 }
 
 function App() {
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: true,
+    });
+  }, []);
+
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='/Portafolio'>
       <MenuProvider>
         <SwitchAnimationProvider>
           <AnimatePresence mode='wait'>

@@ -28,7 +28,7 @@ export default function ProjectGrid({ proyectos, setOpen, setElementRegular }: P
     };
 
     return (
-        <section className="max-w-7xl mx-auto px-4 pb-40">
+        <section className="max-w-7xl mx-auto px-4 pb-[30vh]">
             {proyectos.length === 0 ? (
                 <div className="text-center py-20 bounceItem">
                     <i className="fas fa-folder-open text-6xl text-slate-400 mb-4"></i>
