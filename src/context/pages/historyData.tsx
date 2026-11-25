@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import bhdCard from '../../assets/BHDcarta.jpeg';
+// import bhdCard from '../../assets/BHDcarta.jpeg';
 
 interface ItemHistory {
   title: string;
@@ -19,7 +19,7 @@ export const useHistory = create<HistoryState>()((set) => ({
   addHistory: (newHistory) =>
     set((state) => ({
       histories: [
-        {...newHistory, 'image': bhdCard},
+        {...newHistory},
         ...state.histories.filter((h) => h.path !== newHistory.path),
       ],
     })),

@@ -4,12 +4,12 @@ import imgMi from '../../assets/Sobre Mí.png';
 import imgArchive from '../../assets/Archivos.png';
 import imgProyect from '../../assets/Proyectos.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleRight, faPenClip } from '@fortawesome/free-solid-svg-icons';
-import homeAnimation from '../../assets/homeVideo.mp4';
+import { faPenClip } from '@fortawesome/free-solid-svg-icons';
+import ExtractPresentationImg from '../../data/imagesPresentation.ts';
 
 // Hooks
 import { motion, AnimatePresence, type Variants } from "motion/react"
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Swal from 'sweetalert2';
 
 // -- contexts
@@ -20,10 +20,16 @@ import { useHistory } from '../../context/pages/historyData.tsx';
 
 // Componentes
 import Setting from '../../pages/settings/setting.tsx';
+import HomeVideo from './components/video.tsx';
+import Intro from './components/Intro.tsx';
 
 function HomePage() {
   const [option, setOpcion] = useState(false);
-  const [video, setVideo] = useState(true);
+  const [video, setVideo] = useState(() => {
+    const histories = useHistory.getState().histories;
+    return !(histories && histories.length > 0);
+  });
+  
   const currentHistories = useHistory.getState().histories;
 
   const { listMenu, setTMenu } = useMenu();
@@ -46,7 +52,29 @@ function HomePage() {
   const animationActive = animations.find(animation => animation.active);
   const animation = animationActive ? animationActive.animation : undefined;
   const avatarClass =
-    'm-auto aspect-square object-cover rounded-full bounceItem'
+    'm-auto aspect-square object-cover rounded-full bounceItem';
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  const handleStartExperience = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = false;
+    video.play()
+      .then(() => {
+        video.pause();
+        video.currentTime = 0;
+      })
+      .catch(console.warn);
+
+    setTimeout(() => {
+      video.play().catch((err) => {
+        console.warn(err.name, err);
+        video.muted = true;
+        video.play();
+      });
+    }, 1500);
+  };
 
   useEffect(() => {
     function checkLoadPage() {
@@ -59,34 +87,9 @@ function HomePage() {
 
   return (
     <>
+      {video && <Intro event={handleStartExperience}></Intro>}
       <AnimatePresence mode='wait'>
-        {video && <motion.div className="fixed inset-0 w-full h-full z-200 pointer-events-none bg-black"
-          exit={{
-            opacity: 0,
-            filter: 'blur(10px)'
-          }}
-          transition={{
-            duration: 0.500
-          }}
-        >
-          <video
-            src={homeAnimation}
-            className="w-full h-full object-cover"
-            autoPlay
-            playsInline
-            muted
-            disablePictureInPicture
-            onEnded={() => {
-              setVideo(false);
-            }}
-            onLoadedMetadata={(e) => {
-              e.currentTarget.playbackRate = 1.35;
-            }}
-            onError={(e) => console.error("Error de video:", e.currentTarget.error)}
-          />
-          <button className='p-2 px-3 text-white text-lg rounded-lg bg-black hover:scale-105 active:scale-95 transition-all cursor-pointer fixed bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-250 pointer-events-auto' onClick={() => { setVideo(false) }}><FontAwesomeIcon icon={faAngleRight}></FontAwesomeIcon> Saltar la animación</button>
-        </motion.div>
-        }
+        {video && <HomeVideo setVideo={setVideo} videoRef={videoRef}></HomeVideo>}
       </AnimatePresence>
 
       <motion.div className='w-full min-h-screen h-auto bg-bgPage text-txWhite flex items-center flex-col justify-center rounded-2xl sm:p-6 md:p-7 relative z-2 overflow-hidden'
@@ -239,7 +242,10 @@ function NavigationCard({ index, title, action }: { index: number, title: string
   )
 }
 
+
+
 function Seeker() {
+  const addHistory = useHistory.getState().addHistory;
   const [valueInput, setValue] = useState("");
   const { listMenu, setTMenu } = useMenu();
 
@@ -250,6 +256,12 @@ function Seeker() {
       const foundMenu = listMenu.find(menu => menu.name.toLowerCase() === searchValue);
       if (foundMenu) {
         setTMenu(foundMenu.name);
+        const img = ExtractPresentationImg(foundMenu.name);
+        addHistory({
+          'image': img ?? '',
+          'path': foundMenu.path,
+          'title': foundMenu.name
+        });
       } else {
         Swal.fire({
           title: 'No se encontró la sección',

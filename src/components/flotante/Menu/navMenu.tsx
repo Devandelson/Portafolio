@@ -5,6 +5,8 @@ import { motion } from "motion/react"
 import { useMenu } from '../../../context/menu/switchMenu.tsx';
 import { useHistory } from "../../../context/pages/historyData.tsx";
 
+import ExtractPresentationImg from "../../../data/imagesPresentation.ts";
+
 export default function NavMenu() {
     const { listMenu, setTMenu } = useMenu();
 
@@ -60,8 +62,9 @@ function MenuOption({ icon, isConfig, isActive, name, action, styles, path }: {
 
     const handleClick = () => {
         action?.(name || '');
+        const img = ExtractPresentationImg(name);
         addHistory({
-            'image': '',
+            'image': img ?? '',
             'path': path,
             'title': name
         });

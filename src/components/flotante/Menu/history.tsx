@@ -75,7 +75,7 @@ function ItemHistory({ title, image, path }: { title: string; image: string; pat
 function EmptyHistory() {
     return (
         <motion.div
-            className="w-full flex flex-col items-center justify-center text-center gap-2 mt-10 px-2 text-gray-400"
+            className="w-full text-center gap-2 mt-10 px-2 text-gray-400"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5 }}
